@@ -16,11 +16,10 @@ Week: Wednesday - Tuesday
   - Do I see any obstacles that prevent me or the Dev team to meeting the Sprint Goal? 
   - Issues raised require follow up meetings
 
-<u> 1.3 **Sprint Review:**</u> Monday 7 pm 
-- Demo working software 
-- Revise product backlog for next Spint
-
-<u> 1.4 **Sprint Retrospect**</u> Tuesday 7 pm 
+<u> 1.3 **Sprint Retrospect**</u> Tuesday 7 pm 
 - What went well during the previous sprint
 - What can be improved for the next one
 
+<u> 1.4 **Sprint Review:**</u> Wednesday 8 am  
+- Demo working software 
+- Revise product backlog for next Spint

@@ -8,6 +8,7 @@ Week: Wednesday - Tuesday
   - Identify Sprint Goal (Product Backlog)
   - Identify work that needs to be done 
   - Create **sprint** backlog: items selected for development 
+  - Plan releases
 
 <u> 1.2 **Daily Meetings:**</u> 7 pm 
   - Est Time: 10 minutes

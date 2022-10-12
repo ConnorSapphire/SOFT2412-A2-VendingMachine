@@ -11,6 +11,7 @@ Week: Wednesday - Tuesday
   - Plan releases
 
 <u> 1.2 **Daily Meetings:**</u> 7 pm 
+  - Thursday, Friday, Sunday, Monday
   - Est Time: 10 minutes
   - What did I do yesterday that helped the development team meet the Sprint Goal?
   - What I will do today to help the development team meet the Sprint Goal?

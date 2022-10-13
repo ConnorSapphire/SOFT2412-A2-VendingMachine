@@ -6,13 +6,10 @@
  * User Manual available at https://docs.gradle.org/7.4.2/userguide/building_java_projects.html
  */
 
-
 plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
     id 'application'
-    id 'jacoco'
 }
-
 
 repositories {
     // Use Maven Central for resolving dependencies.
@@ -29,31 +26,10 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    mainClass = 'VendingMachineA2.App'
-}
-
-run {
-    standardInput = System.in
+    mainClass = 'VendingMachine.VendingMachine'
 }
 
 tasks.named('test') {
     // Use JUnit Platform for unit tests.
     useJUnitPlatform()
-    test.finalizedBy jacocoTestReport
-}
-
-run.configure {
-    allJvmArgs = ['-Dsun.stdout.encoding=cp437']
-}
-
-jacocoTestReport {
-    dependsOn test // tests are required to run before generating the report
-
-    afterEvaluate {
-        classDirectories.setFrom(files(classDirectories.files.collect {
-            fileTree(dir: it, exclude: [
-                // To be filled
-            ])
-        }))
-    }
 }

@@ -113,4 +113,8 @@ public class UserInterface {
     public void displayErrorString(String error) {
 
     }
+
+    public void displayUnauthorisedAccess(String commandName) {
+
+    }
 }

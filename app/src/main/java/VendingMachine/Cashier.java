@@ -10,4 +10,48 @@ public class Cashier extends User {
     public Cashier(String username, String password, UserInterface ui) {
         super(username, password, "cashier", ui);
     }    
+
+    /**
+     * 
+     * @param change
+     * @param quantity
+     * @return
+     */
+    public boolean fillChange(Change change, int quantity) {
+        return false;
+    }
+
+    /**
+     * 
+     * @param change
+     * @param quantity
+     * @return
+     */
+    public boolean removeChange(Change change, int quantity) {
+        return false;
+    }
+
+    /**
+     * 
+     * @param change
+     * @param quantity
+     * @param value
+     * @return
+     */
+    public boolean addChange(Change change, int quantity, double value) {
+        return false;
+    }
+
+    /**
+     * 
+     */
+    public void displayChange() {
+    }
+
+    /**
+     * Display all previous transactions. Including transaction time, product name, amount paid, change given, and
+     * payment method.
+     */
+    public void displayTransactionHistory() {
+    }
 }

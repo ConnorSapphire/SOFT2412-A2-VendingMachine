@@ -107,7 +107,7 @@ public abstract class User {
      * payment method.
      */
     public void displayTransactionHistory() {
-        ui.displayUnauthorisedAccess("displayTransactionHistory");;
+        ui.displayUnauthorisedAccess("displayTransactionHistory");
     }
 
     /**

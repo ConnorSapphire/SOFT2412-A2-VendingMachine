@@ -20,6 +20,10 @@ public abstract class User {
         this.ui = ui;
     }
 
+    public String getPassword(){
+        return this.password;
+    }
+
     /**
      * 
      * @param product

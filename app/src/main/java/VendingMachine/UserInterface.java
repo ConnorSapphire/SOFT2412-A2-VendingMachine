@@ -1,12 +1,36 @@
 package VendingMachine;
 
+import java.io.Console;
+import java.util.Scanner;
+
 public class UserInterface {
     /**
      * Get input from the terminal.
      * @return String representation of input into the terminal.
      */
     public String getInput() {
-        return null;
+        Scanner scanner = new Scanner(System.in);
+        String input = scanner.nextLine();
+        scanner.close();
+        return input;
+    }
+
+    public String getInputPassword(){
+        // Console console = System.console();
+
+        // if (console == null) {
+        //     System.out.println("console is null");  
+        //     return null;      
+        // }
+
+        // System.out.println("Enter password: ");
+        // char[] characters = console.readPassword();
+        // String password = String.valueOf(characters);
+        // return password;
+
+        String password = ("Enter password: ");
+        System.out.println("The password entered is: "+password); 
+        return password;       
     }
 
     /**

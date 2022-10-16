@@ -2,6 +2,8 @@ package VendingMachine;
 
 import java.util.*;
 
+import javax.swing.plaf.synth.SynthSeparatorUI;
+
 public class VendingMachine {
     private UserInterface ui = new UserInterface();
     private FileManager fileManager = new FileManager();
@@ -40,13 +42,15 @@ public class VendingMachine {
 
     public User newRegisteredCustomer(String username, String password, UserInterface ui){
         UserCreator customerCreator = new RegisteredCustomerCreator();
+        System.out.println("Enter your username");
         String newUsername = ui.getInput();
-        String newPassword = ui.getInputPassword();
         
         if (users.containsKey(newUsername)) {
             System.out.println("Username already exists.");
             return null;
         }
+
+        String newPassword = ui.getInputPassword();
 
         User customer = customerCreator.create(newUsername, newPassword, ui);
         users.put(username, customer);

@@ -16,21 +16,13 @@ public class UserInterface {
     }
 
     public String getInputPassword(){
-        // Console console = System.console();
-
-        // if (console == null) {
-        //     System.out.println("console is null");  
-        //     return null;      
-        // }
-
-        // System.out.println("Enter password: ");
-        // char[] characters = console.readPassword();
-        // String password = String.valueOf(characters);
-        // return password;
-
         String password = ("Enter password: ");
-        System.out.println("The password entered is: "+password); 
-        return password;       
+        Scanner scanner = new Scanner(System.in);
+        // User string builder
+        String input = scanner.next();
+        
+        scanner.close();
+        return input;
     }
 
     /**

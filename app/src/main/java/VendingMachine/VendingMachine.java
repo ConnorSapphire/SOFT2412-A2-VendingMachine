@@ -39,6 +39,8 @@ public class VendingMachine {
     }
 
     public User newRegisteredCustomer(String username, String password, UserInterface ui){
-        return null;
+        UserCreator customerCreator = new RegisteredCustomerCreator();
+        User customer = customerCreator.create("hello", "hi", ui);
+        return customer;
     }
 }

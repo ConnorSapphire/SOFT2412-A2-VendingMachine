@@ -1,7 +1,6 @@
 package VendingMachine;
 
-import java.io.Console;
-import java.util.Scanner;
+import java.util.*;
 
 public class UserInterface {
     /**
@@ -127,6 +126,10 @@ public class UserInterface {
      * @param error Error message to display.
      */
     public void displayErrorString(String error) {
+
+    }
+
+    public void displayUnauthorisedAccess(String commandName) {
 
     }
 }

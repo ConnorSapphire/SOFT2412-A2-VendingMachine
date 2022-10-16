@@ -1,10 +1,10 @@
 package VendingMachine;
 
-import java.util.HashMap;
+import java.util.*;
 
 public class VendingMachine {
-    private UserInterface ui;
-    private FileManager fileManager;
+    private UserInterface ui = new UserInterface();
+    private FileManager fileManager = new FileManager();
     private User user;
     private HashMap<String, User> users;
     private HashMap<String, Product> products;
@@ -40,7 +40,17 @@ public class VendingMachine {
 
     public User newRegisteredCustomer(String username, String password, UserInterface ui){
         UserCreator customerCreator = new RegisteredCustomerCreator();
-        User customer = customerCreator.create("hello", "hi", ui);
+        String newUsername = ui.getInput();
+        String newPassword = ui.getInputPassword();
+        
+        if (users.containsKey(newUsername)) {
+            System.out.println("Username already exists.");
+            return null;
+        }
+
+        User customer = customerCreator.create(newUsername, newPassword, ui);
+        users.put(username, customer);
+        user = customer;
         return customer;
     }
 }

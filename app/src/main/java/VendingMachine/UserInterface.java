@@ -18,7 +18,7 @@ public class UserInterface {
         String password = ("Enter password: ");
         Scanner scanner = new Scanner(System.in);
         // User string builder
-        String input = scanner.next();
+        String input = scanner.nextLine();
         
         scanner.close();
         return input;

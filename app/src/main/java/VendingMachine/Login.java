@@ -15,6 +15,7 @@ public class Login extends Frame implements ActionListener, WindowListener{
     private HashMap<String, User> users;
     public User u = null;
     private JLabel err = new JLabel();
+    public Frame f = new Frame("Login");
 
     public Login(String str){
         super(str);
@@ -58,6 +59,7 @@ public class Login extends Frame implements ActionListener, WindowListener{
 	    this.setVisible(true);
 	    this.setResizable(false);
 	    this.pack();
+        f.addWindowListener(this);
     }
 
     @Override

@@ -9,41 +9,34 @@ import javax.swing.plaf.synth.SynthSeparatorUI;
 
 public class FileManager {
 
-    public JSONObject json;
+    public JSONObject food, userpw;
 
     public FileManager(){
-        Object obj = null;
-        try{
-            obj = new JSONParser().parse(new FileReader(new File("app/src/main/java/VendingMachine/food.json")));  
-        }catch(FileNotFoundException e){
-            System.err.println("No file for storage found!");
-            System.exit(1);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        this.json = (JSONObject) obj;
+        this.food = (JSONObject) JfileReader("food");
+        this.userpw = (JSONObject) JfileReader("user_pw");
     }
 
-    public void update(){
+    public Object JfileReader(String filename){
         Object obj = null;
         try{
-            obj = new JSONParser().parse(new FileReader("food.json"));  
+            obj = new JSONParser().parse(new FileReader(new File("app/src/main/java/VendingMachine/" + filename + ".json")));  
         }catch(FileNotFoundException e){
-            System.err.println("No file for storage found!");
+            System.err.println(filename + "not found!");
             System.exit(1);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        this.json = (JSONObject) obj;
+        return obj;
+    }
+    public void update(){
+        this.food = (JSONObject) JfileReader("food");
     }
 
     public HashMap<String, Double[]> lsDrinks(){
         HashMap<String, Double[]> output = new HashMap<>();
-        JSONObject drinks = (JSONObject) this.json.get("Drinks");
+        JSONObject drinks = (JSONObject) this.food.get("Drinks");
         Iterator<Map.Entry> itr = drinks.entrySet().iterator(); 
         while (itr.hasNext()) { 
             Map.Entry pair = itr.next();
@@ -56,7 +49,7 @@ public class FileManager {
 
     public HashMap<String, Double[]> lsChocolates(){
         HashMap<String, Double[]> output = new HashMap<>();
-        JSONObject chocolates = (JSONObject) this.json.get("Chocolates");
+        JSONObject chocolates = (JSONObject) this.food.get("Chocolates");
         Iterator<Map.Entry> itr = chocolates.entrySet().iterator(); 
         while (itr.hasNext()) { 
             Map.Entry pair = itr.next();
@@ -69,7 +62,7 @@ public class FileManager {
 
     public HashMap<String, Double[]> lsChips(){
         HashMap<String, Double[]> output = new HashMap<>();
-        JSONObject chips = (JSONObject) this.json.get("Chips");
+        JSONObject chips = (JSONObject) this.food.get("Chips");
         Iterator<Map.Entry> itr = chips.entrySet().iterator(); 
         while (itr.hasNext()) { 
             Map.Entry pair = itr.next();
@@ -82,7 +75,7 @@ public class FileManager {
 
     public HashMap<String, Double[]> lsCandies(){
         HashMap<String, Double[]> output = new HashMap<>();
-        JSONObject candies = (JSONObject) this.json.get("Candies");
+        JSONObject candies = (JSONObject) this.food.get("Candies");
         Iterator<Map.Entry> itr = candies.entrySet().iterator(); 
         while (itr.hasNext()) { 
             Map.Entry pair = itr.next();

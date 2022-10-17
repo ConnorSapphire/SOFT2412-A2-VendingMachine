@@ -7,8 +7,10 @@ import org.json.simple.parser.ParseException;
 import java.io.*;
 import javax.swing.plaf.synth.SynthSeparatorUI;
 import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
 
-public class VendingMachine extends Frame{
+public class VendingMachine extends Frame implements ActionListener,WindowListener, TextListener{
     private FileManager fileManager = new FileManager();
     private UserInterface ui = new UserInterface(fileManager);
     private User user;
@@ -23,32 +25,18 @@ public class VendingMachine extends Frame{
 
     public static void main(String[] args) {
         VendingMachine vm = new VendingMachine("VendingMachine");
-        vm.setSize(240,240);
-		vm.setBackground(Color.pink);
-		vm.setVisible(true);
         vm.login();
+        // vm.setSize(240,240);
+		// vm.setBackground(Color.pink);
+		// vm.setVisible(true);
+        // vm.addWindowListener(vm);
     }
 
-    public User login(){
-        // Get username and password
-        System.out.print("Enter username: ");
-        String username = ui.getInput();
-        
-        String password = ui.getInputPassword();
-    
-        // Check username exists in system
-        if (!users.containsKey(username)) {
-            System.out.println("Username does not exist.");
-            return null;
+    public void login(){
+        Login log = new Login("Login");
+        if(log.u != null){
+            user = log.u;
         }
-
-        if (password != users.get(username).getPassword()) {
-            System.out.println("Password is incorrect");
-            return null;
-        }
-
-        user = users.get(username);
-        return user;
     }
 
     public User newRegisteredCustomer(String username, String password, UserInterface ui){
@@ -67,5 +55,59 @@ public class VendingMachine extends Frame{
         users.put(username, customer);
         user = customer;
         return customer;
+    }
+
+    @Override
+    public void windowOpened(WindowEvent e) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void windowClosing(WindowEvent e) {
+        System.exit(0);
+        
+    }
+
+    @Override
+    public void windowClosed(WindowEvent e) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void windowIconified(WindowEvent e) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void windowDeiconified(WindowEvent e) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void windowActivated(WindowEvent e) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void windowDeactivated(WindowEvent e) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void textValueChanged(TextEvent e) {
+        // TODO Auto-generated method stub
+        
     }
 }

@@ -14,7 +14,7 @@ public class FileManager {
     public FileManager(){
         Object obj = null;
         try{
-            obj = new JSONParser().parse(new FileReader("food.json"));  
+            obj = new JSONParser().parse(new FileReader(new File("app/src/main/java/VendingMachine/food.json")));  
         }catch(FileNotFoundException e){
             System.err.println("No file for storage found!");
             System.exit(1);

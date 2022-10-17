@@ -27,7 +27,11 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    mainClass = 'VendingMachine2.VendingMachine'
+    mainClass = 'VendingMachine.VendingMachine'
+}
+
+run {
+    standardInput = System.in
 }
 
 tasks.named('test') {

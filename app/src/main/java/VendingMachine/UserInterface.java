@@ -7,19 +7,21 @@ public class UserInterface {
      * Get input from the terminal.
      * @return String representation of input into the terminal.
      */
-    public String getInput(String str) {
-        String[] ls = str.split(" ");
-        String output = "";
-        if(ls.length < 1){
-            output = "Please specify a command";
-        }
-        else if(ls.length < 2){
-            if(ls[0].equals("list")){
-                
-                output = "Please specify a command";
-            }
-        }
-        return output;
+    public String getInput() {
+        Scanner scanner = new Scanner(System.in);
+        String input = scanner.nextLine();
+        scanner.close();
+        return input;
+    }
+
+    public String getInputPassword(){
+        String password = ("Enter your password: ");
+        Scanner scanner = new Scanner(System.in);
+        // User string builder
+        String input = scanner.nextLine();
+        
+        scanner.close();
+        return input;
     }
 
     /**

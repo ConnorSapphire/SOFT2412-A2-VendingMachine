@@ -6,8 +6,9 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import java.io.*;
 import javax.swing.plaf.synth.SynthSeparatorUI;
+import java.awt.*;
 
-public class VendingMachine {
+public class VendingMachine extends Frame{
     private FileManager fileManager = new FileManager();
     private UserInterface ui = new UserInterface(fileManager);
     private User user;
@@ -16,8 +17,15 @@ public class VendingMachine {
     private HashMap<String, Change> change;
     private JSONObject json;
 
+    public VendingMachine(String str){
+		super(str);
+    }
+
     public static void main(String[] args) {
-        VendingMachine vm = new VendingMachine();
+        VendingMachine vm = new VendingMachine("VendingMachine");
+        vm.setSize(240,240);
+		vm.setBackground(Color.pink);
+		vm.setVisible(true);
         vm.login();
     }
 

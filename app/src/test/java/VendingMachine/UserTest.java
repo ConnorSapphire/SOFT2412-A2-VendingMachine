@@ -4,7 +4,8 @@ import org.junit.jupiter.api.*;
 
 public class UserTest {
     User user;
-    UserInterface ui = new UserInterface();
+    FileManager fm = new FileManager();
+    UserInterface ui = new UserInterface(fm);
 
     @BeforeEach
     public void setupUser() {

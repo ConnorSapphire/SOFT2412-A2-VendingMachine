@@ -1,20 +1,23 @@
 package VendingMachine;
 
 import java.util.*;
-
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+import java.io.*;
 import javax.swing.plaf.synth.SynthSeparatorUI;
 
 public class VendingMachine {
-    private UserInterface ui = new UserInterface();
     private FileManager fileManager = new FileManager();
+    private UserInterface ui = new UserInterface(fileManager);
     private User user;
     private HashMap<String, User> users;
     private HashMap<String, Product> products;
     private HashMap<String, Change> change;
+    private JSONObject json;
 
     public static void main(String[] args) {
         VendingMachine vm = new VendingMachine();
-        vm.ui = new UserInterface();
         vm.login();
     }
 

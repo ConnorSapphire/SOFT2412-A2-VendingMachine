@@ -21,16 +21,11 @@ public class VendingMachine {
         this.cards = fileManager.getCreditCards();
         this.user = userCreator.create("", "", ui, cards);
         this.quit = false;
+        ui.displayWelcomeMessage();
     }
 
-    public static void main(String[] args) {
-        VendingMachine vm = new VendingMachine();
-        // display welcome message
-        // display stock
-        // display help
-        while (!vm.quit) {
-            vm.handleInput();
-        }
+    public boolean isQuit() {
+        return quit;
     }
 
     public User login(){
@@ -40,9 +35,16 @@ public class VendingMachine {
         
         String password = ui.getInputPassword();
     
-        // Check username exists in system
-        if (!users.containsKey(username)) {
-            System.out.println("Username does not exist.");
+        // Check username exists in system  
+        boolean exists = false;      
+        for (String name : users.keySet()){
+            if (name.equals(username)) {
+                exists = true;
+            }
+        }
+        
+        if (!exists){
+            System.out.println("Username does not exist");
             return null;
         }
 

@@ -108,7 +108,8 @@ public abstract class User {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                // cancel transaction
+                
+                cancelTransaction();
             }
         }, 120000);
         Date startTime = new Date();
@@ -147,7 +148,7 @@ public abstract class User {
     }
 
     public void cancelTransaction() {
-
+        ui.displayErrorString("TRANSACTION TIMED OUT");
     }
 
     /**

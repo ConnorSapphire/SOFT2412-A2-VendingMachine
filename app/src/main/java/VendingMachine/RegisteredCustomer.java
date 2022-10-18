@@ -10,7 +10,7 @@ public class RegisteredCustomer extends Customer {
      * @param ui Reference to the UserInterface to allow interaction with terminal
      */
     public RegisteredCustomer(String username, String password, UserInterface ui, HashMap<String, String> cards) {
-        super(username, password, ui, cards);
+        super(username, password, "registered", ui, cards);
     }
 
 }

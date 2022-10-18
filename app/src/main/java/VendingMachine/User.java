@@ -12,6 +12,10 @@ public abstract class User {
     private String accessLevel;
     private UserInterface ui;
     private Transaction currentTransaction;
+    private boolean storedCard;
+    private String cardName;
+    private String cardNumber;
+
     private HashMap<String, String> cards;
 
     /**
@@ -27,6 +31,7 @@ public abstract class User {
         this.accessLevel = accessLevel;
         this.ui = ui;
         this.cards = cards;
+        this.storedCard = false;
     }
 
     /**
@@ -59,6 +64,28 @@ public abstract class User {
      */
     public UserInterface getUI() {
         return this.ui;
+    }
+
+    public Transaction getCurrentTransaction() {
+        return currentTransaction;
+    }
+
+    public boolean isCardStored() {
+        return this.storedCard;
+    }
+
+    public String getCardName() {
+        return this.cardName;
+    }
+
+    public String getCardNumber() {
+        return this.cardNumber;
+    }
+
+    public void storeCard(String cardName, String cardNumber) {
+        this.storedCard = true;
+        this.cardName = cardName;
+        this.cardNumber = cardNumber;
     }
 
     public HashMap<String, String> getCards() {
@@ -102,7 +129,7 @@ public abstract class User {
             PaymentContext context = new PaymentContext(new CashStrategy(ui));
             context.pay();
         } else if (currentTransaction.getPaymentMethod().contains("card")) {
-            PaymentContext context = new PaymentContext(new CardStrategy(ui, cards));
+            PaymentContext context = new PaymentContext(new CardStrategy(this));
             context.pay();
         }
     }

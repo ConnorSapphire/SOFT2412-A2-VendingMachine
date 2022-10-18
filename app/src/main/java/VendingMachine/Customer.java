@@ -9,7 +9,7 @@ public abstract class Customer extends User {
      * @param password Password to allow Customer access to their account.
      * @param ui Reference to the UserInterface to allow interaction with terminal
      */
-    public Customer(String username, String password, UserInterface ui, HashMap<String, String> cards) {
-        super(username, password, "customer", ui, cards);
+    public Customer(String username, String password, String accessLevel, UserInterface ui, HashMap<String, String> cards) {
+        super(username, password, accessLevel, ui, cards);
     }
 }

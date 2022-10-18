@@ -35,9 +35,16 @@ public class VendingMachine {
         
         String password = ui.getInputPassword();
     
-        // Check username exists in system        
-        if (!users.containsKey(username)) {
-            System.out.println("Username does not exist.");
+        // Check username exists in system  
+        boolean exists = false;      
+        for (String name : users.keySet()){
+            if (name.equals(username)) {
+                exists = true;
+            }
+        }
+        
+        if (!exists){
+            System.out.println("Username does not exist");
             return null;
         }
 

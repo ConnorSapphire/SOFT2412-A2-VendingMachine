@@ -60,14 +60,14 @@ public class UserInterface {
      * Display text through terminal prompting user to select a method of payment. Either card or cash.
      */
     public void displaySelectPaymentMethod() {
-
+        System.out.println("Please enter your payment method, either " + ANSI_YELLOW + ANSI_WHITE_BACKGROUND + "'cash'" + ANSI_RESET + " or " + ANSI_YELLOW + ANSI_WHITE_BACKGROUND + "'card'" + ANSI_RESET + ".");
     }
 
     /**
      * Display text through terminal stating the login attempt failed.
      */
     public void displayLoginFailed() {
-
+        System.out.println(ANSI_RED + "Incorrect credentials provided. Login failed." + ANSI_RESET);
     }
 
     /**
@@ -75,7 +75,7 @@ public class UserInterface {
      * @param user The User account that was logged into.
      */
     public void displayLoginSuccess(User user) {
-
+        System.out.println(ANSI_CYAN + "Login success! Welcome " + ANSI_BLUE + user.getUsername() + ANSI_CYAN + "!" + ANSI_RESET);
     }
 
 
@@ -83,7 +83,7 @@ public class UserInterface {
      * Display text through terminal listing all current stock in the vending machine.
      */
     public void displayStock() {
-
+        displayProductTable();
     }
 
     /**
@@ -134,19 +134,48 @@ public class UserInterface {
      * Display text through terminal with a list of all available commands.
      */
     public void displayCustomerHelp() {
-
+        System.out.println(ANSI_CYAN + "Your current access level is " + ANSI_BLUE + "customer" + ANSI_CYAN + ". You have access to the following commands:" + ANSI_RESET);
+        System.out.println("> login" + ANSI_YELLOW + "\n\tLogin to a registered account." + ANSI_RESET);
+        System.out.println("> register" + ANSI_YELLOW + "\n\tRegister a new account." + ANSI_RESET);
+        System.out.println("> logout" + ANSI_YELLOW + "\n\tLogout of the current account." + ANSI_RESET);
+        System.out.println("> display" + ANSI_YELLOW + "\n\tDisplay all stock in the vending machine." + ANSI_RESET);
+        System.out.println("> buy" + ANSI_YELLOW + "\n\tSelect products to purchase and make payment." + ANSI_RESET);
+        System.out.println("> help" + ANSI_YELLOW + "\n\tDisplay all available commands." + ANSI_RESET);
+        System.out.println("> quit" + ANSI_YELLOW + "\n\tExit the application." + ANSI_RESET);
     }
 
     public void displayCashierHelp() {
-
+        // INCOMPLETE
+        System.out.println(ANSI_CYAN + "Your current access level is " + ANSI_BLUE + "cashier" + ANSI_CYAN + ". You have access to the following commands:" + ANSI_RESET);
+        System.out.println("> login" + ANSI_YELLOW + "\n\tLogin to a registered account." + ANSI_RESET);
+        System.out.println("> register" + ANSI_YELLOW + "\n\tRegister a new account." + ANSI_RESET);
+        System.out.println("> logout" + ANSI_YELLOW + "\n\tLogout of the current account." + ANSI_RESET);
+        System.out.println("> display" + ANSI_YELLOW + "\n\tDisplay all stock in the vending machine." + ANSI_RESET);
+        System.out.println("> buy" + ANSI_YELLOW + "\n\tSelect products to purchase and make payment." + ANSI_RESET);
+        System.out.println("> help" + ANSI_YELLOW + "\n\tDisplay all available commands." + ANSI_RESET);
+        System.out.println("> quit" + ANSI_YELLOW + "\n\tExit the application." + ANSI_RESET);
     }
 
     public void displaySellerHelp() {
-
+        System.out.println(ANSI_CYAN + "Your current access level is " + ANSI_BLUE + "seller" + ANSI_CYAN + ". You have access to the following commands:" + ANSI_RESET);
+        System.out.println("> login" + ANSI_YELLOW + "\n\tLogin to a registered account." + ANSI_RESET);
+        System.out.println("> register" + ANSI_YELLOW + "\n\tRegister a new account." + ANSI_RESET);
+        System.out.println("> logout" + ANSI_YELLOW + "\n\tLogout of the current account." + ANSI_RESET);
+        System.out.println("> display" + ANSI_YELLOW + "\n\tDisplay all stock in the vending machine." + ANSI_RESET);
+        System.out.println("> buy" + ANSI_YELLOW + "\n\tSelect products to purchase and make payment." + ANSI_RESET);
+        System.out.println("> help" + ANSI_YELLOW + "\n\tDisplay all available commands." + ANSI_RESET);
+        System.out.println("> quit" + ANSI_YELLOW + "\n\tExit the application." + ANSI_RESET);
     }
 
     public void displayOwnerHelp() {
-
+        System.out.println(ANSI_CYAN + "Your current access level is " + ANSI_BLUE + "owner" + ANSI_CYAN + ". You have access to the following commands:" + ANSI_RESET);
+        System.out.println("> login" + ANSI_YELLOW + "\n\tLogin to a registered account." + ANSI_RESET);
+        System.out.println("> register" + ANSI_YELLOW + "\n\tRegister a new account." + ANSI_RESET);
+        System.out.println("> logout" + ANSI_YELLOW + "\n\tLogout of the current account." + ANSI_RESET);
+        System.out.println("> display" + ANSI_YELLOW + "\n\tDisplay all stock in the vending machine." + ANSI_RESET);
+        System.out.println("> buy" + ANSI_YELLOW + "\n\tSelect products to purchase and make payment." + ANSI_RESET);
+        System.out.println("> help" + ANSI_YELLOW + "\n\tDisplay all available commands." + ANSI_RESET);
+        System.out.println("> quit" + ANSI_YELLOW + "\n\tExit the application." + ANSI_RESET);
     }
 
     /**
@@ -155,7 +184,11 @@ public class UserInterface {
      * @param outcome The outcome of the command.
      */
     public void displayCommandOutcome(String commandName, boolean outcome) {
-
+        if (outcome) {
+            System.out.println(ANSI_GREEN + "The command " + ANSI_WHITE_BACKGROUND + "'" + commandName + "'" + ANSI_RESET + ANSI_GREEN + "was successful!" + ANSI_RESET);
+        } else {
+            System.out.println(ANSI_RED + "The command " + ANSI_WHITE_BACKGROUND + "'" + commandName + "'" + ANSI_RESET + ANSI_RED + "was unsuccessful!" + ANSI_RESET);
+        }
     }
 
     /**
@@ -163,11 +196,11 @@ public class UserInterface {
      * @param error Error message to display.
      */
     public void displayErrorString(String error) {
-
+        System.out.println(ANSI_RED + error + ANSI_RESET);
     }
 
     public void displayUnauthorisedAccess(String commandName) {
-
+        System.out.println(ANSI_RED + "You do not have a high enough access level to access this feature." + ANSI_RESET);
     }
 
     public void displayProductTable(){

@@ -126,7 +126,7 @@ public abstract class User {
     
     public void completeTransaction() {
         if (currentTransaction.getPaymentMethod().contains("cash")) {
-            PaymentContext context = new PaymentContext(new CashStrategy(ui));
+            PaymentContext context = new PaymentContext(new CashStrategy(this));
             context.pay();
         } else if (currentTransaction.getPaymentMethod().contains("card")) {
             PaymentContext context = new PaymentContext(new CardStrategy(this));

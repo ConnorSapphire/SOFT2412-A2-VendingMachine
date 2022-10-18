@@ -1,5 +1,7 @@
 package VendingMachine;
 
+import java.util.HashMap;
+
 public class Owner extends User {
     /**
      * Create a new Owner.
@@ -7,8 +9,8 @@ public class Owner extends User {
      * @param password Password to allow Owner access to their account.
      * @param ui Reference to the UserInterface to allow interaction with terminal
      */
-    public Owner(String username, String password, UserInterface ui) {
-        super(username, password, "owner", ui);
+    public Owner(String username, String password, UserInterface ui, HashMap<String, String> cards) {
+        super(username, password, "owner", ui, cards);
     } 
 
     // SELLER METHODS
@@ -190,5 +192,9 @@ public class Owner extends User {
      * 
      */
     public void displayCancelledTransactions() {
+    }
+
+    public void displayHelp() {
+        this.getUI().displayOwnerHelp();
     }
 }

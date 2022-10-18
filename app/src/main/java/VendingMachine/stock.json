@@ -1,0 +1,29 @@
+{
+    "Drinks" : [
+        {"Mineral Water" : {"price" : 3, "quantity" : 7}},
+        {"Sprite" : {"price" : 3, "quantity" : 7}},
+        {"Coca cola" : {"price" : 3, "quantity" : 7}},
+        {"Pepsi" : {"price" : 3, "quantity" : 7}},
+        {"Juice" : {"price" : 3, "quantity" : 7}}
+    ],
+
+    "Chocolates" : [
+        {"Mars" : {"price" : 3, "quantity" : 7}},
+        {"M&M" : {"price" : 3, "quantity" : 7}},
+        {"Bounty" : {"price" : 3, "quantity" : 7}},
+        {"Snickers" : {"price" : 3, "quantity" : 7}}
+    ],
+
+    "Chips" : [
+        {"Smiths" : {"price" : 3, "quantity" : 7}},
+        {"Pringles" : {"price" : 3, "quantity" : 7}},
+        {"Kettle" : {"price" : 3, "quantity" : 7}},
+        {"Thins" : {"price" : 3, "quantity" : 7}}
+    ],
+
+    "Candies" : [
+        {"Mentos" : 7},
+        {"Sour Patch" : 7},
+        {"Skittles" : 7}
+    ]
+}

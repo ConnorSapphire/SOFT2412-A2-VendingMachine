@@ -1,10 +1,18 @@
 package VendingMachine;
 
+import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.Date;
+import java.util.HashMap;
+
 public abstract class User {
     private String username;
     private String password;
     private String accessLevel;
     private UserInterface ui;
+    private Transaction currentTransaction;
+    private HashMap<String, String> cards;
 
     /**
      * Create a new User.
@@ -13,11 +21,12 @@ public abstract class User {
      * @param accessLevel String representation of the User's access level.
      * @param ui Reference to the UserInterface to allow interaction with terminal
      */
-    public User(String username, String password, String accessLevel, UserInterface ui) {
+    public User(String username, String password, String accessLevel, UserInterface ui, HashMap<String, String> cards) {
         this.username = username;
         this.password = password;
         this.accessLevel = accessLevel;
         this.ui = ui;
+        this.cards = cards;
     }
 
     /**
@@ -52,14 +61,54 @@ public abstract class User {
         return this.ui;
     }
 
+    public HashMap<String, String> getCards() {
+        return this.cards;
+    }
+
     /**
      * 
      * @param product
      * @param paymentMethod
      * @return Whether the transaction was successful.
      */
-    public boolean makeTransaction(Product product, String paymentMethod) {
+    public boolean makeTransaction() {
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                // cancel transaction
+            }
+        }, 120000);
+        Date startTime = new Date();
+        ArrayList<Product> products = new ArrayList<Product>();
+        Product product = selectProduct();
+        while(product != null) {
+            products.add(product);
+            product = selectProduct();
+        }
+        if (products.isEmpty()) {
+            return false;
+        }
+        String paymentMethod = selectPaymentMethod();
+        Transaction transaction = new Transaction(startTime, products, paymentMethod);
+        currentTransaction = transaction;
+        transaction.setEndTime();
+        completeTransaction();
         return true;
+    }
+    
+    public void completeTransaction() {
+        if (currentTransaction.getPaymentMethod().contains("cash")) {
+            PaymentContext context = new PaymentContext(new CashStrategy(ui));
+            context.pay();
+        } else if (currentTransaction.getPaymentMethod().contains("card")) {
+            PaymentContext context = new PaymentContext(new CardStrategy(ui, cards));
+            context.pay();
+        }
+    }
+
+    public void cancelTransaction() {
+
     }
 
     /**
@@ -68,6 +117,7 @@ public abstract class User {
      */
     public Product selectProduct() {
         ui.displaySelectProduct();
+        ui.getInput();
         return null;
     }
 
@@ -77,6 +127,12 @@ public abstract class User {
      */
     public String selectPaymentMethod() {
         ui.displaySelectPaymentMethod();
+        String paymentMethod = ui.getInput();
+        if (paymentMethod.contains("card")) {
+            return "card";
+        } else if (paymentMethod.contains("cash")) {
+            return "cash";
+        }
         return null;
     }
 
@@ -278,5 +334,9 @@ public abstract class User {
      */
     public void displayCancelledTransactions() {
         ui.displayUnauthorisedAccess("displayCancelledTransactions");
+    }
+
+    public void displayHelp() {
+        ui.displayCustomerHelp();
     }
 }

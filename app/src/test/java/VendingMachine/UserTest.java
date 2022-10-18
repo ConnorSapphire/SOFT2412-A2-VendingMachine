@@ -1,15 +1,19 @@
 package VendingMachine;
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.HashMap;
+
 import org.junit.jupiter.api.*;
 
 public class UserTest {
     User user;
-    UserInterface ui = new UserInterface();
+    FileManager fm = new FileManager();
+    UserInterface ui = new UserInterface(fm);
 
     @BeforeEach
     public void setupUser() {
         UserCreator userCreator = new AnonymousCustomerCreator();
-        user = userCreator.create("", "", ui);
+        user = userCreator.create("", "", ui, new HashMap<String, String>());
     }
 
     @Test

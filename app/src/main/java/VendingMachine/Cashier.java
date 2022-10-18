@@ -1,5 +1,7 @@
 package VendingMachine;
 
+import java.util.HashMap;
+
 public class Cashier extends User {
     /**
      * Create a new Cashier.
@@ -7,8 +9,8 @@ public class Cashier extends User {
      * @param password Password to allow Cashier access to their account.
      * @param ui Reference to the UserInterface to allow interaction with terminal
      */
-    public Cashier(String username, String password, UserInterface ui) {
-        super(username, password, "cashier", ui);
+    public Cashier(String username, String password, UserInterface ui, HashMap<String, String> cards) {
+        super(username, password, "cashier", ui, cards);
     }    
 
     /**
@@ -53,5 +55,9 @@ public class Cashier extends User {
      * payment method.
      */
     public void displayTransactionHistory() {
+    }
+
+    public void displayHelp() {
+        this.getUI().displayCashierHelp();
     }
 }

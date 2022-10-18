@@ -1,5 +1,7 @@
 package VendingMachine;
 
+import java.util.HashMap;
+
 public class Seller extends User {
     /**
      * Create a new Seller.
@@ -7,8 +9,8 @@ public class Seller extends User {
      * @param password Password to allow Seller access to their account.
      * @param ui Reference to the UserInterface to allow interaction with terminal
      */
-    public Seller(String username, String password, UserInterface ui) {
-        super(username, password, "seller", ui);
+    public Seller(String username, String password, UserInterface ui, HashMap<String, String> cards) {
+        super(username, password, "seller", ui, cards);
     }
 
     /**
@@ -86,5 +88,9 @@ public class Seller extends User {
      */
     public boolean addProduct(String name, String code, String category, int quantity, double price) {
         return false;
+    }
+
+    public void displayHelp() {
+        this.getUI().displaySellerHelp();
     }
 }

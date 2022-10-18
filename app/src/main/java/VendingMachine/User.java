@@ -15,6 +15,7 @@ public abstract class User {
     private boolean storedCard;
     private String cardName;
     private String cardNumber;
+    private HashMap<String, Product> products;
 
     private HashMap<String, String> cards;
 
@@ -32,6 +33,10 @@ public abstract class User {
         this.ui = ui;
         this.cards = cards;
         this.storedCard = false;
+    }
+
+    public void setProducts(HashMap<String, Product> products) {
+        this.products = products;
     }
 
     /**
@@ -114,6 +119,7 @@ public abstract class User {
             product = selectProduct();
         }
         if (products.isEmpty()) {
+            ui.displayErrorString("No products selected. Please view available stock and try again.");
             return false;
         }
         String paymentMethod = selectPaymentMethod();
@@ -144,7 +150,10 @@ public abstract class User {
      */
     public Product selectProduct() {
         ui.displaySelectProduct();
-        ui.getInput();
+        String product = ui.getInput();
+        if (products.containsKey(product)) {
+            return products.get(product);
+        }
         return null;
     }
 

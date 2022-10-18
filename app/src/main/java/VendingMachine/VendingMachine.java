@@ -23,8 +23,42 @@ public class VendingMachine {
         change = new HashMap<String, Change>();
         this.cards = fileManager.getCreditCards();
         this.user = userCreator.create("", "", ui, cards);
+        this.products = new HashMap<String, Product>();
+        HashMap<String, Double[]> drinks = fileManager.lsDrinks();
+        int code = 0;
+        ProductCreator creator = new DrinkCreator();
+        for (String drink : drinks.keySet()) {
+            products.put(drink, creator.create(drink, String.valueOf(code), drinks.get(drink)[0], (int) Math.round(drinks.get(drink)[1])));
+            code += 1;
+        }
+        HashMap<String, Double[]> chocolates = fileManager.lsChocolates();
+        creator = new ChocolateCreator();
+        for (String chocolate : chocolates.keySet()) {
+            products.put(chocolate, creator.create(chocolate, String.valueOf(code), chocolates.get(chocolate)[0], (int) Math.round(chocolates.get(chocolate)[1])));
+            code += 1;
+        }
+        HashMap<String, Double[]> candies = fileManager.lsCandies();
+        creator = new CandyCreator();
+        for (String candy : candies.keySet()) {
+            products.put(candy, creator.create(candy, String.valueOf(code), candies.get(candy)[0], (int) Math.round(candies.get(candy)[1])));
+            code += 1;
+        }
+        HashMap<String, Double[]> chips = fileManager.lsChips();
+        creator = new ChipCreator();
+        for (String chip : chips.keySet()) {
+            products.put(chip, creator.create(chip, String.valueOf(code), chips.get(chip)[0], (int) Math.round(chips.get(chip)[1])));
+            code += 1;
+        }
         this.quit = false;
         ui.displayWelcomeMessage();
+    }
+
+    public User getUser() {
+        return this.user;
+    }
+
+    public HashMap<String, Product> getProducts() {
+        return this.products;
     }
 
     public boolean isQuit() {

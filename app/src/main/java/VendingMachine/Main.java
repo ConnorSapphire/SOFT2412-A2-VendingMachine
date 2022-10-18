@@ -5,6 +5,7 @@ public class Main {
         VendingMachine vm = new VendingMachine();
         while (!vm.isQuit()) {
             vm.handleInput();
+            vm.getUser().setProducts(vm.getProducts());
         }
     }
 }

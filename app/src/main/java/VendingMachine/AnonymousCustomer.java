@@ -8,6 +8,6 @@ public class AnonymousCustomer extends Customer {
      * @param ui Reference to the UserInterface to allow interaction with terminal
      */
     public AnonymousCustomer(UserInterface ui, HashMap<String, String> cards) {
-        super("", "", ui, cards);
+        super("", "", "anonymous", ui, cards);
     }
 }

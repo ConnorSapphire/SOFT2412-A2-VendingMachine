@@ -3,6 +3,7 @@ package VendingMachine;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.Date;
 
 public abstract class User {
     private String username;
@@ -70,6 +71,7 @@ public abstract class User {
                 // cancel transaction
             }
         }, 120000);
+        Date startTime = new Date();
         ArrayList<Product> products = new ArrayList<Product>();
         Product product = selectProduct();
         while(product != null) {

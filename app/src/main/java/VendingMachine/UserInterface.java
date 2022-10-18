@@ -1,19 +1,41 @@
 package VendingMachine;
 
+import java.util.*;
+import org.json.simple.JSONObject;
+
 public class UserInterface {
+
+    private FileManager fm;
+
+    public UserInterface(FileManager fm){
+        this.fm = fm;
+    }
     /**
      * Get input from the terminal.
      * @return String representation of input into the terminal.
      */
     public String getInput() {
-        return null;
+        Scanner scanner = new Scanner(System.in);
+        String input = scanner.nextLine();
+        scanner.close();
+        return input;
+    }
+
+    public String getInputPassword(){
+        String password = ("Enter your password: ");
+        Scanner scanner = new Scanner(System.in);
+        // User string builder
+        String input = scanner.nextLine();
+        
+        scanner.close();
+        return input;
     }
 
     /**
      * Display text through terminal prompting user to select a product from the vending machine.
      */
     public void displaySelectProduct() {
-
+        
     }
 
     /**
@@ -116,5 +138,9 @@ public class UserInterface {
 
     public void displayUnauthorisedAccess(String commandName) {
 
+    }
+
+    public void displayProduct(){
+        
     }
 }

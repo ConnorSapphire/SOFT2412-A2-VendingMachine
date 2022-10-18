@@ -10,4 +10,5 @@ public class RegisteredCustomer extends Customer {
     public RegisteredCustomer(String username, String password, UserInterface ui) {
         super(username, password, ui);
     }
+
 }

@@ -6,7 +6,7 @@ import java.util.TimerTask;
 import java.util.Date;
 import java.util.HashMap;
 
-public abstract class User {
+public abstract class User implements Runnable {
     private String username;
     private String password;
     private String accessLevel;
@@ -104,14 +104,33 @@ public abstract class User {
      * @return Whether the transaction was successful.
      */
     public boolean makeTransaction() {
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                
-                cancelTransaction();
+        Thread t = new Thread(this); // myRunnable does your calculations
+
+        long startTime = System.currentTimeMillis();
+        long endTime = startTime + 120 * 1000;
+
+        t.start(); // Kick off calculations
+
+        while (System.currentTimeMillis() < endTime) {
+            // Still within time theshold, wait a little longer
+            try {
+                Thread.sleep(500L);  // Sleep 1/2 second
+            } catch (InterruptedException e) {
+                // Someone woke us up during sleep, that's OK
             }
-        }, 120000);
+        }
+
+        t.interrupt();  // Tell the thread to stop
+        ui.displayErrorString("\nTransaction Timed Out");
+        try {
+            t.join(125L);       // Wait for the thread to cleanup and finish
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public void run() {
         Date startTime = new Date();
         ArrayList<Product> prods = new ArrayList<Product>();
         displayStock();
@@ -127,14 +146,13 @@ public abstract class User {
         System.out.println("Selection complete, total price is $" + cost + ".");
         if (prods.isEmpty()) {
             ui.displayErrorString("No products selected. Please view available stock and try again.");
-            return false;
+            return;
         }
         String paymentMethod = selectPaymentMethod();
         Transaction transaction = new Transaction(startTime, prods, paymentMethod);
         currentTransaction = transaction;
         transaction.setEndTime();
         completeTransaction();
-        return true;
     }
     
     public void completeTransaction() {

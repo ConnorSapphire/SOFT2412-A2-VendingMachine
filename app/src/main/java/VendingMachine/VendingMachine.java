@@ -18,6 +18,9 @@ public class VendingMachine {
 
     public VendingMachine() {
         UserCreator userCreator = new AnonymousCustomerCreator();
+        users = new HashMap<String, User>();
+        products = new HashMap<String, Product>();
+        change = new HashMap<String, Change>();
         this.cards = fileManager.getCreditCards();
         this.user = userCreator.create("", "", ui, cards);
         this.quit = false;
@@ -31,8 +34,8 @@ public class VendingMachine {
     public User login(){
         // Get username and password
         System.out.print("Enter username: ");
-        String username = ui.getInput();
-        
+        String username = ui.getPlainInput();
+        System.out.print("Enter password: ");
         String password = ui.getInputPassword();
     
         // Check username exists in system  
@@ -44,13 +47,13 @@ public class VendingMachine {
         }
         
         if (!exists){
-            System.out.println("Username does not exist");
-            return null;
+            ui.displayLoginFailed();
+            return user;
         }
 
         if (password != users.get(username).getPassword()) {
-            System.out.println("Password is incorrect");
-            return null;
+            ui.displayLoginFailed();
+            return user;
         }
 
         user = users.get(username);
@@ -60,14 +63,14 @@ public class VendingMachine {
     public User newRegisteredCustomer() {
         UserCreator customerCreator = new RegisteredCustomerCreator();
         System.out.println("Enter your username");
-        String newUsername = ui.getInput();
+        String newUsername = ui.getPlainInput();
         if(newUsername.equals("")){
             System.out.println("No user name entered.");
-            return null;
+            return user;
         }
         if (users.containsKey(newUsername)) {
             System.out.println("Username already exists.");
-            return null;
+            return user;
         }
 
         String newPassword = ui.getInputPassword();
@@ -91,13 +94,17 @@ public class VendingMachine {
         } else if (input.contains("cancel")) {
             user.cancelTransaction();
         } else if (input.contains("login")) {
-            this.login();
+            user = this.login();
+        } else if (input.contains("lougout")) {
+            UserCreator creator = new AnonymousCustomerCreator();
+            user = creator.create("", "", ui, cards);
         } else if (input.contains("register")) {
-            this.newRegisteredCustomer();
+            user = this.newRegisteredCustomer();
         } else if (input.contains("display")) {
             user.displayStock();
         } else if (input.contains("quit")) {
             this.quit = true;
+            System.exit(0);
         }
     }
 }

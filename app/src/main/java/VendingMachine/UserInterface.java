@@ -14,14 +14,16 @@ public class UserInterface {
     public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
 
     private FileManager fm;
+    private Scanner scanner;
 
     public UserInterface(FileManager fm){
         this.fm = fm;
+        this.scanner = new Scanner(System.in);
     }
 
     public void displayWelcomeMessage() {
-        System.out.println(ANSI_CYAN + "Welcome to " + ANSI_BLUE + "ATLANTIS" + ANSI_CYAN + "vending machine." + ANSI_RESET);
-        System.out.println(ANSI_YELLOW + "For a list of all commands you have access to, type " + ANSI_WHITE_BACKGROUND + "'help'" + ANSI_RESET);
+        System.out.println(ANSI_CYAN + "Welcome to " + ANSI_BLUE + "ATLANTIS" + ANSI_CYAN + " vending machine." + ANSI_RESET);
+        System.out.println(ANSI_YELLOW + "For a list of all commands you have access to, type 'help'." + ANSI_RESET);
     }
     
     /**
@@ -29,24 +31,28 @@ public class UserInterface {
      * @return String representation of input into the terminal.
      */
     public String getInput() {
-        Scanner scanner = new Scanner(System.in);
+        System.out.print("> ");
         String input = "";
-        if(scanner.hasNextLine()){
+        if (scanner.hasNextLine()) {
             input = scanner.nextLine();
         }
-        scanner.close();
         return input;
     }
 
-    public String getInputPassword(){
-        System.out.println("Enter your password: ");
-        Scanner scanner = new Scanner(System.in);
+    public String getPlainInput() {
         String input = "";
-        if(scanner.hasNextLine()){
+        if (scanner.hasNextLine()) {
             input = scanner.nextLine();
         }
-        scanner.close();
         return input;
+    }
+
+    public String getInputPassword() {
+        StringBuilder input = new StringBuilder();
+        while (scanner.hasNext()) {
+            input.append(scanner.next());
+        }
+        return input.toString();
     }
 
     /**

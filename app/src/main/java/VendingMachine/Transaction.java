@@ -21,4 +21,6 @@ public class Transaction {
         this.product = product;
         this.paymentMethod = paymentMethod;
     }
+
+    
 }

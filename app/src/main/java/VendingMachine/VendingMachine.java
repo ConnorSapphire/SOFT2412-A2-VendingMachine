@@ -40,7 +40,7 @@ public class VendingMachine {
         return user;
     }
 
-    public User newRegisteredCustomer(String username, String password, UserInterface ui){
+    public User newRegisteredCustomer(){
         UserCreator customerCreator = new RegisteredCustomerCreator();
         System.out.println("Enter your username");
         String newUsername = ui.getInput();
@@ -53,7 +53,7 @@ public class VendingMachine {
         String newPassword = ui.getInputPassword();
 
         User customer = customerCreator.create(newUsername, newPassword, ui);
-        users.put(username, customer);
+        users.put(newUsername, customer);
         user = customer;
         return customer;
     }

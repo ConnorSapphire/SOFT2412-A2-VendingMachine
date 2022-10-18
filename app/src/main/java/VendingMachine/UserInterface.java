@@ -1,7 +1,6 @@
 package VendingMachine;
 
-import java.util.HashMap;
-import java.util.Scanner;
+import java.util.*;
 
 public class UserInterface {
     public static final String ANSI_RESET = "\u001B[0m";
@@ -229,6 +228,16 @@ public class UserInterface {
             ct.addRow(d, "Candies", Double.toString(Candies.get(d)[0]), Double.toString(Candies.get(d)[1]));
         }
         ct.print();
+    }
+
+    public void last5Transactions(String username){
+        ArrayList<String> trans = fm.getLastTransactions(username);
+        CommandLineTable cm = new CommandLineTable();
+        cm.setHeaders("Last Transactions for " + username);
+        for(String str : trans){
+            cm.addRow(str);
+        }
+        cm.print();
     }
     
 }

@@ -27,7 +27,6 @@ public class VendingMachine {
         VendingMachine vm = new VendingMachine();
         // display welcome message
         // display stock
-        vm.ui.displayProductTable();
         // display help
         while (!vm.quit) {
             vm.handleInput();

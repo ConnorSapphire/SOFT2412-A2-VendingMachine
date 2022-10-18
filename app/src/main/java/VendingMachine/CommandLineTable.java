@@ -73,4 +73,15 @@ public class CommandLineTable {
         }
         System.out.println();
     }
+
+    public static void main(String[] args) {
+        //test code
+        CommandLineTable st = new CommandLineTable();
+        //st.setRightAlign(true);//if true then cell text is right aligned
+        st.setHeaders("one", "two", "three");//optional - if not used then there will be no header and horizontal lines
+        st.addRow("super", "broccoli", "flexible");
+        st.addRow("assumption", "announcement", "reflection");
+        st.addRow("logic", "pleasant", "wild");
+        st.print();
+    }
 }

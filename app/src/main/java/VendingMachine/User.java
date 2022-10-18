@@ -1,5 +1,9 @@
 package VendingMachine;
 
+import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
+
 public abstract class User {
     private String username;
     private String password;
@@ -58,7 +62,26 @@ public abstract class User {
      * @param paymentMethod
      * @return Whether the transaction was successful.
      */
-    public boolean makeTransaction(Product product, String paymentMethod) {
+    public boolean makeTransaction() {
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                // cancel transaction
+            }
+        }, 120000);
+        ArrayList<Product> products = new ArrayList<Product>();
+        Product product = selectProduct();
+        while(product != null) {
+            products.add(product);
+            product = selectProduct();
+        }
+        if (products.isEmpty()) {
+            return false;
+        }
+        String paymentMethod = selectPaymentMethod();
+        Transaction transaction = new Transaction(null, null, null, paymentMethod);
+        transaction.makePayment();
         return true;
     }
 
@@ -68,6 +91,7 @@ public abstract class User {
      */
     public Product selectProduct() {
         ui.displaySelectProduct();
+        ui.getInput();
         return null;
     }
 
@@ -77,6 +101,10 @@ public abstract class User {
      */
     public String selectPaymentMethod() {
         ui.displaySelectPaymentMethod();
+        String paymentMethod = ui.getInput();
+        if (paymentMethod.contains("card") || paymentMethod.contains("cash")) {
+            return paymentMethod;
+        }
         return null;
     }
 

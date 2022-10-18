@@ -5,11 +5,24 @@ import java.util.Scanner;
 import org.json.simple.JSONObject;
 
 public class UserInterface {
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_CYAN = "\u001B[36m";
+    public static final String ANSI_BLUE = "\u001B[34m";
+    public static final String ANSI_PURPLE = "\u001B[35m";
+    public static final String ANSI_GREEN = "\u001B[32m";
+    public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_YELLOW = "\u001B[33m";
+    public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
 
     private FileManager fm;
 
     public UserInterface(FileManager fm){
         this.fm = fm;
+    }
+
+    public void displayWelcomeMessage() {
+        System.out.println(ANSI_CYAN + "Welcome to " + ANSI_BLUE + "ATLANTIS" + ANSI_CYAN + "vending machine." + ANSI_RESET);
+        System.out.println(ANSI_YELLOW + "For a list of all commands you have access to, type " + ANSI_WHITE_BACKGROUND + "'help'" + ANSI_RESET);
     }
     
     /**

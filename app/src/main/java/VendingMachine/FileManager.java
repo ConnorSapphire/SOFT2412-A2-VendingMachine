@@ -11,18 +11,17 @@ public class FileManager {
     private JSONObject stock, users, creditCards, food;
 
     public FileManager(){
-        this.stock = (JSONObject) JfileReader("stock");
         this.users = (JSONObject) JfileReader("users");
+        this.stock = (JSONObject) JfileReader("stock");
         this.creditCards = (JSONObject) JfileReader("credit_cards");
-        this.food = (JSONObject) JfileReader("food");
     }
 
     public Object JfileReader(String filename){
         Object obj = null;
         try{
-            obj = new JSONParser().parse(new FileReader(new File("app/src/main/java/VendingMachine/" + filename + ".json")));  
+            obj = new JSONParser().parse(new FileReader(new File("src/main/java/VendingMachine/" + filename + ".json")));  
         }catch(FileNotFoundException e){
-            System.err.println(filename + "not found!");
+            System.err.println(filename + " not found!");
             System.exit(1);
         } catch (IOException e) {
             e.printStackTrace();

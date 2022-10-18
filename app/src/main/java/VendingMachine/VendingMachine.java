@@ -21,16 +21,11 @@ public class VendingMachine {
         this.cards = fileManager.getCreditCards();
         this.user = userCreator.create("", "", ui, cards);
         this.quit = false;
+        ui.displayWelcomeMessage();
     }
 
-    public static void main(String[] args) {
-        VendingMachine vm = new VendingMachine();
-        // display welcome message
-        // display stock
-        // display help
-        while (!vm.quit) {
-            vm.handleInput();
-        }
+    public boolean isQuit() {
+        return quit;
     }
 
     public User login(){

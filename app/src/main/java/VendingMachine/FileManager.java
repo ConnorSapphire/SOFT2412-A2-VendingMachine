@@ -36,7 +36,9 @@ public class FileManager {
     }
 
     public void update() {
+        this.users = (JSONObject) JfileReader("users");
         this.stock = (JSONObject) JfileReader("stock");
+        this.creditCards = (JSONArray) JfileReader("credit_cards");
     }
 
     public HashMap<String, Double[]> lsDrinks() {
@@ -99,5 +101,16 @@ public class FileManager {
             cards.put(obj.get("name").toString(), obj.get("number").toString()); 
         }
         return cards;
+    }
+
+    public ArrayList<String> getLastTransactions(String username){
+        ArrayList<String> trans = new ArrayList<>();
+        JSONObject value = (JSONObject) users.get(username);
+        JSONArray transaction = (JSONArray) value.get("transaction");
+        Iterator itr = transaction.iterator();
+        while (itr.hasNext()) {
+            trans.add((String)itr.next());
+        }
+        return trans;
     }
 }

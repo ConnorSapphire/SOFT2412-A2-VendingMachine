@@ -224,5 +224,9 @@ public class UserInterface {
         }
         ct.print();
     }
+
+    public void last5Transactions(){
+        
+    }
     
 }

@@ -41,8 +41,8 @@ public class FileManager {
         this.creditCards = (JSONArray) JfileReader("credit_cards");
     }
 
-    public HashMap<String, Double[]> lsDrinks() {
-        HashMap<String, Double[]> output = new HashMap<>();
+    public HashMap<String[], Double[]> lsDrinks() {
+        HashMap<String[], Double[]> output = new HashMap<>();
         JSONArray drinks = (JSONArray) this.stock.get("Drinks");
         for (Object obj : drinks) {
             JSONObject drink = (JSONObject) obj;
@@ -50,14 +50,15 @@ public class FileManager {
                 String key = (String) objKey;
                 JSONObject value = (JSONObject) drink.get(key);
                 Double[] num = new Double[] { (Double) value.get("price"), (Double) value.get("quantity") };
-                output.put(key, num);
+                String[] str = new String[]{key, (String) value.get("code")};
+                output.put(str, num);
             }
         }
         return output;
     }
 
-    public HashMap<String, Double[]> lsChocolates() {
-        HashMap<String, Double[]> output = new HashMap<>();
+    public HashMap<String[], Double[]> lsChocolates() {
+        HashMap<String[], Double[]> output = new HashMap<>();
         JSONArray chocolates = (JSONArray) this.stock.get("Chocolates");
         for (Object obj : chocolates) {
             JSONObject chocolate = (JSONObject) obj;
@@ -65,14 +66,15 @@ public class FileManager {
                 String key = (String) objKey;
                 JSONObject value = (JSONObject) chocolate.get(key);
                 Double[] num = new Double[] { (Double) value.get("price"), (Double) value.get("quantity") };
-                output.put(key, num);
+                String[] str = new String[]{key, (String) value.get("code")};
+                output.put(str, num);
             }
         }
         return output;
     }
 
-    public HashMap<String, Double[]> lsChips() {
-        HashMap<String, Double[]> output = new HashMap<>();
+    public HashMap<String[], Double[]> lsChips() {
+        HashMap<String[], Double[]> output = new HashMap<>();
         JSONArray chips = (JSONArray) this.stock.get("Chips");
         for (Object obj : chips) {
             JSONObject chip = (JSONObject) obj;
@@ -80,14 +82,15 @@ public class FileManager {
                 String key = (String) objKey;
                 JSONObject value = (JSONObject) chip.get(key);
                 Double[] num = new Double[] { (Double) value.get("price"), (Double) value.get("quantity") };
-                output.put(key, num);
+                String[] str = new String[]{key, (String) value.get("code")};
+                output.put(str, num);
             }
         }
         return output;
     }
 
-    public HashMap<String, Double[]> lsCandies() {
-        HashMap<String, Double[]> output = new HashMap<>();
+    public HashMap<String[], Double[]> lsCandies() {
+        HashMap<String[], Double[]> output = new HashMap<>();
         JSONArray candies = (JSONArray) this.stock.get("Candies");
         for (Object obj : candies) {
             JSONObject candy = (JSONObject) obj;
@@ -95,7 +98,8 @@ public class FileManager {
                 String key = (String) objKey;
                 JSONObject value = (JSONObject) candy.get(key);
                 Double[] num = new Double[] { (Double) value.get("price"), (Double) value.get("quantity") };
-                output.put(key, num);
+                String[] str = new String[]{key, (String) value.get("code")};
+                output.put(str, num);
             }
         }
         return output;

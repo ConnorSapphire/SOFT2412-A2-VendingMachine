@@ -1,5 +1,7 @@
 package VendingMachine;
 
+import java.io.FileNotFoundException;
+import java.io.PrintStream;
 import java.util.*;
 
 public class UserInterface {
@@ -47,12 +49,46 @@ public class UserInterface {
     }
 
     public String getInputPassword() {
-        StringBuilder input = new StringBuilder();
-        while (scanner.hasNext()) {
-            input.append(scanner.next());
+        // StringBuilder input = new StringBuilder();
+        // while (scanner.hasNext()) {
+        //     input.append(scanner.next());
+        // }
+        // return input.toString();
+        
+        // String pass = getInput();
+        // String a = asterisk(pass);
+        // System.out.println(a);
+        // return pass;
+        
+        PrintStream out = System.out;
+        try {
+            System.setOut(new PrintStream("src/main/java/VendingMachine/attempt.txt"));
+        } catch (FileNotFoundException fnfe) {
+            fnfe.printStackTrace();
         }
-        return input.toString();
+        String password = getInput();
+        System.setOut(out);
+        for (int i = 0; i < password.length(); i++) {
+            System.out.print("*");
+        }
+        System.out.println();
+        return password;
     }
+
+    public static String asterisk(String password) {
+        if (password == null) {
+            return null;
+        }
+
+        char[] chs = new char[password.length()];
+        for (int i = 1; i < chs.length; i++) {
+            chs[i] = '*';
+        }
+        chs[0] = password.charAt(0);
+        chs[chs.length - 1] = password.charAt(password.length() - 1);
+        return new String(chs);
+    }
+
 
     /**
      * Display text through terminal prompting user to select a product from the vending machine.
@@ -210,22 +246,22 @@ public class UserInterface {
 
     public void displayProductTable(){
         CommandLineTable ct = new CommandLineTable();
-        ct.setHeaders("Category", "Name", "Price", "Quantity");
-        HashMap<String, Double[]> Drinks = fm.lsDrinks();
-        HashMap<String, Double[]> Chocolates = fm.lsChocolates();
-        HashMap<String, Double[]> Chips = fm.lsChips();
-        HashMap<String, Double[]> Candies = fm.lsCandies();
-        for(String d : Drinks.keySet()){
-            ct.addRow(d, "Drinks", Double.toString(Drinks.get(d)[0]), Double.toString(Drinks.get(d)[1]));
+        ct.setHeaders("Category", "Name", "Price", "Quantity", "Shortcode");
+        HashMap<String[], Double[]> Drinks = fm.lsDrinks();
+        HashMap<String[], Double[]> Chocolates = fm.lsChocolates();
+        HashMap<String[], Double[]> Chips = fm.lsChips();
+        HashMap<String[], Double[]> Candies = fm.lsCandies();
+        for(String[] d : Drinks.keySet()){
+            ct.addRow(d[0], "Drinks", Double.toString(Drinks.get(d)[0]), Double.toString(Drinks.get(d)[1]), d[1]);
         }
-        for(String d : Chocolates.keySet()){
-            ct.addRow(d, "Chocolates", Double.toString(Chocolates.get(d)[0]), Double.toString(Chocolates.get(d)[1]));
+        for(String[] d : Chocolates.keySet()){
+            ct.addRow(d[0], "Chocolates", Double.toString(Chocolates.get(d)[0]), Double.toString(Chocolates.get(d)[1]), d[1]);
         }
-        for(String d : Chips.keySet()){
-            ct.addRow(d, "Chips", Double.toString(Chips.get(d)[0]), Double.toString(Chips.get(d)[1]));
+        for(String[] d : Chips.keySet()){
+            ct.addRow(d[0], "Chips", Double.toString(Chips.get(d)[0]), Double.toString(Chips.get(d)[1]), d[1]);
         }
-        for(String d : Candies.keySet()){
-            ct.addRow(d, "Candies", Double.toString(Candies.get(d)[0]), Double.toString(Candies.get(d)[1]));
+        for(String[] d : Candies.keySet()){
+            ct.addRow(d[0], "Candies", Double.toString(Candies.get(d)[0]), Double.toString(Candies.get(d)[1]), d[1]);
         }
         ct.print();
     }

@@ -1,29 +1,29 @@
 {
     "Drinks" : [
-        {"Mineral Water" : {"price" : 3.0, "quantity" : 7.0}},
-        {"Sprite" : {"price" : 3.0, "quantity" : 7.0}},
-        {"Coca cola" : {"price" : 3.0, "quantity" : 7.0}},
-        {"Pepsi" : {"price" : 3.0, "quantity" : 7.0}},
-        {"Juice" : {"price" : 3.0, "quantity" : 7.0}}
+        {"Mineral Water" : {"price" : 3.0, "quantity" : 7.0, "code" : "MNW"}},
+        {"Sprite" : {"price" : 3.0, "quantity" : 7.0, "code" : "SPT"}},
+        {"Coca cola" : {"price" : 3.0, "quantity" : 7.0, "code" : "CCC"}},
+        {"Pepsi" : {"price" : 3.0, "quantity" : 7.0, "code" : "PPS"}},
+        {"Juice" : {"price" : 3.0, "quantity" : 7.0, "code" : "CCC"}}
     ],
 
     "Chocolates" : [
-        {"Mars" : {"price" : 3.0, "quantity" : 7.0}},
-        {"M&M" : {"price" : 3.0, "quantity" : 7.0}},
-        {"Bounty" : {"price" : 3.0, "quantity" : 7.0}},
-        {"Snickers" : {"price" : 3.0, "quantity" : 7.0}}
+        {"Mars" : {"price" : 3.0, "quantity" : 7.0, "code" : "MAS"}},
+        {"M&M" : {"price" : 3.0, "quantity" : 7.0, "code" : "MAM"}},
+        {"Bounty" : {"price" : 3.0, "quantity" : 7.0, "code" : "BTY"}},
+        {"Snickers" : {"price" : 3.0, "quantity" : 7.0, "code" : "SNK"}}
     ],
 
     "Chips" : [
-        {"Smiths" : {"price" : 3.0, "quantity" : 7.0}},
-        {"Pringles" : {"price" : 3.0, "quantity" : 7.0}},
-        {"Kettle" : {"price" : 3.0, "quantity" : 7.0}},
-        {"Thins" : {"price" : 3.0, "quantity" : 7.0}}
+        {"Smiths" : {"price" : 3.0, "quantity" : 7.0, "code" : "SMH"}},
+        {"Pringles" : {"price" : 3.0, "quantity" : 7.0, "code" : "PNG"}},
+        {"Kettle" : {"price" : 3.0, "quantity" : 7.0, "code" : "KTL"}},
+        {"Thins" : {"price" : 3.0, "quantity" : 7.0, "code" : "TNS"}}
     ],
 
     "Candies" : [
-        {"Mentos" : {"price" : 3.0, "quantity" : 7.0}},
-        {"Sour Patch" : {"price" : 3.0, "quantity" : 7.0}},
-        {"Skittles" : {"price" : 3.0, "quantity" : 7.0}}
+        {"Mentos" : {"price" : 3.0, "quantity" : 7.0, "code" : "MTO"}},
+        {"Sour Patch" : {"price" : 3.0, "quantity" : 7.0, "code" : "SPH"}},
+        {"Skittles" : {"price" : 3.0, "quantity" : 7.0, "code" : "SKI"}}
     ]
 }

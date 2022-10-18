@@ -1,0 +1,16 @@
+{
+    "Charles" : {
+        "password" : "abcd",
+        "card" : {
+            "name" : "Charles",
+            "number" : "40691"
+        }
+    },
+    "Alice" : {
+        "password" : "hi",
+        "card" : {
+            "name" : "",
+            "number" : ""
+        }
+    }
+}

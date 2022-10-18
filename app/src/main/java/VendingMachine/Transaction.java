@@ -1,7 +1,7 @@
 package VendingMachine;
 
-import javax.xml.crypto.Data;
-import java.util.*;
+import java.util.Date;
+import java.util.ArrayList;
 
 public class Transaction {
     private Date startTime;
@@ -11,13 +11,11 @@ public class Transaction {
 
     /**
      * @param startTime
-     * @param endTime
      * @param products
      * @param paymentMethod
      */
-    public Transaction(Date startTime, Date endTime, ArrayList<Product> products, String paymentMethod) {
+    public Transaction(Date startTime, ArrayList<Product> products, String paymentMethod) {
         this.startTime = startTime;
-        this.endTime = endTime;
         this.products = products;
         this.paymentMethod = paymentMethod;
     }
@@ -38,7 +36,7 @@ public class Transaction {
         return this.paymentMethod;
     }
 
-    public void makePayment() {
-        
+    public void setEndTime() {
+        this.endTime = new Date();
     }
 }

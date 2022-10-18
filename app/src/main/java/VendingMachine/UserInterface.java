@@ -1,6 +1,6 @@
 package VendingMachine;
 
-import java.util.*;
+import java.util.Scanner;
 import org.json.simple.JSONObject;
 
 public class UserInterface {
@@ -10,6 +10,7 @@ public class UserInterface {
     public UserInterface(FileManager fm){
         this.fm = fm;
     }
+    
     /**
      * Get input from the terminal.
      * @return String representation of input into the terminal.
@@ -115,7 +116,19 @@ public class UserInterface {
     /**
      * Display text through terminal with a list of all available commands.
      */
-    public void displayHelp() {
+    public void displayCustomerHelp() {
+
+    }
+
+    public void displayCashierHelp() {
+
+    }
+
+    public void displaySellerHelp() {
+
+    }
+
+    public void displayOwnerHelp() {
 
     }
 

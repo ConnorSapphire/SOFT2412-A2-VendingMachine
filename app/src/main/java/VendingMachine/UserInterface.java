@@ -2,7 +2,6 @@ package VendingMachine;
 
 import java.util.HashMap;
 import java.util.Scanner;
-import org.json.simple.JSONObject;
 
 public class UserInterface {
     public static final String ANSI_RESET = "\u001B[0m";

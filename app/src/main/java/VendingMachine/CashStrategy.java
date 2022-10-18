@@ -23,7 +23,7 @@ public class CashStrategy implements PaymentStrategy {
         
         if (cashInput > cost){
             Double change = cashInput - cost;
-            System.out.println("Here is your change: " + change);
+            System.out.println("Here is your change: $" + change);
         } else if (cashInput == cost){
             System.out.println("Transaction successful");
         } else {

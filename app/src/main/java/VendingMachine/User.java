@@ -15,6 +15,7 @@ public abstract class User {
     private boolean storedCard;
     private String cardName;
     private String cardNumber;
+    private HashMap<String, Product> products;
 
     private HashMap<String, String> cards;
 
@@ -32,6 +33,10 @@ public abstract class User {
         this.ui = ui;
         this.cards = cards;
         this.storedCard = false;
+    }
+
+    public void setProducts(HashMap<String, Product> products) {
+        this.products = products;
     }
 
     /**
@@ -103,21 +108,29 @@ public abstract class User {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                // cancel transaction
+                
+                cancelTransaction();
             }
         }, 120000);
         Date startTime = new Date();
-        ArrayList<Product> products = new ArrayList<Product>();
+        ArrayList<Product> prods = new ArrayList<Product>();
+        displayStock();
         Product product = selectProduct();
         while(product != null) {
-            products.add(product);
+            prods.add(product);
             product = selectProduct();
         }
-        if (products.isEmpty()) {
+        double cost = 0;
+        for (Product prod : prods) {
+            cost += prod.getPrice();
+        }
+        System.out.println("Selection complete, total price is $" + cost + ".");
+        if (prods.isEmpty()) {
+            ui.displayErrorString("No products selected. Please view available stock and try again.");
             return false;
         }
         String paymentMethod = selectPaymentMethod();
-        Transaction transaction = new Transaction(startTime, products, paymentMethod);
+        Transaction transaction = new Transaction(startTime, prods, paymentMethod);
         currentTransaction = transaction;
         transaction.setEndTime();
         completeTransaction();
@@ -135,7 +148,7 @@ public abstract class User {
     }
 
     public void cancelTransaction() {
-
+        ui.displayErrorString("TRANSACTION TIMED OUT");
     }
 
     /**
@@ -144,7 +157,10 @@ public abstract class User {
      */
     public Product selectProduct() {
         ui.displaySelectProduct();
-        ui.getInput();
+        String product = ui.getInput();
+        if (products.containsKey(product)) {
+            return products.get(product);
+        }
         return null;
     }
 

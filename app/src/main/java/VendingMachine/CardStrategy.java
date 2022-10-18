@@ -25,10 +25,10 @@ public class CardStrategy implements PaymentStrategy {
             System.out.println("Purchase successful! Your card has been charged $" + cost + ".");
         } else {
             System.out.print("Input cardholder name: ");
-            String cardName = ui.getInput();
+            String cardName = ui.getPlainInput();
             System.out.println();
             System.out.print("Input credit card number: ");
-            String cardNumber = ui.getInput();
+            String cardNumber = ui.getPlainInput();
             System.out.println();
             boolean cardValid = false;
             if (cards.containsKey(cardName)) {

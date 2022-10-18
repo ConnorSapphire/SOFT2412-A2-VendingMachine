@@ -1,7 +1,8 @@
 package VendingMachine;
 
-import java.util.HashMap;
-import java.util.Scanner;
+import java.io.FileNotFoundException;
+import java.io.PrintStream;
+import java.util.*;
 
 public class UserInterface {
     public static final String ANSI_RESET = "\u001B[0m";
@@ -14,14 +15,16 @@ public class UserInterface {
     public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
 
     private FileManager fm;
+    private Scanner scanner;
 
     public UserInterface(FileManager fm){
         this.fm = fm;
+        this.scanner = new Scanner(System.in);
     }
 
     public void displayWelcomeMessage() {
-        System.out.println(ANSI_CYAN + "Welcome to " + ANSI_BLUE + "ATLANTIS" + ANSI_CYAN + "vending machine." + ANSI_RESET);
-        System.out.println(ANSI_YELLOW + "For a list of all commands you have access to, type " + ANSI_WHITE_BACKGROUND + "'help'" + ANSI_RESET);
+        System.out.println(ANSI_CYAN + "Welcome to " + ANSI_BLUE + "ATLANTIS" + ANSI_CYAN + " vending machine." + ANSI_RESET);
+        System.out.println(ANSI_YELLOW + "For a list of all commands you have access to, type 'help'." + ANSI_RESET);
     }
     
     /**
@@ -29,38 +32,76 @@ public class UserInterface {
      * @return String representation of input into the terminal.
      */
     public String getInput() {
-        Scanner scanner = new Scanner(System.in);
+        System.out.print("> ");
         String input = "";
-        if(scanner.hasNextLine()){
+        if (scanner.hasNextLine()) {
             input = scanner.nextLine();
         }
-        scanner.close();
         return input;
     }
 
-    public String getInputPassword(){
-        System.out.println("Enter your password: ");
-        Scanner scanner = new Scanner(System.in);
+    public String getPlainInput() {
         String input = "";
-        if(scanner.hasNextLine()){
+        if (scanner.hasNextLine()) {
             input = scanner.nextLine();
         }
-        scanner.close();
         return input;
     }
+
+    public String getInputPassword() {
+        // StringBuilder input = new StringBuilder();
+        // while (scanner.hasNext()) {
+        //     input.append(scanner.next());
+        // }
+        // return input.toString();
+        
+        // String pass = getInput();
+        // String a = asterisk(pass);
+        // System.out.println(a);
+        // return pass;
+        
+        PrintStream out = System.out;
+        try {
+            System.setOut(new PrintStream("src/main/java/VendingMachine/attempt.txt"));
+        } catch (FileNotFoundException fnfe) {
+            fnfe.printStackTrace();
+        }
+        String password = getInput();
+        System.setOut(out);
+        for (int i = 0; i < password.length(); i++) {
+            System.out.print("*");
+        }
+        System.out.println();
+        return password;
+    }
+
+    public static String asterisk(String password) {
+        if (password == null) {
+            return null;
+        }
+
+        char[] chs = new char[password.length()];
+        for (int i = 1; i < chs.length; i++) {
+            chs[i] = '*';
+        }
+        chs[0] = password.charAt(0);
+        chs[chs.length - 1] = password.charAt(password.length() - 1);
+        return new String(chs);
+    }
+
 
     /**
      * Display text through terminal prompting user to select a product from the vending machine.
      */
     public void displaySelectProduct() {
-        System.out.println("Please select a product: ");
+        System.out.println(ANSI_CYAN + "Please select a product (type 'done' to finish selection): " + ANSI_RESET);
     }
 
     /**
      * Display text through terminal prompting user to select a method of payment. Either card or cash.
      */
     public void displaySelectPaymentMethod() {
-        System.out.println("Please enter your payment method, either " + ANSI_YELLOW + ANSI_WHITE_BACKGROUND + "'cash'" + ANSI_RESET + " or " + ANSI_YELLOW + ANSI_WHITE_BACKGROUND + "'card'" + ANSI_RESET + ".");
+        System.out.println(ANSI_CYAN + "Please enter your payment method, either " + ANSI_YELLOW  + "'cash'" + ANSI_CYAN + " or " + ANSI_YELLOW  + "'card'" + ANSI_CYAN + "." + ANSI_RESET);
     }
 
     /**
@@ -205,24 +246,34 @@ public class UserInterface {
 
     public void displayProductTable(){
         CommandLineTable ct = new CommandLineTable();
-        ct.setHeaders("Category", "Name", "Price", "Quantity");
-        HashMap<String, Double[]> Drinks = fm.lsDrinks();
-        HashMap<String, Double[]> Chocolates = fm.lsChocolates();
-        HashMap<String, Double[]> Chips = fm.lsChips();
-        HashMap<String, Double[]> Candies = fm.lsCandies();
-        for(String d : Drinks.keySet()){
-            ct.addRow(d, "Drinks", Double.toString(Drinks.get(d)[0]), Double.toString(Drinks.get(d)[1]));
+        ct.setHeaders("Category", "Name", "Price", "Quantity", "Shortcode");
+        HashMap<String[], Double[]> Drinks = fm.lsDrinks();
+        HashMap<String[], Double[]> Chocolates = fm.lsChocolates();
+        HashMap<String[], Double[]> Chips = fm.lsChips();
+        HashMap<String[], Double[]> Candies = fm.lsCandies();
+        for(String[] d : Drinks.keySet()){
+            ct.addRow(d[0], "Drinks", Double.toString(Drinks.get(d)[0]), Double.toString(Drinks.get(d)[1]), d[1]);
         }
-        for(String d : Chocolates.keySet()){
-            ct.addRow(d, "Chocolates", Double.toString(Chocolates.get(d)[0]), Double.toString(Chocolates.get(d)[1]));
+        for(String[] d : Chocolates.keySet()){
+            ct.addRow(d[0], "Chocolates", Double.toString(Chocolates.get(d)[0]), Double.toString(Chocolates.get(d)[1]), d[1]);
         }
-        for(String d : Chips.keySet()){
-            ct.addRow(d, "Chips", Double.toString(Chips.get(d)[0]), Double.toString(Chips.get(d)[1]));
+        for(String[] d : Chips.keySet()){
+            ct.addRow(d[0], "Chips", Double.toString(Chips.get(d)[0]), Double.toString(Chips.get(d)[1]), d[1]);
         }
-        for(String d : Candies.keySet()){
-            ct.addRow(d, "Candies", Double.toString(Candies.get(d)[0]), Double.toString(Candies.get(d)[1]));
+        for(String[] d : Candies.keySet()){
+            ct.addRow(d[0], "Candies", Double.toString(Candies.get(d)[0]), Double.toString(Candies.get(d)[1]), d[1]);
         }
         ct.print();
+    }
+
+    public void last5Transactions(String username){
+        ArrayList<String> trans = fm.getLastTransactions(username);
+        CommandLineTable cm = new CommandLineTable();
+        cm.setHeaders("Last Transactions for " + username);
+        for(String str : trans){
+            cm.addRow(str);
+        }
+        cm.print();
     }
     
 }

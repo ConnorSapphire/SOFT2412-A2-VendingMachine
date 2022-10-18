@@ -1,5 +1,6 @@
 package VendingMachine;
 
+import java.util.HashMap;
 import java.util.Scanner;
 import org.json.simple.JSONObject;
 
@@ -40,7 +41,7 @@ public class UserInterface {
      * Display text through terminal prompting user to select a product from the vending machine.
      */
     public void displaySelectProduct() {
-        
+        System.out.println("Please select a product: ");
     }
 
     /**
@@ -157,7 +158,26 @@ public class UserInterface {
 
     }
 
-    public void displayProduct(){
-        
+    public void displayProductTable(){
+        CommandLineTable ct = new CommandLineTable();
+        ct.setHeaders("Category", "Name", "Price", "Quantity");
+        HashMap<String, Double[]> Drinks = fm.lsDrinks();
+        HashMap<String, Double[]> Chocolates = fm.lsChocolates();
+        HashMap<String, Double[]> Chips = fm.lsChips();
+        HashMap<String, Double[]> Candies = fm.lsCandies();
+        for(String d : Drinks.keySet()){
+            ct.addRow(d, "Drinks", Double.toString(Drinks.get(d)[0]), Double.toString(Drinks.get(d)[1]));
+        }
+        for(String d : Chocolates.keySet()){
+            ct.addRow(d, "Chocolates", Double.toString(Chocolates.get(d)[0]), Double.toString(Chocolates.get(d)[1]));
+        }
+        for(String d : Chips.keySet()){
+            ct.addRow(d, "Chips", Double.toString(Chips.get(d)[0]), Double.toString(Chips.get(d)[1]));
+        }
+        for(String d : Candies.keySet()){
+            ct.addRow(d, "Candies", Double.toString(Candies.get(d)[0]), Double.toString(Candies.get(d)[1]));
+        }
+        ct.print();
     }
+    
 }

@@ -1,5 +1,7 @@
 package VendingMachine;
 
+import java.util.HashMap;
+
 public class AnonymousCustomerCreator implements UserCreator {
     /**
      * Create a new AnonymousCustomer stored under its parent class User.
@@ -8,7 +10,7 @@ public class AnonymousCustomerCreator implements UserCreator {
      * @param ui Reference to the UserInterface to allow interaction with terminal.
      * @return A reference to the new User object created.
      */
-    public User create(String username, String password, UserInterface ui) {
-        return new AnonymousCustomer(ui);
+    public User create(String username, String password, UserInterface ui, HashMap<String, String> cards) {
+        return new AnonymousCustomer(ui, cards);
     }
 }

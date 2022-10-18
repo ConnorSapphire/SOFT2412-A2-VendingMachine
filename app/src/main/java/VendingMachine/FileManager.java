@@ -93,7 +93,11 @@ public class FileManager {
 
     public HashMap<String, String> getCreditCards() {
         HashMap<String, String> cards = new HashMap<String, String>();
-
+        Iterator iteratorr = creditCards.iterator();
+        while (iteratorr.hasNext()) {
+            JSONObject obj = (JSONObject) iteratorr.next(); 
+            cards.put(obj.get("name").toString(), obj.get("number").toString()); 
+        }
         return cards;
     }
 }

@@ -11,7 +11,7 @@ public class UserInterfaceTest {
     UserInterface ui = new UserInterface(fm);
 
     @Test
-    public void getUsernameTest() {
+    public void getInputTest() {
         System.out.println("Input any thing:");
         Scanner scan = new Scanner(System.in);
         String input = "";

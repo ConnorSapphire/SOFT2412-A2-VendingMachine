@@ -12,6 +12,22 @@ public class CashStrategy implements PaymentStrategy {
     }
 
     public void pay() {
+        double cost = 0;
+        for (Product product : transaction.getProducts()) {
+            cost += product.getPrice();
+        }
 
+        System.out.println("Please enter the amount to pay: ");
+        String amount = ui.getInput();
+        Double cashInput = Double.parseDouble(amount);
+        
+        if (cashInput > cost){
+            Double change = cashInput - cost;
+            System.out.println("Here is your change: " + change);
+        } else if (cashInput == cost){
+            System.out.println("Transaction successful");
+        } else {
+            System.out.println("Incorrect amount entered. Purchase cancelled.");
+        }
     }
 }

@@ -11,19 +11,25 @@ import java.awt.event.*;
 import javax.swing.*;
 
 public class VendingMachine extends Frame implements ActionListener,WindowListener, TextListener{
-    private FileManager fileManager = new FileManager();
-    private UserInterface ui = new UserInterface(fileManager);
+    private FileManager fileManager;
+    private UserInterface ui;
     private User user;
     private HashMap<String, User> users;
-    private JLabel err = new JLabel();
+    private JLabel err;
     private JTextField username, pw;
     private JButton login, register;
     private HashMap<String, Product> products;
     private HashMap<String, Change> change;
-    private JSONObject json;
 
     public VendingMachine(String str){
 		super(str);
+        fileManager = new FileManager();
+        ui = new UserInterface(fileManager);
+        this.user = null;
+        users = new HashMap<>();
+        products = new HashMap<>();
+        change = new HashMap<>();
+        err = new JLabel();
     }
 
     public static void main(String[] args) {
@@ -98,8 +104,7 @@ public class VendingMachine extends Frame implements ActionListener,WindowListen
 
     @Override
     public void windowOpened(WindowEvent e) {
-        // TODO Auto-generated method stub
-        
+        return;
     }
 
     @Override
@@ -169,6 +174,9 @@ public class VendingMachine extends Frame implements ActionListener,WindowListen
                         return;
                     }
                 }
+                User customer = new RegisteredCustomerCreator().create(name, password, ui);
+                users.put(name, customer);
+                user = customer;
             }
         }
         

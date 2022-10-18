@@ -112,18 +112,24 @@ public abstract class User {
             }
         }, 120000);
         Date startTime = new Date();
-        ArrayList<Product> products = new ArrayList<Product>();
+        ArrayList<Product> prods = new ArrayList<Product>();
+        displayStock();
         Product product = selectProduct();
         while(product != null) {
-            products.add(product);
+            prods.add(product);
             product = selectProduct();
         }
-        if (products.isEmpty()) {
+        double cost = 0;
+        for (Product prod : prods) {
+            cost += prod.getPrice();
+        }
+        System.out.println("Selection complete, total price is $" + cost + ".");
+        if (prods.isEmpty()) {
             ui.displayErrorString("No products selected. Please view available stock and try again.");
             return false;
         }
         String paymentMethod = selectPaymentMethod();
-        Transaction transaction = new Transaction(startTime, products, paymentMethod);
+        Transaction transaction = new Transaction(startTime, prods, paymentMethod);
         currentTransaction = transaction;
         transaction.setEndTime();
         completeTransaction();

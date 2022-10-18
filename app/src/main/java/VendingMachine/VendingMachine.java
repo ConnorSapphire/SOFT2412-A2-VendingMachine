@@ -18,11 +18,13 @@ public class VendingMachine {
 
     public VendingMachine() {
         UserCreator userCreator = new AnonymousCustomerCreator();
-        users = new HashMap<String, User>();
-        products = new HashMap<String, Product>();
-        change = new HashMap<String, Change>();
         this.cards = fileManager.getCreditCards();
         this.user = userCreator.create("", "", ui, cards);
+        users = new HashMap<String, User>();
+        userCreator = new RegisteredCustomerCreator();
+        users.put("Charles", userCreator.create("Charles", "abcd", ui, cards));
+        products = new HashMap<String, Product>();
+        change = new HashMap<String, Change>();
         this.products = new HashMap<String, Product>();
         HashMap<String, Double[]> drinks = fileManager.lsDrinks();
         int code = 0;
@@ -70,7 +72,7 @@ public class VendingMachine {
         System.out.print("Enter username: ");
         String username = ui.getPlainInput();
         System.out.print("Enter password: ");
-        String password = ui.getInputPassword();
+        String password = ui.getPlainInput();
     
         // Check username exists in system  
         boolean exists = false;      
@@ -85,12 +87,13 @@ public class VendingMachine {
             return user;
         }
 
-        if (password != users.get(username).getPassword()) {
+        if (!password.equals(users.get(username).getPassword())) {
             ui.displayLoginFailed();
             return user;
         }
 
         user = users.get(username);
+        ui.displayLoginSuccess(user);
         return user;
     }
 

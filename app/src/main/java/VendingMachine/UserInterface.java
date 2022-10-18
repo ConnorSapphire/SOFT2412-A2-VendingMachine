@@ -58,7 +58,7 @@ public class UserInterface {
      * Display text through terminal prompting user to select a product from the vending machine.
      */
     public void displaySelectProduct() {
-        System.out.println("Please select a product: ");
+        System.out.println("Please select a product (type 'done' to finish selection): ");
     }
 
     /**

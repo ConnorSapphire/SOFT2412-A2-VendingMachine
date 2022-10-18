@@ -1,29 +1,29 @@
 {
     "Drinks" : [
-        {"Mineral Water" : {"price" : 3, "quantity" : 7}},
-        {"Sprite" : {"price" : 3, "quantity" : 7}},
-        {"Coca cola" : {"price" : 3, "quantity" : 7}},
-        {"Pepsi" : {"price" : 3, "quantity" : 7}},
-        {"Juice" : {"price" : 3, "quantity" : 7}}
+        {"Mineral Water" : {"price" : 3.0, "quantity" : 7.0}},
+        {"Sprite" : {"price" : 3.0, "quantity" : 7.0}},
+        {"Coca cola" : {"price" : 3.0, "quantity" : 7.0}},
+        {"Pepsi" : {"price" : 3.0, "quantity" : 7.0}},
+        {"Juice" : {"price" : 3.0, "quantity" : 7.0}}
     ],
 
     "Chocolates" : [
-        {"Mars" : {"price" : 3, "quantity" : 7}},
-        {"M&M" : {"price" : 3, "quantity" : 7}},
-        {"Bounty" : {"price" : 3, "quantity" : 7}},
-        {"Snickers" : {"price" : 3, "quantity" : 7}}
+        {"Mars" : {"price" : 3.0, "quantity" : 7.0}},
+        {"M&M" : {"price" : 3.0, "quantity" : 7.0}},
+        {"Bounty" : {"price" : 3.0, "quantity" : 7.0}},
+        {"Snickers" : {"price" : 3.0, "quantity" : 7.0}}
     ],
 
     "Chips" : [
-        {"Smiths" : {"price" : 3, "quantity" : 7}},
-        {"Pringles" : {"price" : 3, "quantity" : 7}},
-        {"Kettle" : {"price" : 3, "quantity" : 7}},
-        {"Thins" : {"price" : 3, "quantity" : 7}}
+        {"Smiths" : {"price" : 3.0, "quantity" : 7.0}},
+        {"Pringles" : {"price" : 3.0, "quantity" : 7.0}},
+        {"Kettle" : {"price" : 3.0, "quantity" : 7.0}},
+        {"Thins" : {"price" : 3.0, "quantity" : 7.0}}
     ],
 
     "Candies" : [
-        {"Mentos" : 7},
-        {"Sour Patch" : 7},
-        {"Skittles" : 7}
+        {"Mentos" : {"price" : 3.0, "quantity" : 7.0}},
+        {"Sour Patch" : {"price" : 3.0, "quantity" : 7.0}},
+        {"Skittles" : {"price" : 3.0, "quantity" : 7.0}}
     ]
 }

@@ -43,52 +43,60 @@ public class FileManager {
 
     public HashMap<String, Double[]> lsDrinks() {
         HashMap<String, Double[]> output = new HashMap<>();
-        JSONObject drinks = (JSONObject) this.stock.get("Drinks");
-        Iterator<Map.Entry> itr = drinks.entrySet().iterator();
-        while (itr.hasNext()) {
-            Map.Entry pair = itr.next();
-            JSONObject value = (JSONObject) pair.getValue();
-            Double[] num = new Double[] { (Double) value.get("price"), (Double) value.get("quantity") };
-            output.put((String) pair.getKey(), num);
+        JSONArray drinks = (JSONArray) this.stock.get("Drinks");
+        for (Object obj : drinks) {
+            JSONObject drink = (JSONObject) obj;
+            for (Object objKey : drink.keySet()) {
+                String key = (String) objKey;
+                JSONObject value = (JSONObject) drink.get(key);
+                Double[] num = new Double[] { (Double) value.get("price"), (Double) value.get("quantity") };
+                output.put(key, num);
+            }
         }
         return output;
     }
 
     public HashMap<String, Double[]> lsChocolates() {
         HashMap<String, Double[]> output = new HashMap<>();
-        JSONObject chocolates = (JSONObject) this.stock.get("Chocolates");
-        Iterator<Map.Entry> itr = chocolates.entrySet().iterator();
-        while (itr.hasNext()) {
-            Map.Entry pair = itr.next();
-            JSONObject value = (JSONObject) pair.getValue();
-            Double[] num = new Double[] { (Double) value.get("price"), (Double) value.get("quantity") };
-            output.put((String) pair.getKey(), num);
+        JSONArray chocolates = (JSONArray) this.stock.get("Chocolates");
+        for (Object obj : chocolates) {
+            JSONObject chocolate = (JSONObject) obj;
+            for (Object objKey : chocolate.keySet()) {
+                String key = (String) objKey;
+                JSONObject value = (JSONObject) chocolate.get(key);
+                Double[] num = new Double[] { (Double) value.get("price"), (Double) value.get("quantity") };
+                output.put(key, num);
+            }
         }
         return output;
     }
 
     public HashMap<String, Double[]> lsChips() {
         HashMap<String, Double[]> output = new HashMap<>();
-        JSONObject chips = (JSONObject) this.stock.get("Chips");
-        Iterator<Map.Entry> itr = chips.entrySet().iterator();
-        while (itr.hasNext()) {
-            Map.Entry pair = itr.next();
-            JSONObject value = (JSONObject) pair.getValue();
-            Double[] num = new Double[] { (Double) value.get("price"), (Double) value.get("quantity") };
-            output.put((String) pair.getKey(), num);
+        JSONArray chips = (JSONArray) this.stock.get("Chips");
+        for (Object obj : chips) {
+            JSONObject chip = (JSONObject) obj;
+            for (Object objKey : chip.keySet()) {
+                String key = (String) objKey;
+                JSONObject value = (JSONObject) chip.get(key);
+                Double[] num = new Double[] { (Double) value.get("price"), (Double) value.get("quantity") };
+                output.put(key, num);
+            }
         }
         return output;
     }
 
     public HashMap<String, Double[]> lsCandies() {
         HashMap<String, Double[]> output = new HashMap<>();
-        JSONObject candies = (JSONObject) this.stock.get("Candies");
-        Iterator<Map.Entry> itr = candies.entrySet().iterator();
-        while (itr.hasNext()) {
-            Map.Entry pair = itr.next();
-            JSONObject value = (JSONObject) pair.getValue();
-            Double[] num = new Double[] { (Double) value.get("price"), (Double) value.get("quantity") };
-            output.put((String) pair.getKey(), num);
+        JSONArray candies = (JSONArray) this.stock.get("Candies");
+        for (Object obj : candies) {
+            JSONObject candy = (JSONObject) obj;
+            for (Object objKey : candy.keySet()) {
+                String key = (String) objKey;
+                JSONObject value = (JSONObject) candy.get(key);
+                Double[] num = new Double[] { (Double) value.get("price"), (Double) value.get("quantity") };
+                output.put(key, num);
+            }
         }
         return output;
     }

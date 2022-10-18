@@ -26,11 +26,12 @@ public class UserInterface {
     }
 
     public String getInputPassword(){
-        String password = ("Enter your password: ");
+        System.out.println("Enter your password: ");
         Scanner scanner = new Scanner(System.in);
-        // User string builder
-        String input = scanner.nextLine();
-        
+        String input = "";
+        if(scanner.hasNextLine()){
+            input = scanner.nextLine();
+        }
         scanner.close();
         return input;
     }

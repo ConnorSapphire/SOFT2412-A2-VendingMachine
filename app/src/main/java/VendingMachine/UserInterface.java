@@ -2,6 +2,7 @@ package VendingMachine;
 
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
+import java.io.Console;
 import java.util.*;
 
 public class UserInterface {
@@ -60,14 +61,17 @@ public class UserInterface {
         // System.out.println(a);
         // return pass;
         
-        PrintStream out = System.out;
-        try {
-            System.setOut(new PrintStream("src/main/java/VendingMachine/attempt.txt"));
-        } catch (FileNotFoundException fnfe) {
-            fnfe.printStackTrace();
-        }
-        String password = getInput();
-        System.setOut(out);
+        // PrintStream out = System.out;
+        // try {
+        //     System.setOut(new PrintStream("src/main/java/VendingMachine/attempt.txt"));
+        // } catch (FileNotFoundException fnfe) {
+        //     fnfe.printStackTrace();
+        // }
+        // String password = getInput();
+        // System.setOut(out);
+        Console console = System.console();
+        char[] charpassword = console.readPassword();
+        String password = charpassword.toString();
         for (int i = 0; i < password.length(); i++) {
             System.out.print("*");
         }

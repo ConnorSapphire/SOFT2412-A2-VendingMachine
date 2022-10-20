@@ -20,6 +20,13 @@ public class Cashier extends User {
      * @return
      */
     public boolean fillChange(Change change, int quantity) {
+        if (quantity > 0) {
+            change.setQuantity(quantity);
+            System.out.println("The vending machine now contains " + change.getQuantity() + " of " + change.getName() + ".");
+            // TODO: Update change file
+            return true;
+        }
+        getUI().displayErrorString("Quantity provided is invalid. Cannot have negative or zero of a coin/note.");
         return false;
     }
 
@@ -48,6 +55,7 @@ public class Cashier extends User {
      * 
      */
     public void displayChange() {
+        this.getUI().displayChange();
     }
 
     /**
@@ -55,6 +63,7 @@ public class Cashier extends User {
      * payment method.
      */
     public void displayTransactionHistory() {
+        this.getUI().displayTransactionHistory();
     }
 
     public void displayHelp() {

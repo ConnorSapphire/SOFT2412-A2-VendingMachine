@@ -26,9 +26,17 @@ public class CardStrategy implements PaymentStrategy {
         } else {
             System.out.print("Input cardholder name: ");
             String cardName = ui.getPlainInput();
+            if (cardName.toLowerCase().equals("cancel")) {
+                user.cancelTransaction();
+                return;
+            }
             System.out.println();
             System.out.print("Input credit card number: ");
             String cardNumber = ui.getPlainInput();
+            if (cardNumber.toLowerCase().equals("cancel")) {
+                user.cancelTransaction();
+                return;
+            }
             System.out.println();
             boolean cardValid = false;
             if (cards.containsKey(cardName)) {
@@ -48,9 +56,13 @@ public class CardStrategy implements PaymentStrategy {
                         System.out.println("Card details successfully stored to your account. Have a great day!");
                     } else if (response.toLowerCase().contains("n")) {
                         System.out.println("No worries! Have a great day!");
+                    } else {
+                        ui.displayErrorString("Unrecognised input. Protecting card details...");
+                        System.out.println("Card details have not been saved. Have a great a day!");
                     }
                 }
             }
         }
+        transaction.setEndTime();
     }
 }

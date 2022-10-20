@@ -24,33 +24,37 @@ public class VendingMachine {
         userCreator = new RegisteredCustomerCreator();
         users.put("Charles", userCreator.create("Charles", "abcd", ui, cards));
         products = new HashMap<String, Product>();
-        change = new HashMap<String, Change>();
-        this.products = new HashMap<String, Product>();
         HashMap<String[], Double[]> drinks = fileManager.lsDrinks();
-        int code = 0;
-        ProductCreator creator = new DrinkCreator();
+        ProductCreator productCreator = new DrinkCreator();
         for (String[] drink : drinks.keySet()) {
-            products.put(drink[0], creator.create(drink[0], String.valueOf(code), drinks.get(drink)[0], (int) Math.round(drinks.get(drink)[1])));
-            code += 1;
+            products.put(drink[0], productCreator.create(drink[0], drink[1], drinks.get(drink)[0], (int) Math.round(drinks.get(drink)[1])));
         }
         HashMap<String[], Double[]> chocolates = fileManager.lsChocolates();
-        creator = new ChocolateCreator();
+        productCreator = new ChocolateCreator();
         for (String[] chocolate : chocolates.keySet()) {
-            products.put(chocolate[0], creator.create(chocolate[0], String.valueOf(code), chocolates.get(chocolate)[0], (int) Math.round(chocolates.get(chocolate)[1])));
-            code += 1;
+            products.put(chocolate[0], productCreator.create(chocolate[0], chocolate[1], chocolates.get(chocolate)[0], (int) Math.round(chocolates.get(chocolate)[1])));
         }
         HashMap<String[], Double[]> candies = fileManager.lsCandies();
-        creator = new CandyCreator();
+        productCreator = new CandyCreator();
         for (String[] candy : candies.keySet()) {
-            products.put(candy[0], creator.create(candy[0], String.valueOf(code), candies.get(candy)[0], (int) Math.round(candies.get(candy)[1])));
-            code += 1;
+            products.put(candy[0], productCreator.create(candy[0], candy[1], candies.get(candy)[0], (int) Math.round(candies.get(candy)[1])));
         }
         HashMap<String[], Double[]> chips = fileManager.lsChips();
-        creator = new ChipCreator();
+        productCreator = new ChipCreator();
         for (String[] chip : chips.keySet()) {
-            products.put(chip[0], creator.create(chip[0], String.valueOf(code), chips.get(chip)[0], (int) Math.round(chips.get(chip)[1])));
-            code += 1;
+            products.put(chip[0], productCreator.create(chip[0], chip[1], chips.get(chip)[0], (int) Math.round(chips.get(chip)[1])));
         }
+        change = new HashMap<String, Change>();
+        HashMap<String, Double[]> notes = fileManager.lsNotes();
+        ChangeCreator changeCreator = new NoteCreator();
+        for (String note : notes.keySet()) {
+            change.put(note, changeCreator.create(note, notes.get(note)[0], (int) Math.round(notes.get(note)[1])));
+        }
+        HashMap<String, Double[]> coins = fileManager.lsCoins();
+        changeCreator = new CoinCreator();
+        // for (String coin : coins.keySet()) {
+        //     change.put(coin, changeCreator.create(coin, notes.get(coin)[0], (int) Math.round(notes.get(coin)[1])));
+        // }
         this.quit = false;
         ui.displayWelcomeMessage();
     }
@@ -61,6 +65,10 @@ public class VendingMachine {
 
     public HashMap<String, Product> getProducts() {
         return this.products;
+    }
+
+    public HashMap<String, Change> getChange() {
+        return this.change;
     }
 
     public boolean isQuit() {

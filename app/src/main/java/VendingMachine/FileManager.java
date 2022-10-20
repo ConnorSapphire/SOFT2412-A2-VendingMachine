@@ -58,6 +58,10 @@ public class FileManager {
         return output;
     }
 
+    public void updateDrinks(Product drink) {
+        
+    }
+
     public HashMap<String[], Double[]> lsChocolates() {
         HashMap<String[], Double[]> output = new HashMap<>();
         JSONArray chocolates = (JSONArray) this.stock.get("Chocolates");
@@ -72,6 +76,10 @@ public class FileManager {
             }
         }
         return output;
+    }
+
+    public void updateChocolates(Product chocolate) {
+
     }
 
     public HashMap<String[], Double[]> lsChips() {
@@ -90,6 +98,10 @@ public class FileManager {
         return output;
     }
 
+    public void updateChips(Product chip) {
+
+    }
+
     public HashMap<String[], Double[]> lsCandies() {
         HashMap<String[], Double[]> output = new HashMap<>();
         JSONArray candies = (JSONArray) this.stock.get("Candies");
@@ -104,6 +116,10 @@ public class FileManager {
             }
         }
         return output;
+    }
+
+    public void updateCandies(Product candy) {
+    
     }
 
     public HashMap<String, Double[]> lsNotes() {
@@ -121,6 +137,11 @@ public class FileManager {
         return output;
     }
 
+    
+    public void updateNotes(Change note) {
+    
+    }
+
     public HashMap<String, Double[]> lsCoins() {
         HashMap<String, Double[]> output = new HashMap<String, Double[]>();
         JSONArray coins = (JSONArray) this.change.get("Coins");
@@ -134,6 +155,10 @@ public class FileManager {
             }
         }
         return output;
+    }
+
+    public void updateCoins(Change coin) {
+
     }
 
     public HashMap<String, String> getCreditCards() {

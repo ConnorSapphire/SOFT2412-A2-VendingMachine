@@ -27,7 +27,10 @@ public class CashStrategy implements PaymentStrategy {
             user.cancelTransaction();
             return;
         }}
+
         test(cost);
+        
+        // Adjustments to be made below 
         Double cashInput = Double.parseDouble(amount);
         
         if (cashInput > cost){

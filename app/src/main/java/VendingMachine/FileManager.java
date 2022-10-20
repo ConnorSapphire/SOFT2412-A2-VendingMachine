@@ -24,7 +24,7 @@ public class FileManager {
         Object obj = null;
         try {
             obj = new JSONParser()
-                    .parse(new FileReader(new File("src/main/java/VendingMachine/" + filename + ".json")));
+                    .parse(new FileReader(new File("app/src/main/java/VendingMachine/" + filename + ".json")));
         } catch (FileNotFoundException e) {
             System.err.println(filename + ".json not found!");
             System.exit(1);
@@ -183,7 +183,49 @@ public class FileManager {
     }
 
     public void modifyName(String category, String oldName, String newName){
+<<<<<<< HEAD
         JSONObject cate = (JSONObject) stock.get(category);
 
+=======
+        JSONArray oldcate = (JSONArray) stock.get(category);
+        JSONArray newcate = new JSONArray();
+        for (Object obj : oldcate) {
+            JSONObject Jobj = (JSONObject) obj;
+            for (Object objKey : Jobj.keySet()) {
+                String key = (String) objKey;
+                JSONObject value = (JSONObject) Jobj.get(key);
+                if(key.equals(oldName)){
+                    newcate.add(newName + ": " + value.toJSONString());
+                }else{
+                    newcate.add(Jobj.toJSONString());
+                }
+            }
+        }
+        JSONObject newstock = new JSONObject();
+        for (Object objKey : stock.keySet()) {
+            String key = (String) objKey;
+            if(key.equals(category)){
+                newstock.put(category, newcate);
+            }else{
+                newstock.put(key, stock.get(key));
+            }
+        }
+        stock = newstock;
+        writeJsonFile(newstock, "stock");
+    }
+
+    public void writeJsonFile(JSONObject json, String filename){
+        try(FileWriter file = new FileWriter("app/src/main/java/VendingMachine/" + filename + ".json")){
+            file.write(json.toJSONString());
+            System.out.print(json.toJSONString());
+        }catch(IOException e){
+            System.out.println(e);
+        }
+    }
+
+    public static void main(String[] args){
+        FileManager fm = new FileManager();
+        fm.modifyName("Chips", "Smiths", "S");
+>>>>>>> ced2e7b373b4565d61efc045d415d37e3d2bc0dd
     }
 }

@@ -43,6 +43,20 @@ public class VendingMachine {
         productCreator = new ChipCreator();
         for (String[] chip : chips.keySet()) {
             products.put(chip[0], productCreator.create(chip[0], chip[1], chips.get(chip)[0], (int) Math.round(chips.get(chip)[1])));
+<<<<<<< HEAD
+=======
+        }
+        change = new HashMap<String, Change>();
+        HashMap<String, Double[]> notes = fileManager.lsNotes();
+        ChangeCreator changeCreator = new NoteCreator();
+        for (String note : notes.keySet()) {
+            change.put(note, changeCreator.create(note, notes.get(note)[0], (int) Math.round(notes.get(note)[1])));
+        }
+        HashMap<String, Double[]> coins = fileManager.lsCoins();
+        changeCreator = new CoinCreator();
+        for (String coin : coins.keySet()) {
+            change.put(coin, changeCreator.create(coin, notes.get(coin)[0], (int) Math.round(notes.get(coin)[1])));
+>>>>>>> ced2e7b373b4565d61efc045d415d37e3d2bc0dd
         }
         change = new HashMap<String, Change>();
         HashMap<String, Double[]> notes = fileManager.lsNotes();

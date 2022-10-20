@@ -181,4 +181,9 @@ public class FileManager {
         }
         return trans;
     }
+
+    public void modifyName(String category, String oldName, String newName){
+        JSONObject cate = (JSONObject) stock.get(category);
+
+    }
 }

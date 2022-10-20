@@ -44,6 +44,7 @@ public class Seller extends User {
      * @return
      */
     public boolean modifyProductName(Product product, String name) {
+        
         return false;
     }
 

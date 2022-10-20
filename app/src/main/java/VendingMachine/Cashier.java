@@ -55,6 +55,7 @@ public class Cashier extends User {
      * 
      */
     public void displayChange() {
+        this.getUI().displayChange();
     }
 
     /**
@@ -62,6 +63,7 @@ public class Cashier extends User {
      * payment method.
      */
     public void displayTransactionHistory() {
+        this.getUI().displayTransactionHistory();
     }
 
     public void displayHelp() {

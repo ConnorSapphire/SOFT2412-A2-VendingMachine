@@ -123,6 +123,9 @@ public class UserInterface {
         System.out.println(ANSI_CYAN + "Login success! Welcome " + ANSI_BLUE + user.getUsername() + ANSI_CYAN + "!" + ANSI_RESET);
     }
 
+    public void displayLogout() {
+        System.out.println(ANSI_RED + "You have logged out! You are now an anonymous customer..." + ANSI_RESET);
+    }
 
     /**
      * Display text through terminal listing all current stock in the vending machine.
@@ -183,7 +186,7 @@ public class UserInterface {
         System.out.println("> login" + ANSI_YELLOW + "\n\tLogin to a registered account." + ANSI_RESET);
         System.out.println("> register" + ANSI_YELLOW + "\n\tRegister a new account." + ANSI_RESET);
         System.out.println("> logout" + ANSI_YELLOW + "\n\tLogout of the current account." + ANSI_RESET);
-        System.out.println("> display" + ANSI_YELLOW + "\n\tDisplay all stock in the vending machine." + ANSI_RESET);
+        System.out.println("> display products" + ANSI_YELLOW + "\n\tDisplay all stock in the vending machine." + ANSI_RESET);
         System.out.println("> buy" + ANSI_YELLOW + "\n\tSelect products to purchase and make payment." + ANSI_RESET);
         System.out.println("> help" + ANSI_YELLOW + "\n\tDisplay all available commands." + ANSI_RESET);
         System.out.println("> quit" + ANSI_YELLOW + "\n\tExit the application." + ANSI_RESET);
@@ -195,30 +198,42 @@ public class UserInterface {
         System.out.println("> login" + ANSI_YELLOW + "\n\tLogin to a registered account." + ANSI_RESET);
         System.out.println("> register" + ANSI_YELLOW + "\n\tRegister a new account." + ANSI_RESET);
         System.out.println("> logout" + ANSI_YELLOW + "\n\tLogout of the current account." + ANSI_RESET);
-        System.out.println("> display" + ANSI_YELLOW + "\n\tDisplay all stock in the vending machine." + ANSI_RESET);
+        System.out.println("> display products" + ANSI_YELLOW + "\n\tDisplay all stock in the vending machine." + ANSI_RESET);
         System.out.println("> buy" + ANSI_YELLOW + "\n\tSelect products to purchase and make payment." + ANSI_RESET);
+        System.out.println("> display transactions" + ANSI_YELLOW + "\n\tDisplay all successful previous transactions." + ANSI_RESET);
+        System.out.println("> display change" + ANSI_YELLOW + "\n\tDisplay all change in the vending machine." + ANSI_RESET);
+        System.out.println("> fill change" + ANSI_YELLOW + "\n\tFill the vending machine with a selected change to a selected quantity." + ANSI_RESET);
         System.out.println("> help" + ANSI_YELLOW + "\n\tDisplay all available commands." + ANSI_RESET);
         System.out.println("> quit" + ANSI_YELLOW + "\n\tExit the application." + ANSI_RESET);
     }
 
     public void displaySellerHelp() {
+        // INCOMPLETE
         System.out.println(ANSI_CYAN + "Your current access level is " + ANSI_BLUE + "seller" + ANSI_CYAN + ". You have access to the following commands:" + ANSI_RESET);
         System.out.println("> login" + ANSI_YELLOW + "\n\tLogin to a registered account." + ANSI_RESET);
         System.out.println("> register" + ANSI_YELLOW + "\n\tRegister a new account." + ANSI_RESET);
         System.out.println("> logout" + ANSI_YELLOW + "\n\tLogout of the current account." + ANSI_RESET);
-        System.out.println("> display" + ANSI_YELLOW + "\n\tDisplay all stock in the vending machine." + ANSI_RESET);
+        System.out.println("> display products" + ANSI_YELLOW + "\n\tDisplay all stock in the vending machine." + ANSI_RESET);
         System.out.println("> buy" + ANSI_YELLOW + "\n\tSelect products to purchase and make payment." + ANSI_RESET);
+        System.out.println("> display stock" + ANSI_YELLOW + "\n\tDisplay a detailed summary of stock and stock flow." + ANSI_RESET);
+        System.out.println("> fill product" + ANSI_YELLOW + "\n\tFill the vending machine with a selected product to a selected quantity." + ANSI_RESET);
         System.out.println("> help" + ANSI_YELLOW + "\n\tDisplay all available commands." + ANSI_RESET);
         System.out.println("> quit" + ANSI_YELLOW + "\n\tExit the application." + ANSI_RESET);
     }
 
     public void displayOwnerHelp() {
+        // INCOMPLETE
         System.out.println(ANSI_CYAN + "Your current access level is " + ANSI_BLUE + "owner" + ANSI_CYAN + ". You have access to the following commands:" + ANSI_RESET);
         System.out.println("> login" + ANSI_YELLOW + "\n\tLogin to a registered account." + ANSI_RESET);
         System.out.println("> register" + ANSI_YELLOW + "\n\tRegister a new account." + ANSI_RESET);
         System.out.println("> logout" + ANSI_YELLOW + "\n\tLogout of the current account." + ANSI_RESET);
-        System.out.println("> display" + ANSI_YELLOW + "\n\tDisplay all stock in the vending machine." + ANSI_RESET);
+        System.out.println("> display products" + ANSI_YELLOW + "\n\tDisplay all stock in the vending machine." + ANSI_RESET);
         System.out.println("> buy" + ANSI_YELLOW + "\n\tSelect products to purchase and make payment." + ANSI_RESET);
+        System.out.println("> display transactions" + ANSI_YELLOW + "\n\tDisplay all successful previous transactions." + ANSI_RESET);
+        System.out.println("> display change" + ANSI_YELLOW + "\n\tDisplay all change in the vending machine." + ANSI_RESET);
+        System.out.println("> fill change" + ANSI_YELLOW + "\n\tFill the vending machine with a selected change to a selected quantity." + ANSI_RESET);
+        System.out.println("> display stock" + ANSI_YELLOW + "\n\tDisplay a detailed summary of stock and stock flow." + ANSI_RESET);
+        System.out.println("> fill product" + ANSI_YELLOW + "\n\tFill the vending machine with a selected product to a selected quantity." + ANSI_RESET);
         System.out.println("> help" + ANSI_YELLOW + "\n\tDisplay all available commands." + ANSI_RESET);
         System.out.println("> quit" + ANSI_YELLOW + "\n\tExit the application." + ANSI_RESET);
     }

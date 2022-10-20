@@ -130,8 +130,7 @@ public class VendingMachine {
         return ui.getInput();
     }
 
-    public void handleInput() {
-        String input = this.getInput();
+    public void handleInput(String input) {
         if (input.contains("help")) {
             user.displayHelp();
         }  else if (input.contains("buy")) {
@@ -140,16 +139,63 @@ public class VendingMachine {
             user.cancelTransaction();
         } else if (input.contains("login")) {
             user = this.login();
-        } else if (input.contains("lougout")) {
+        } else if (input.contains("logout")) {
+            ui.displayLogout();
             UserCreator creator = new AnonymousCustomerCreator();
             user = creator.create("", "", ui, cards);
         } else if (input.contains("register")) {
             user = this.newRegisteredCustomer();
-        } else if (input.contains("display")) {
+        } else if (input.contains("display products")) {
             user.displayStock();
         } else if (input.contains("quit")) {
             this.quit = true;
             System.exit(0);
+        }
+        if (user.getAccessLevel().equals("cashier") || user.getAccessLevel().equals("owner")) {
+            if (input.contains("fill change")) {
+                System.out.println("The change available to fill include: ");
+                for (String ch : change.keySet()) {
+                    System.out.print(ch + " ");
+                }
+                System.out.print("Which change do you want to fill? ");
+                String changeName = ui.getPlainInput();
+                Change selected;
+                if (change.containsKey(changeName)) {
+                    selected = change.get(changeName);
+                } else {
+                    ui.displayErrorString("Provided change, " + changeName + ", does not exist.");
+                    return;
+                }
+                System.out.print("How many " + changeName + " do you wish to store? ");
+                int quantity = Integer.parseInt(ui.getPlainInput());
+                user.fillChange(selected, quantity);
+            } else if (input.contains("display change")) {
+                user.displayChange();
+            } else if (input.contains("display transactions")) {
+                user.displayTransactionHistory();
+            }
+        }
+        if (user.getAccessLevel().equals("seller") || user.getAccessLevel().equals("owner")) {
+            if (input.contains("fill product")) {
+                System.out.println("The products available to fill include: ");
+                for (String product : products.keySet()) {
+                    System.out.print(product + " ");
+                }
+                System.out.print("Which product do you want to fill? ");
+                String productName = ui.getPlainInput();
+                Product selected;
+                if (products.containsKey(productName)) {
+                    selected = products.get(productName);
+                } else {
+                    ui.displayErrorString("Provided change, " + productName + ", does not exist.");
+                    return;
+                }
+                System.out.print("How many " + productName + " do you wish to store? ");
+                int quantity = Integer.parseInt(ui.getPlainInput());
+                user.fillProduct(selected, quantity);
+            } else if (input.contains("display stock")) {
+                user.displayDetailedStock();
+            }
         }
     }
 }

@@ -26,10 +26,10 @@ public class UserTest {
         assertEquals("", user.getPassword());
     }
 
-    @Test
-    public void getAccessLevelTest() {
-        assertEquals("customer", user.getAccessLevel());
-    }
+    // @Test
+    // public void getAccessLevelTest() {
+    //     assertEquals("customer", user.getAccessLevel());
+    // }
 
     @Test
     public void getUITest() {

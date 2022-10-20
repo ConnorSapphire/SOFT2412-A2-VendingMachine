@@ -19,6 +19,10 @@ public class CashStrategy implements PaymentStrategy {
 
         System.out.println("Please enter the amount to pay: ");
         String amount = ui.getInput();
+        if (amount.toLowerCase().equals("cancel")) {{
+            user.cancelTransaction();
+            return;
+        }}
         Double cashInput = Double.parseDouble(amount);
         
         if (cashInput > cost){
@@ -29,5 +33,6 @@ public class CashStrategy implements PaymentStrategy {
         } else {
             System.out.println("Incorrect amount entered. Purchase cancelled.");
         }
+        transaction.setEndTime();
     }
 }

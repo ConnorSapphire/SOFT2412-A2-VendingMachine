@@ -16,6 +16,8 @@ public abstract class User implements Runnable {
     private String cardName;
     private String cardNumber;
     private HashMap<String, Product> products;
+    private HashMap<String, Change> change;
+    private boolean cancelTransaction;
 
     private HashMap<String, String> cards;
 
@@ -33,10 +35,19 @@ public abstract class User implements Runnable {
         this.ui = ui;
         this.cards = cards;
         this.storedCard = false;
+        this.cancelTransaction = false;
     }
 
     public void setProducts(HashMap<String, Product> products) {
         this.products = products;
+    }
+
+    public void setChange(HashMap<String, Change> change) {
+        this.change = change;
+    }
+
+    public HashMap<String, Change> getChange() {
+        return this.change;
     }
 
     /**
@@ -97,6 +108,10 @@ public abstract class User implements Runnable {
         return this.cards;
     }
 
+    public boolean isTransactionCancelled() {
+        return this.cancelTransaction;
+    }
+
     /**
      * 
      * @param product
@@ -123,7 +138,7 @@ public abstract class User implements Runnable {
         t.interrupt();  // Tell the thread to stop
         ui.displayErrorString("\nTransaction Timed Out");
         try {
-            t.join(125L);       // Wait for the thread to cleanup and finish
+            t.join();       // Wait for the thread to cleanup and finish
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -135,7 +150,7 @@ public abstract class User implements Runnable {
         ArrayList<Product> prods = new ArrayList<Product>();
         displayStock();
         Product product = selectProduct();
-        while(product != null) {
+        while(product != null && !cancelTransaction) {
             prods.add(product);
             product = selectProduct();
         }
@@ -143,16 +158,21 @@ public abstract class User implements Runnable {
         for (Product prod : prods) {
             cost += prod.getPrice();
         }
-        System.out.println("Selection complete, total price is $" + cost + ".");
-        if (prods.isEmpty()) {
-            ui.displayErrorString("No products selected. Please view available stock and try again.");
-            return;
+        String paymentMethod = "";
+        if (!cancelTransaction) {
+            if (prods.isEmpty()) {
+                ui.displayErrorString("No products selected. Please view available stock and try again.");
+                return;
+            } else {
+                System.out.println("Selection complete, total price is $" + cost + ".");
+            }
+            paymentMethod = selectPaymentMethod();
         }
-        String paymentMethod = selectPaymentMethod();
-        Transaction transaction = new Transaction(startTime, prods, paymentMethod);
-        currentTransaction = transaction;
-        transaction.setEndTime();
-        completeTransaction();
+        if (!cancelTransaction) {
+            Transaction transaction = new Transaction(startTime, prods, paymentMethod);
+            currentTransaction = transaction;
+            completeTransaction();
+        }
     }
     
     public void completeTransaction() {
@@ -166,7 +186,8 @@ public abstract class User implements Runnable {
     }
 
     public void cancelTransaction() {
-        ui.displayErrorString("TRANSACTION TIMED OUT");
+        cancelTransaction = true;
+        ui.displayErrorString("Transaction has been cancelled.");
     }
 
     /**
@@ -176,7 +197,9 @@ public abstract class User implements Runnable {
     public Product selectProduct() {
         ui.displaySelectProduct();
         String product = ui.getInput();
-        if (products.containsKey(product)) {
+        if (product.toLowerCase().equals("cancel")) {
+            cancelTransaction();
+        } else if (products.containsKey(product)) {
             return products.get(product);
         }
         return null;
@@ -189,7 +212,9 @@ public abstract class User implements Runnable {
     public String selectPaymentMethod() {
         ui.displaySelectPaymentMethod();
         String paymentMethod = ui.getInput();
-        if (paymentMethod.contains("card")) {
+        if (paymentMethod.toLowerCase().equals("cancel")) {
+            cancelTransaction();
+        } else if (paymentMethod.contains("card")) {
             return "card";
         } else if (paymentMethod.contains("cash")) {
             return "cash";

@@ -1,11 +1,15 @@
 package VendingMachine;
-import static org.junit.jupiter.api.Assertions.*;
 
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.*;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.util.HashMap;
 
-import org.junit.jupiter.api.*;
-
 public class UserTest {
+    private final ByteArrayOutputStream out = new ByteArrayOutputStream();
+    private final PrintStream originalOut = System.out;
+
     User user;
     FileManager fm = new FileManager();
     UserInterface ui = new UserInterface(fm);
@@ -14,6 +18,35 @@ public class UserTest {
     public void setupUser() {
         UserCreator userCreator = new AnonymousCustomerCreator();
         user = userCreator.create("", "", ui, new HashMap<String, String>());
+    }
+
+    @BeforeEach
+    public void setStreams() {
+        System.setOut(new PrintStream(out, true));
+    }
+
+    @BeforeEach
+    public void restoreDefault() {
+
+    }
+
+    @AfterEach
+    public void restoreInitialStreams() {
+        System.setOut(originalOut);
+    }
+
+    @Test
+    public void setGetChangeTest() {
+        HashMap<String, Change> change= new HashMap<String, Change>();
+        change.put("test", new Note("test", 0.0, 1));
+        user.setChange(change);
+        assertSame(change, user.getChange());
+    }
+
+    @Test
+    public void cancelTransactionTest() {
+        user.cancelTransaction();
+        assertTrue(user.isTransactionCancelled());
     }
 
     @Test

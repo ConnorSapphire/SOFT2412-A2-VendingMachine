@@ -10,13 +10,14 @@ import java.io.*;
 
 public class FileManager {
 
-    private JSONObject stock, users;
+    private JSONObject stock, users, change;
     private JSONArray creditCards;
 
     public FileManager(){
         this.users = (JSONObject) JfileReader("users");
         this.stock = (JSONObject) JfileReader("stock");
         this.creditCards = (JSONArray) JfileReader("credit_cards");
+        this.change = (JSONObject) JfileReader("change");
     }
 
     public Object JfileReader(String filename) {
@@ -57,6 +58,10 @@ public class FileManager {
         return output;
     }
 
+    public void updateDrinks(Product drink) {
+        
+    }
+
     public HashMap<String[], Double[]> lsChocolates() {
         HashMap<String[], Double[]> output = new HashMap<>();
         JSONArray chocolates = (JSONArray) this.stock.get("Chocolates");
@@ -71,6 +76,10 @@ public class FileManager {
             }
         }
         return output;
+    }
+
+    public void updateChocolates(Product chocolate) {
+
     }
 
     public HashMap<String[], Double[]> lsChips() {
@@ -89,6 +98,10 @@ public class FileManager {
         return output;
     }
 
+    public void updateChips(Product chip) {
+
+    }
+
     public HashMap<String[], Double[]> lsCandies() {
         HashMap<String[], Double[]> output = new HashMap<>();
         JSONArray candies = (JSONArray) this.stock.get("Candies");
@@ -103,6 +116,49 @@ public class FileManager {
             }
         }
         return output;
+    }
+
+    public void updateCandies(Product candy) {
+    
+    }
+
+    public HashMap<String, Double[]> lsNotes() {
+        HashMap<String, Double[]> output = new HashMap<String, Double[]>();
+        JSONArray notes = (JSONArray) this.change.get("Notes");
+        for (Object obj : notes) {
+            JSONObject note = (JSONObject) obj;
+            for (Object objKey : note.keySet()) {
+                String key = (String) objKey;
+                JSONObject value = (JSONObject) note.get(key);
+                Double[] num = new Double[] { (Double) value.get("price"), (Double) value.get("quantity") };
+                output.put(key, num);
+            }
+        }
+        return output;
+    }
+
+    
+    public void updateNotes(Change note) {
+    
+    }
+
+    public HashMap<String, Double[]> lsCoins() {
+        HashMap<String, Double[]> output = new HashMap<String, Double[]>();
+        JSONArray coins = (JSONArray) this.change.get("Coins");
+        for (Object obj : coins) {
+            JSONObject coin = (JSONObject) obj;
+            for (Object objKey : coin.keySet()) {
+                String key = (String) objKey;
+                JSONObject value = (JSONObject) coin.get(key);
+                Double[] num = new Double[] { (Double) value.get("price"), (Double) value.get("quantity") };
+                output.put(key, num);
+            }
+        }
+        return output;
+    }
+
+    public void updateCoins(Change coin) {
+
     }
 
     public HashMap<String, String> getCreditCards() {

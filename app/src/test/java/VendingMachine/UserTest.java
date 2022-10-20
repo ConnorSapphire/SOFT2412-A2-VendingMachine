@@ -1,11 +1,10 @@
 package VendingMachine;
-import static org.junit.jupiter.api.Assertions.*;
 
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.*;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.HashMap;
-
-import org.junit.jupiter.api.*;
 
 public class UserTest {
     private final ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -37,7 +36,15 @@ public class UserTest {
     }
 
     @Test
-    public void cancelTransaction() {
+    public void setGetChangeTest() {
+        HashMap<String, Change> change= new HashMap<String, Change>();
+        change.put("test", new Note("test", 0.0, 1));
+        user.setChange(change);
+        assertSame(change, user.getChange());
+    }
+
+    @Test
+    public void cancelTransactionTest() {
         user.cancelTransaction();
         assertTrue(user.isTransactionCancelled());
     }

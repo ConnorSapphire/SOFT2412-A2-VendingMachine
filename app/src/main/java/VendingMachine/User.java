@@ -16,6 +16,7 @@ public abstract class User implements Runnable {
     private String cardName;
     private String cardNumber;
     private HashMap<String, Product> products;
+    private HashMap<String, Change> change;
     private boolean cancelTransaction;
 
     private HashMap<String, String> cards;
@@ -39,6 +40,14 @@ public abstract class User implements Runnable {
 
     public void setProducts(HashMap<String, Product> products) {
         this.products = products;
+    }
+
+    public void setChange(HashMap<String, Change> change) {
+        this.change = change;
+    }
+
+    public HashMap<String, Change> getChange() {
+        return this.change;
     }
 
     /**

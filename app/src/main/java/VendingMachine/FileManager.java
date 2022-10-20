@@ -10,13 +10,14 @@ import java.io.*;
 
 public class FileManager {
 
-    private JSONObject stock, users;
+    private JSONObject stock, users, change;
     private JSONArray creditCards;
 
     public FileManager(){
         this.users = (JSONObject) JfileReader("users");
         this.stock = (JSONObject) JfileReader("stock");
         this.creditCards = (JSONArray) JfileReader("credit_cards");
+        this.change = (JSONObject) JfileReader("change");
     }
 
     public Object JfileReader(String filename) {
@@ -100,6 +101,36 @@ public class FileManager {
                 Double[] num = new Double[] { (Double) value.get("price"), (Double) value.get("quantity") };
                 String[] str = new String[]{key, (String) value.get("code")};
                 output.put(str, num);
+            }
+        }
+        return output;
+    }
+
+    public HashMap<String, Double[]> lsNotes() {
+        HashMap<String, Double[]> output = new HashMap<String, Double[]>();
+        JSONArray notes = (JSONArray) this.change.get("Notes");
+        for (Object obj : notes) {
+            JSONObject note = (JSONObject) obj;
+            for (Object objKey : note.keySet()) {
+                String key = (String) objKey;
+                JSONObject value = (JSONObject) note.get(key);
+                Double[] num = new Double[] { (Double) value.get("price"), (Double) value.get("quantity") };
+                output.put(key, num);
+            }
+        }
+        return output;
+    }
+
+    public HashMap<String, Double[]> lsCoins() {
+        HashMap<String, Double[]> output = new HashMap<String, Double[]>();
+        JSONArray coins = (JSONArray) this.change.get("Coins");
+        for (Object obj : coins) {
+            JSONObject coin = (JSONObject) obj;
+            for (Object objKey : coin.keySet()) {
+                String key = (String) objKey;
+                JSONObject value = (JSONObject) coin.get(key);
+                Double[] num = new Double[] { (Double) value.get("price"), (Double) value.get("quantity") };
+                output.put(key, num);
             }
         }
         return output;

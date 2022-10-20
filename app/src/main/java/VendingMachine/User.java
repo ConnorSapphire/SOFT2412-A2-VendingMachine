@@ -173,6 +173,7 @@ public abstract class User implements Runnable {
             currentTransaction = transaction;
             completeTransaction();
         }
+        cancelTransaction = false;
     }
     
     public void completeTransaction() {

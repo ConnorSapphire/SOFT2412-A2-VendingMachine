@@ -6,6 +6,7 @@ import java.io.Console;
 import java.util.*;
 
 public class UserInterface {
+    public static final String RESET = "\033[0m";
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_CYAN = "\u001B[36m";
     public static final String ANSI_BLUE = "\u001B[34m";
@@ -26,6 +27,14 @@ public class UserInterface {
     public void displayWelcomeMessage() {
         System.out.println(ANSI_CYAN + "Welcome to " + ANSI_BLUE + "ATLANTIS" + ANSI_CYAN + " vending machine." + ANSI_RESET);
         System.out.println(ANSI_YELLOW + "For a list of all commands you have access to, type 'help'." + ANSI_RESET);
+    }
+    
+    /**
+     * Get color from the terminal.
+     * @return color of interface into the terminal.
+     */
+    public static String getANSIFont(String content){
+        return "\033["+GREEN+"m"+content+"\033[0m";
     }
     
     /**

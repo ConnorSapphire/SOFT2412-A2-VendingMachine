@@ -183,7 +183,10 @@ public class UserInterface {
      * Display text through terminal with a list of all the change currently in the vending machine.
      */
     public void displayChange() {
-
+        List<String> dataList = readTextFile("D:\\Ad-admin\\change.txt","utf-8");  //文件编码可以是utf8 或者gbk
+        for(String data:dataList){
+            System.out.println(data);
+        }
     }
 
     /**

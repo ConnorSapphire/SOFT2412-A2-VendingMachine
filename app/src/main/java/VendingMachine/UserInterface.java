@@ -49,7 +49,7 @@ public class UserInterface {
         return input;
     }
 
-    public String getInputPassword() {
+    //public String getInputPassword() {
         // StringBuilder input = new StringBuilder();
         // while (scanner.hasNext()) {
         //     input.append(scanner.next());
@@ -69,14 +69,23 @@ public class UserInterface {
         // }
         // String password = getInput();
         // System.setOut(out);
-        Console console = System.console();
-        char[] charpassword = console.readPassword();
-        String password = charpassword.toString();
+       // Console console = System.console();
+       // char[] charpassword = console.readPassword();
+       // String password = charpassword.toString();
+       // for (int i = 0; i < password.length(); i++) {
+       //     System.out.print("*");
+       // }
+       // System.out.println();
+       // return password;
+        
+        
+    public String getInputPassword(String password) {
+        String newPassword = "";
         for (int i = 0; i < password.length(); i++) {
-            System.out.print("*");
+            newPassword = newPassword + "*";
         }
-        System.out.println();
-        return password;
+        return newPassword;
+    
     }
 
     public static String asterisk(String password) {

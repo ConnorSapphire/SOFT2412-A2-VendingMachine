@@ -314,4 +314,24 @@ public class UserInterface {
         cm.print();
     }
     
+        //read file
+    public static List readTextFile(String jsonFile,String encode) {
+        List<String> dataList = new ArrayList<>();
+        try {
+            FileInputStream fileInputStream = new FileInputStream(jsonFile);
+            InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream, encode);
+            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+            String tempString;
+            while ((tempString = bufferedReader.readLine()) != null)
+            {
+                dataList.add(tempString);
+               // stringBuilder.append(tempString);
+            }
+            bufferedReader.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return dataList;
+    }
+    
 }

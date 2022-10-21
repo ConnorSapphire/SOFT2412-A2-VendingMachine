@@ -40,7 +40,7 @@ public class FileManager {
         Object obj = null;
         try {
             obj = new JSONParser()
-                    .parse(new FileReader(new File("app/src/main/java/VendingMachine/" + filename + ".json")));
+                    .parse(new FileReader(new File("src/main/java/VendingMachine/" + filename + ".json")));
         } catch (FileNotFoundException e) {
             System.err.println(filename + ".json not found!");
             System.exit(1);

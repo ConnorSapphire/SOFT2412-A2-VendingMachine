@@ -161,11 +161,15 @@ public class UserInterface {
 
     }
 
+
     /**
      * Display text through terminal with a list of all previous successful transactions.
      */
     public void displayTransactionHistory() {
-
+        List<String> dataList = readTextFile("D:\\Ad-admin\\transaction.txt","utf-8");  //file can be utf8 or gbk
+        for(String data:dataList){
+            System.out.println(data);
+        }
     }
 
     /**

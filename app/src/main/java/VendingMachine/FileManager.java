@@ -12,12 +12,28 @@ public class FileManager {
 
     private JSONObject stock, users, change;
     private JSONArray creditCards;
+    private String stockFileName, usersFileName, creditCardsFileName, changeFileName;
 
-    public FileManager(){
+    public FileManager(String usersFileName, String stockFileName, String creditCardsFileName, String changeFileName) {
+        this.users = (JSONObject) JfileReader(usersFileName);
+        this.stock = (JSONObject) JfileReader(stockFileName);
+        this.creditCards = (JSONArray) JfileReader(creditCardsFileName);
+        this.change = (JSONObject) JfileReader(changeFileName);
+        this.stockFileName = stockFileName;
+        this.usersFileName = usersFileName;
+        this.creditCardsFileName = creditCardsFileName;
+        this.changeFileName = changeFileName;
+    }
+
+    public FileManager() {
         this.users = (JSONObject) JfileReader("users");
         this.stock = (JSONObject) JfileReader("stock");
         this.creditCards = (JSONArray) JfileReader("credit_cards");
         this.change = (JSONObject) JfileReader("change");
+        this.usersFileName = "users";
+        this.stockFileName = "stock";
+        this.creditCardsFileName = "credit_cards";
+        this.changeFileName = "change";
     }
 
     public Object JfileReader(String filename) {
@@ -37,9 +53,9 @@ public class FileManager {
     }
 
     public void update() {
-        this.users = (JSONObject) JfileReader("users");
-        this.stock = (JSONObject) JfileReader("stock");
-        this.creditCards = (JSONArray) JfileReader("credit_cards");
+        this.users = (JSONObject) JfileReader(usersFileName);
+        this.stock = (JSONObject) JfileReader(stockFileName);
+        this.creditCards = (JSONArray) JfileReader(creditCardsFileName);
     }
 
     public HashMap<String[], Double[]> lsDrinks() {
@@ -92,7 +108,7 @@ public class FileManager {
         obj.put("Chips", chips);
         obj.put("Candies", candies);
         try {
-            FileWriter fw = new FileWriter("src/main/java/VendingMachine/stock.json");
+            FileWriter fw = new FileWriter("src/main/java/VendingMachine/" + stockFileName + ".json");
             obj.writeJSONString(fw);
             fw.close();
         } catch (IOException e) {
@@ -150,7 +166,7 @@ public class FileManager {
         obj.put("Chips", chips);
         obj.put("Candies", candies);
         try {
-            FileWriter fw = new FileWriter("src/main/java/VendingMachine/stock.json");
+            FileWriter fw = new FileWriter("src/main/java/VendingMachine/" + stockFileName + ".json");
             obj.writeJSONString(fw);
             fw.close();
         } catch (IOException e) {
@@ -208,7 +224,7 @@ public class FileManager {
         obj.put("Chips", chips);
         obj.put("Candies", candies);
         try {
-            FileWriter fw = new FileWriter("src/main/java/VendingMachine/stock.json");
+            FileWriter fw = new FileWriter("src/main/java/VendingMachine/" + stockFileName + ".json");
             obj.writeJSONString(fw);
             fw.close();
         } catch (IOException e) {
@@ -266,7 +282,7 @@ public class FileManager {
         obj.put("Chips", chips);
         obj.put("Candies", candies);
         try {
-            FileWriter fw = new FileWriter("src/main/java/VendingMachine/stock.json");
+            FileWriter fw = new FileWriter("src/main/java/VendingMachine/" + stockFileName + ".json");
             obj.writeJSONString(fw);
             fw.close();
         } catch (IOException e) {

@@ -148,7 +148,10 @@ public class UserInterface {
      * Includes product name, product code, category, price, and quantity.
      */
     public void displayDetailedStock() {
-
+        List<String> dataList = readTextFile("D:\\Ad-admin\\product.txt","utf-8");  //file can be utf8 or gbk
+        for(String data:dataList){
+            System.out.println(data);
+        }
     }
 
     /**

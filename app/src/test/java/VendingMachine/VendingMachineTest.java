@@ -42,6 +42,16 @@ public class VendingMachineTest {
 
     @Test
     public void fillChangeTest() {
-        
+
     }
+
+    @Test
+    public void displayChangeTest() {
+
+    }
+
+    @Test
+    public void displayTransactionHistoryTest() {
+        
+    } 
 }

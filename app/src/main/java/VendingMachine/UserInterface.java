@@ -1,22 +1,23 @@
 package VendingMachine;
 
 import java.io.FileNotFoundException;
+import java.io.InputStreamReader;
 import java.io.PrintStream;
+import java.io.BufferedReader;
 import java.io.Console;
+import java.io.FileInputStream;
 import java.util.*;
 
 public class UserInterface {
-    //public static final String RESET = "\033[0m";
-    //public static final String ANSI_RESET = "\u001B[0m";
-    //public static final String ANSI_CYAN = "\u001B[36m";
-    //public static final String ANSI_BLUE = "\u001B[34m";
-    //public static final String ANSI_PURPLE = "\u001B[35m";
-    //public static final String ANSI_GREEN = "\u001B[32m";
-    //public static final String ANSI_RED = "\u001B[31m";
-    //public static final String ANSI_YELLOW = "\u001B[33m";
-    //public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
-    
-    private static final String RESET = "\033[0m";
+    public static final String RESET = "\033[0m";
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_CYAN = "\u001B[36m";
+    public static final String ANSI_BLUE = "\u001B[34m";
+    public static final String ANSI_PURPLE = "\u001B[35m";
+    public static final String ANSI_GREEN = "\u001B[32m";
+    public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_YELLOW = "\u001B[33m";
+    public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
 
     private static final int DEFAULT = 39;//default
     private static final int BLACK = 30;//black
@@ -70,34 +71,35 @@ public class UserInterface {
         return input;
     }
 
-    //public String getInputPassword() {
+    public String getInputPassword() {
         // StringBuilder input = new StringBuilder();
         // while (scanner.hasNext()) {
         //     input.append(scanner.next());
         // }
         // return input.toString();
         
-        // String pass = getInput();
+        String pass = getPlainInput();
         // String a = asterisk(pass);
         // System.out.println(a);
-        // return pass;
+        return pass;
         
-        // PrintStream out = System.out;
-        // try {
-        //     System.setOut(new PrintStream("src/main/java/VendingMachine/attempt.txt"));
-        // } catch (FileNotFoundException fnfe) {
-        //     fnfe.printStackTrace();
-        // }
-        // String password = getInput();
-        // System.setOut(out);
-       // Console console = System.console();
-       // char[] charpassword = console.readPassword();
-       // String password = charpassword.toString();
-       // for (int i = 0; i < password.length(); i++) {
-       //     System.out.print("*");
-       // }
-       // System.out.println();
-       // return password;
+    //     PrintStream out = System.out;
+    //     try {
+    //         System.setOut(new PrintStream("src/main/java/VendingMachine/attempt.txt"));
+    //     } catch (FileNotFoundException fnfe) {
+    //         fnfe.printStackTrace();
+    //     }
+    //     String password = getInput();
+    //     System.setOut(out);
+    //    Console console = System.console();
+    //    char[] charpassword = console.readPassword();
+    //    String password = charpassword.toString();
+    //    for (int i = 0; i < password.length(); i++) {
+    //        System.out.print("*");
+    //    }
+    //    System.out.println();
+    //    return password;
+    }  
         
         
     public String getInputPassword(String password) {

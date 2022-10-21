@@ -11,6 +11,26 @@ public class FileManagerTest {
 
     @Test
     public void lsCoinsTest() {
+
+    }
+
+    @Test
+    public void updateChipsTest() {
+
+    }
+
+    @Test
+    public void updateDrinksTest() {
+
+    }
+
+    @Test
+    public void updateChocolatesTest() {
+
+    }
+
+    @Test
+    public void updateCandiesTest() {
         
     }
 }

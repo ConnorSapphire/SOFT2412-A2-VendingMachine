@@ -37,6 +37,15 @@ public class UserInterface {
         this.scanner = new Scanner(System.in);
     }
 
+    public static void main(String[] args){
+        //        UserInterface userInterface = new UserInterface();
+        //        System.out.print(userInterface.getInputPassword("12345"));
+               List<String> dataList = readTextFile("D:\\Ad-admin\\product.txt","utf-8");
+               for(String data:dataList){
+                   System.out.println(getANSIFont(data));
+               }
+            }
+        
     public void displayWelcomeMessage() {
         System.out.println(ANSI_CYAN + "Welcome to " + ANSI_BLUE + "ATLANTIS" + ANSI_CYAN + " vending machine." + ANSI_RESET);
         System.out.println(ANSI_YELLOW + "For a list of all commands you have access to, type 'help'." + ANSI_RESET);

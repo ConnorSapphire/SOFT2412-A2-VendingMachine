@@ -26,6 +26,9 @@ public class CashStrategy implements PaymentStrategy {
         }
 
         LinkedHashMap<String, Integer> userChange = getUserChange(cost);
+        if (userChange == null) {
+            return;
+        }
         LinkedHashMap<String, Integer> changeGiven = addQuantity(cost, userChange);
         transaction.setEndTime();
         double change = 0.0;

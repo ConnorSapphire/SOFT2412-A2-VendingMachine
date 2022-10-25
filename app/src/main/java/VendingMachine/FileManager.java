@@ -72,7 +72,7 @@ public class FileManager {
             for (Object objKey : drink.keySet()) {
                 String key = (String) objKey;
                 JSONObject value = (JSONObject) drink.get(key);
-                Double[] num = new Double[] { (Double) value.get("price"), (Double) value.get("quantity") };
+                Double[] num = new Double[] { (Double) value.get("price"), (Double) value.get("quantity"), (Double) value.get("sold")};
                 String[] str = new String[]{key, (String) value.get("code")};
                 output.put(str, num);
             }
@@ -93,6 +93,7 @@ public class FileManager {
                     value.replace("price", drink.getPrice());
                     value.replace("quantity", Double.valueOf(drink.getQuantity()));
                     value.replace("code", drink.getCode());
+                    value.replace("sold", Double.valueOf(drink.getTotalSold()));
                     found = true;
                 }
             }
@@ -103,6 +104,7 @@ public class FileManager {
             value.put("price", drink.getPrice());
             value.put("quantity", Double.valueOf(drink.getQuantity()));
             value.put("code", drink.getCode());
+            value.put("sold", Double.valueOf(drink.getTotalSold()));
             drinkObj.put(drink.getName(), value);
             drinks.add(drinkObj);
         }
@@ -151,6 +153,7 @@ public class FileManager {
                     value.replace("price", chocolate.getPrice());
                     value.replace("quantity", Double.valueOf(chocolate.getQuantity()));
                     value.replace("code", chocolate.getCode());
+                    value.replace("sold", Double.valueOf(chocolate.getTotalSold()));
                     found = true;
                 }
             }
@@ -161,6 +164,7 @@ public class FileManager {
             value.put("price", chocolate.getPrice());
             value.put("quantity", Double.valueOf(chocolate.getQuantity()));
             value.put("code", chocolate.getCode());
+            value.put("sold", Double.valueOf(chocolate.getTotalSold()));
             chocObj.put(chocolate.getName(), value);
             chocolates.add(chocObj);
         }
@@ -209,6 +213,7 @@ public class FileManager {
                     value.replace("price", chip.getPrice());
                     value.replace("quantity", Double.valueOf(chip.getQuantity()));
                     value.replace("code", chip.getCode());
+                    value.replace("sold", Double.valueOf(chip.getTotalSold()));
                     found = true;
                 }
             }
@@ -219,6 +224,7 @@ public class FileManager {
             value.put("price", chip.getPrice());
             value.put("quantity", Double.valueOf(chip.getQuantity()));
             value.put("code", chip.getCode());
+            value.put("sold", Double.valueOf(chip.getTotalSold()));
             chipObj.put(chip.getName(), value);
             chips.add(chipObj);
         }
@@ -267,6 +273,7 @@ public class FileManager {
                     value.replace("price", candy.getPrice());
                     value.replace("quantity", Double.valueOf(candy.getQuantity()));
                     value.replace("code", candy.getCode());
+                    value.replace("sold", Double.valueOf(candy.getTotalSold()));
                     found = true;
                 }
             }
@@ -277,6 +284,7 @@ public class FileManager {
             value.put("price", candy.getPrice());
             value.put("quantity", Double.valueOf(candy.getQuantity()));
             value.put("code", candy.getCode());
+            value.put("sold", Double.valueOf(candy.getTotalSold()));
             candyObj.put(candy.getName(), value);
             candies.add(candyObj);
         }

@@ -25,7 +25,8 @@ public class Seller extends User {
      * 
      */
     public void displayStockSales() {
-        this.getUI().displayStockSales();
+        // this.getUI().displayStockSales();
+        reportSellingSummary(getProducts());
     }
 
     /**
@@ -183,23 +184,23 @@ public class Seller extends User {
         this.getUI().displaySellerHelp();
     }
 
-    // public void reportCurrentAvailable(HashMap<String, Product> products){
-    //     CommandLineTable st = new CommandLineTable();
-    //     st.setHeaders("Code", "Name", "Category", "Price", "Quantity");
-    //     for(Product p : products){
-    //         if(p.getQuantity() > 0){
-    //             st.addRow(p.getCode(), p.getName(), p.getCategory(), Double.toString(p.getPrice()), Integer.toString(p.getQuantity()));
-    //         }
-    //     }
-    //     st.print();
-    // }
+    public void reportCurrentAvailable(HashMap<String, Product> products){
+        CommandLineTable st = new CommandLineTable();
+        st.setHeaders("Code", "Name", "Category", "Price", "Quantity");
+        for(Product p : products.values()){
+            if(p.getQuantity() > 0){
+                st.addRow(p.getCode(), p.getName(), p.getCategory(), Double.toString(p.getPrice()), Integer.toString(p.getQuantity()));
+            }
+        }
+        st.print();
+    }
 
-    // public void reportSellingSummary(HashMap<String, Product> products){
-    //     CommandLineTable st = new CommandLineTable();
-    //     st.setHeaders("Code", "Name", "Total Quantity Sold");
-    //     for(Product p : products){
-    //         st.addRow(p.getCode(), p.getName(), Integer.toString(p.gettotalSold()));
-    //     }
-    //     st.print();
-    // }
+    public void reportSellingSummary(HashMap<String, Product> products){
+        CommandLineTable st = new CommandLineTable();
+        st.setHeaders("Code", "Name", "Total Quantity Sold");
+        for(Product p : products.values()){
+            st.addRow(p.getCode(), p.getName(), Integer.toString(p.getTotalSold()));
+        }
+        st.print();
+    }
 }

@@ -34,6 +34,7 @@ public class CashStrategy implements PaymentStrategy {
         // Update products in file and internal memory
         for (Product product : transaction.getProducts()) {
             product.setQuantity(product.getQuantity() - 1);
+            product.setTotalSold(product.getTotalSold() + 1);
             if (product.getCategory().equals("candy")) {
                 ui.getFileManager().updateCandies(product);
             } else if (product.getCategory().equals("chocolate")) {
@@ -45,7 +46,7 @@ public class CashStrategy implements PaymentStrategy {
             }
         }
         // Update change in file and internal memory
-        
+
     }
 
     // Empty hashmap of user cash inputs

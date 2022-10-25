@@ -329,4 +329,8 @@ public class UserInterface {
         }
         cm.print();
     }
+
+    public void displayerrorMessage(String str){
+        System.out.println(ANSI_RED + str);
+    }
 }

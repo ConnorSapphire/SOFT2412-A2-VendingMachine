@@ -180,4 +180,24 @@ public class Seller extends User {
     public void displayHelp() {
         this.getUI().displaySellerHelp();
     }
+
+    public void reportCurrentAvailable(Hashmap<String, Product> products){
+        CommandLineTable st = new CommandLineTable();
+        st.setHeaders("Code", "Name", "Category", "Price", "Quantity");
+        for(Product p : products){
+            if(p.getQuantity() > 0){
+                st.addRow(p.getCode(), p.getName(), p.getCategory(), Double.toString(p.getPrice()), Integer.toString(p.getQuantity()));
+            }
+        }
+        st.print();
+    }
+
+    public void reportSellingSummary(Hashmap<String, Product> products){
+        CommandLineTable st = new CommandLineTable();
+        st.setHeaders("Code", "Name", "Total Quantity Sold");
+        for(Product p : products){
+            st.addRow(p.getCode(), p.getName(), Integer.toString(p.gettotalSold()));
+        }
+        st.print();
+    }
 }

@@ -130,7 +130,7 @@ public class FileManager {
             for (Object objKey : chocolate.keySet()) {
                 String key = (String) objKey;
                 JSONObject value = (JSONObject) chocolate.get(key);
-                Double[] num = new Double[] { (Double) value.get("price"), (Double) value.get("quantity") };
+                Double[] num = new Double[] { (Double) value.get("price"), (Double) value.get("quantity"), (Double) value.get("sold")};
                 String[] str = new String[]{key, (String) value.get("code")};
                 output.put(str, num);
             }
@@ -188,7 +188,7 @@ public class FileManager {
             for (Object objKey : chip.keySet()) {
                 String key = (String) objKey;
                 JSONObject value = (JSONObject) chip.get(key);
-                Double[] num = new Double[] { (Double) value.get("price"), (Double) value.get("quantity") };
+                Double[] num = new Double[] { (Double) value.get("price"), (Double) value.get("quantity"), (Double) value.get("sold")};
                 String[] str = new String[]{key, (String) value.get("code")};
                 output.put(str, num);
             }
@@ -246,7 +246,7 @@ public class FileManager {
             for (Object objKey : candy.keySet()) {
                 String key = (String) objKey;
                 JSONObject value = (JSONObject) candy.get(key);
-                Double[] num = new Double[] { (Double) value.get("price"), (Double) value.get("quantity") };
+                Double[] num = new Double[] { (Double) value.get("price"), (Double) value.get("quantity"), (Double) value.get("sold")};
                 String[] str = new String[]{key, (String) value.get("code")};
                 output.put(str, num);
             }
@@ -304,7 +304,7 @@ public class FileManager {
             for (Object objKey : note.keySet()) {
                 String key = (String) objKey;
                 JSONObject value = (JSONObject) note.get(key);
-                Double[] num = new Double[] { (Double) value.get("price"), (Double) value.get("quantity") };
+                Double[] num = new Double[] { (Double) value.get("price"), (Double) value.get("quantity"), (Double) value.get("sold")};
                 output.put(key, num);
             }
         }
@@ -355,7 +355,7 @@ public class FileManager {
             for (Object objKey : coin.keySet()) {
                 String key = (String) objKey;
                 JSONObject value = (JSONObject) coin.get(key);
-                Double[] num = new Double[] { (Double) value.get("price"), (Double) value.get("quantity") };
+                Double[] num = new Double[] { (Double) value.get("price"), (Double) value.get("quantity"), (Double) value.get("sold")};
                 output.put(key, num);
             }
         }

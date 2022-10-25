@@ -8,7 +8,7 @@ public class Chip extends Product {
      * @param price
      * @param quantity
      */
-    public Chip(String name, String code, double price, int quantity) {
-        super(name, code, "chip", price, quantity);
+    public Chip(String name, String code, double price, int quantity, int totalSold) {
+        super(name, code, "chip", price, quantity, totalSold);
     }    
 }

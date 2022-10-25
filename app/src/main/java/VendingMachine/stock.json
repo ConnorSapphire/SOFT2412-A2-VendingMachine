@@ -1,24 +1,24 @@
 {
     "Drinks" : [
-        {"Mineral Water" : {"price" : 3.0, "quantity" : 7.0, "code" : "MNW"}},
-        {"Sprite" : {"price" : 3.0, "quantity" : 7.0, "code" : "SPT"}},
-        {"Coca cola" : {"price" : 3.0, "quantity" : 7.0, "code" : "CCC"}},
-        {"Pepsi" : {"price" : 3.0, "quantity" : 7.0, "code" : "PPS"}},
-        {"Juice" : {"price" : 3.0, "quantity" : 7.0, "code" : "CCC"}}
+        {"Mineral Water" : {"price" : 3.0, "quantity" : 7.0, "code" : "MNW", "sold" : 0}},
+        {"Sprite" : {"price" : 3.0, "quantity" : 7.0, "code" : "SPT", "sold" : 5}},
+        {"Coca cola" : {"price" : 3.0, "quantity" : 7.0, "code" : "CCC", "sold" : 0}},
+        {"Pepsi" : {"price" : 3.0, "quantity" : 7.0, "code" : "PPS", "sold" : 2}},
+        {"Juice" : {"price" : 3.0, "quantity" : 7.0, "code" : "CCC", "sold" : 1}}
     ],
 
     "Chocolates" : [
-        {"Mars" : {"price" : 3.0, "quantity" : 7.0, "code" : "MAS"}},
-        {"M&M" : {"price" : 3.0, "quantity" : 7.0, "code" : "MAM"}},
-        {"Bounty" : {"price" : 3.0, "quantity" : 7.0, "code" : "BTY"}},
-        {"Snickers" : {"price" : 3.0, "quantity" : 7.0, "code" : "SNK"}}
+        {"Mars" : {"price" : 3.0, "quantity" : 7.0, "code" : "MAS", "sold" : 0}},
+        {"M&M" : {"price" : 3.0, "quantity" : 7.0, "code" : "MAM", "sold" : 0}},
+        {"Bounty" : {"price" : 3.0, "quantity" : 7.0, "code" : "BTY", "sold" : 0}},
+        {"Snickers" : {"price" : 3.0, "quantity" : 7.0, "code" : "SNK", "sold" : 0}}
     ],
 
     "Chips" : [
-        {"Smiths" : {"price" : 3.0, "quantity" : 7.0, "code" : "SMH"}},
-        {"Pringles" : {"price" : 3.0, "quantity" : 7.0, "code" : "PNG"}},
-        {"Kettle" : {"price" : 3.0, "quantity" : 7.0, "code" : "KTL"}},
-        {"Thins" : {"price" : 3.0, "quantity" : 7.0, "code" : "TNS"}}
+        {"Smiths" : {"price" : 3.0, "quantity" : 7.0, "code" : "SMH", "sold" : 0}},
+        {"Pringles" : {"price" : 3.0, "quantity" : 7.0, "code" : "PNG", "sold" : 0}},
+        {"Kettle" : {"price" : 3.0, "quantity" : 7.0, "code" : "KTL", "sold" : 0}},
+        {"Thins" : {"price" : 3.0, "quantity" : 7.0, "code" : "TNS", "sold" : 0}}
     ],
 
     "Candies" : [

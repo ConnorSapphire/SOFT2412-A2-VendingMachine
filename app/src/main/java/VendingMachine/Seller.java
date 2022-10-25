@@ -102,7 +102,7 @@ public class Seller extends User {
                 return false;
             }
         }
-        product.setCode(code);
+        product.setCode(code.toUpperCase());
         return true;
     }
 
@@ -130,7 +130,7 @@ public class Seller extends User {
     public boolean modifyProductCategory(Product product, String category) {
         String[] all  = new String[]{"Drinks", "Chocolates", "Chips", "Candies"};
         for(String cat : all){
-            if(category.toLowerCase() == cat.toLowerCase()){
+            if(category.toLowerCase().equals(cat.toLowerCase())){
                 product.setCategory(cat);
                 return true;
             }
@@ -153,11 +153,15 @@ public class Seller extends User {
             this.getUI().displayerrorMessage("Price must be positive!");
             return false;
         }
+        if(quantity < 0){
+            this.getUI().displayerrorMessage("Quantity must be non-negative!");
+            return false;
+        }
         ProductCreator pc = null;
         String[] all  = new String[]{"Drinks", "Chocolates", "Chips", "Candies"};
         boolean find = false;
         for(String cat : all){
-            if(category.toLowerCase() == cat.toLowerCase()){
+            if(category.toLowerCase().equals(cat.toLowerCase())){
                 find = true;
                 if(cat.equals(all[0])){
                     pc = new DrinkCreator();

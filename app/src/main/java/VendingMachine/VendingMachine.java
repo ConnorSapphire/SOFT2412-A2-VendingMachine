@@ -26,6 +26,8 @@ public class VendingMachine {
         users.put("Charles", userCreator.create("Charles", "abcd", ui, cards));
         userCreator = new CashierCreator();
         users.put("Cashier", userCreator.create("Cashier", "password", ui, cards));
+        userCreator = new SellerCreator();
+        users.put("Seller", userCreator.create("Seller", "password", ui, cards));
         products = new HashMap<String, Product>();
         HashMap<String[], Double[]> drinks = fileManager.lsDrinks();
         ProductCreator productCreator = new DrinkCreator();

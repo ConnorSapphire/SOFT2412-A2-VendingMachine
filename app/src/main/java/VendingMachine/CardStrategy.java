@@ -11,7 +11,7 @@ public class CardStrategy implements PaymentStrategy {
     public CardStrategy(User user) {
         this.user = user;
         this.ui = user.getUI();
-        this.transaction = user.getCurrentTransaction();
+        this.transaction = user.getTransaction();
         this.cards = user.getCards();
     }
     
@@ -30,11 +30,17 @@ public class CardStrategy implements PaymentStrategy {
                 user.cancelTransaction();
                 return;
             }
+            if (user.getCurrentTransaction().isCancelled()) {
+                return;
+            }
             System.out.println();
             System.out.print("Input credit card number: ");
             String cardNumber = ui.getPlainInput();
             if (cardNumber.toLowerCase().equals("cancel")) {
                 user.cancelTransaction();
+                return;
+            }
+            if (user.getCurrentTransaction().isCancelled()) {
                 return;
             }
             System.out.println();

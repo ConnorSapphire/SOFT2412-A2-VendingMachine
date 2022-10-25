@@ -307,7 +307,39 @@ public class FileManager {
 
     
     public void updateNotes(Change note) {
-    
+        JSONObject obj = new JSONObject();
+        JSONArray notes = (JSONArray) this.change.get("Notes");
+        boolean found = false;
+        for (Object noteObj : notes) {
+            JSONObject noteObject = (JSONObject) noteObj;
+            for (Object objKey : noteObject.keySet()) {
+                String key = (String) objKey;
+                if (key.equals(note.getName())) {
+                    JSONObject value = (JSONObject) noteObject.get(key);
+                    value.replace("price", note.getValue());
+                    value.replace("quantity", Double.valueOf(note.getQuantity()));
+                    found = true;
+                }
+            }
+        }
+        if (!found) {
+            JSONObject noteObj = new JSONObject();
+            JSONObject value = new JSONObject();
+            value.put("price", note.getValue());
+            value.put("quantity", Double.valueOf(note.getQuantity()));
+            noteObj.put(note.getName(), value);
+            notes.add(noteObj);
+        }
+        JSONArray coins = (JSONArray) this.change.get("Coins");
+        obj.put("Notes", notes);
+        obj.put("Coins", coins);
+        try {
+            FileWriter fw = new FileWriter("src/main/java/VendingMachine/" + changeFileName + ".json");
+            obj.writeJSONString(fw);
+            fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public LinkedHashMap<String, Double[]> lsCoins() {

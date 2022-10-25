@@ -141,11 +141,21 @@ public class Seller extends User {
             this.getUI().displayerrorMessage("Price must be positive!");
             return false;
         }
+        ProductCreater pc = new ProductCreator();
         String[] all  = new String[]{"Drinks", "Chocolates", "Chips", "Candies"};
         boolean find = false;
         for(String cat : all){
             if(category.toLowerCase() == cat.toLowerCase()){
                 find = true;
+                if(cat.equals(String[0])){
+                    pc = new DrinkCreator();
+                }else if(cat.equals(String[1])){
+                    pc = new ChocolateCreator();
+                }else if(cat.equals(String[2])){
+                    pc = new ChipCreator();
+                }else{
+                    pc = new CandyCreator();
+                }
             }
         }
         if(!find){
@@ -163,7 +173,7 @@ public class Seller extends User {
                 return false;
             }
         }
-        // How to create a new product here?
+        pc.create(name, code, price, quantity);
         return true;
     }
 

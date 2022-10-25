@@ -165,7 +165,17 @@ public class UserInterface {
      * Display text through terminal with a list of each product and the total sold.
      */
     public void displayStockSales() {
-
+        HashMap<String[], Double[]> drinks = fm.lsDrinks();
+        HashMap<String[], Double[]> candies = fm.lsCandies();
+        HashMap<String[], Double[]> chocolates = fm.lsChocolates();
+        HashMap<String[], Double[]> chips = fm.lsChips();
+        fm.writeSalesFile("src/main/java/VendingMachine/sales.txt", drinks, candies, chocolates, chips);
+        Desktop desktop = Desktop.getDesktop();
+        try { 
+            desktop.open(new File("src/main/java/VendingMachine/sales.txt"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -198,6 +208,9 @@ public class UserInterface {
      * Display text through terminal with a list of all the change currently in the vending machine.
      */
     public void displayChange() {
+        LinkedHashMap<String, Double[]> coins = fm.lsCoins();
+        LinkedHashMap<String, Double[]> notes = fm.lsNotes();
+        fm.writeChangeFile("src/main/java/VendingMachine/change.txt", coins, notes);
         List<String> dataList = fm.readTextFile("src/main/java/VendingMachine/change.txt","utf-8");  
         for(String data:dataList){
             System.out.println(data);
@@ -255,7 +268,8 @@ public class UserInterface {
         System.out.println("> logout" + ANSI_YELLOW + "\n\tLogout of the current account." + ANSI_RESET);
         System.out.println("> display products" + ANSI_YELLOW + "\n\tDisplay all stock in the vending machine." + ANSI_RESET);
         System.out.println("> buy" + ANSI_YELLOW + "\n\tSelect products to purchase and make payment." + ANSI_RESET);
-        System.out.println("> display stock" + ANSI_YELLOW + "\n\tDisplay a detailed summary of stock and stock flow." + ANSI_RESET);
+        System.out.println("> display stock" + ANSI_YELLOW + "\n\tDisplay a detailed summary of stock." + ANSI_RESET);
+        System.out.println("> display sales" + ANSI_YELLOW + "\n\tDisplay a detailed summary of stock and stock flow." + ANSI_RESET);
         System.out.println("> fill product" + ANSI_YELLOW + "\n\tFill the vending machine with a selected product to a selected quantity." + ANSI_RESET);
         System.out.println("> help" + ANSI_YELLOW + "\n\tDisplay all available commands." + ANSI_RESET);
         System.out.println("> quit" + ANSI_YELLOW + "\n\tExit the application." + ANSI_RESET);

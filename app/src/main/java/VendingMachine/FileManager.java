@@ -536,6 +536,29 @@ public class FileManager {
         }
     } 
 
+    public void writeChangeFile(String fileName, LinkedHashMap<String, Double[]> coins, LinkedHashMap<String, Double[]> notes) {
+        try {
+            FileWriter fw = new FileWriter(fileName);
+            fw.write("Coins:\n");
+            for (String coin : coins.keySet()) {
+                fw.write("\tCoin Name: " + coin + "\n");
+                fw.write("\tCoin Value: " + coins.get(coin)[0] + "\n");
+                fw.write("\tCoin Quantities: " + coins.get(coin)[1] + "\n");
+                fw.write("\n");
+            }
+            fw.write("Notes:\n");
+            for (String note : notes.keySet()) {
+                fw.write("\tNote Name: " + note + "\n");
+                fw.write("\tNote Value: " + notes.get(note)[0] + "\n");
+                fw.write("\tNote Quantities: " + notes.get(note)[1] + "\n");
+                fw.write("\n");
+            }
+            fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void writeProductsFile(String fileName, HashMap<String[], Double[]> drinks, HashMap<String[], Double[]> candies, HashMap<String[], Double[]> chocolates, HashMap<String[], Double[]> chips) {
         try {
             FileWriter fw = new FileWriter(fileName);
@@ -565,6 +588,43 @@ public class FileManager {
                 fw.write("\tProduct Name: " + chip[0] + "\n");
                 fw.write("\tProduct Cost: " + chips.get(chip)[0] + "\n");
                 fw.write("\tProduct Quantities: " + chips.get(chip)[1] + "\n");
+                fw.write("\n");
+            }
+            fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void writeSalesFile(String fileName, HashMap<String[], Double[]> drinks, HashMap<String[], Double[]> candies, HashMap<String[], Double[]> chocolates, HashMap<String[], Double[]> chips) {
+        try {
+            FileWriter fw = new FileWriter(fileName);
+            fw.write("Drinks:\n");
+            for (String[] drink : drinks.keySet()) {
+                fw.write("\tProduct Name: " + drink[0] + "\n");
+                fw.write("\tProduct Code: " + drink[1] + "\n");
+                fw.write("\tTotal Sold: " + drinks.get(drink)[2] + "\n");
+                fw.write("\n");
+            }
+            fw.write("Candies:\n");
+            for (String[] candy : candies.keySet()) {
+                fw.write("\tProduct Name: " + candy[0] + "\n");
+                fw.write("\tProduct Code: " + candy[1] + "\n");
+                fw.write("\tTotal Sold: " + candies.get(candy)[2] + "\n");
+                fw.write("\n");
+            }
+            fw.write("Chocolates:\n");
+            for (String[] chocolate : chocolates.keySet()) {
+                fw.write("\tProduct Name: " + chocolate[0] + "\n");
+                fw.write("\tProduct Code: " + chocolate[1] + "\n");
+                fw.write("\tTotal Sold: " + chocolates.get(chocolate)[2] + "\n");
+                fw.write("\n");
+            }
+            fw.write("Chips:\n");
+            for (String[] chip : chips.keySet()) {
+                fw.write("\tProduct Name: " + chip[0] + "\n");
+                fw.write("\tProduct Code: " + chip[1] + "\n");
+                fw.write("\tTotal Sold: " + chips.get(chip)[2] + "\n");
                 fw.write("\n");
             }
             fw.close();

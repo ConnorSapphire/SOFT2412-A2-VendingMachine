@@ -1,18 +1,1 @@
-{
-    "Notes" : [
-        {"$100" : {"price" : 100.0, "quantity" : 7.0}},
-        {"$50" : {"price" : 50.0, "quantity" : 7.0}},
-        {"$20" : {"price" : 20.0, "quantity" : 7.0}},
-        {"$10" : {"price" : 10.0, "quantity" : 7.0}},
-        {"$5" : {"price" : 5.0, "quantity" : 7.0}}
-    ],
-
-    "Coins" : [
-        {"$2" : {"price" : 2.0, "quantity" : 7.0}},
-        {"$1" : {"price" : 1.0, "quantity" : 7.0}},
-        {"50c" : {"price" : 0.50, "quantity" : 7.0}},
-        {"20c" : {"price" : 0.20, "quantity" : 7.0}},
-        {"10c" : {"price" : 0.10, "quantity" : 7.0}},
-        {"5c" : {"price" : 0.05, "quantity" : 7.0}}
-    ]
-}
+{"Coins":[{"$2":{"quantity":7.0,"price":2.0}},{"$1":{"quantity":7.0,"price":1.0}},{"50c":{"quantity":7.0,"price":0.5}},{"20c":{"quantity":7.0,"price":0.2}},{"10c":{"quantity":7.0,"price":0.1}},{"5c":{"quantity":7.0,"price":0.05}}],"Notes":[{"$100":{"quantity":10.0,"price":100.0}},{"$50":{"quantity":7.0,"price":50.0}},{"$20":{"quantity":7.0,"price":20.0}},{"$10":{"quantity":7.0,"price":10.0}},{"$5":{"quantity":7.0,"price":5.0}}]}

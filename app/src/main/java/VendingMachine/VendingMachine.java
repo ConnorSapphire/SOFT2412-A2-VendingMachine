@@ -216,6 +216,8 @@ public class VendingMachine {
                 user.fillProduct(selected, quantity);
             } else if (input.contains("display stock")) {
                 user.displayDetailedStock();
+            } else if (input.contains("display sales")) {
+                user.displayStockSales();
             }
         }
     }

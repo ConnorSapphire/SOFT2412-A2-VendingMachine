@@ -25,8 +25,8 @@ public class Seller extends User {
      * 
      */
     public void displayStockSales() {
-        // this.getUI().displayStockSales();
         reportSellingSummary(getProducts());
+        this.getUI().displayStockSales();
     }
 
     /**
@@ -42,7 +42,18 @@ public class Seller extends User {
         }
         if(product.getQuantity() + quantity <= 15){
             product.setQuantity(product.getQuantity() + quantity);
+            if (product.getCategory().equals("drink")) {
+                this.getUI().getFileManager().updateDrinks(product);
+            } else if (product.getCategory().equals("chocolate")) {
+                this.getUI().getFileManager().updateChocolates(product);
+            } else if (product.getCategory().equals("chip")) {
+                this.getUI().getFileManager().updateChips(product);
+            } else if (product.getCategory().equals("candy")) {
+                this.getUI().getFileManager().updateCandies(product);
+            }
             return true;
+        } else {
+            this.getUI().displayErrorString("The vending machine does not have enough space for this quantity.");
         }
         return false;
     }

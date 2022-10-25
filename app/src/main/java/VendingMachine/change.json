@@ -1,5 +1,1 @@
-<<<<<<< HEAD
 {"Coins":[{"$2":{"quantity":3.0,"price":2.0}},{"$1":{"quantity":7.0,"price":1.0}},{"50c":{"quantity":7.0,"price":0.5}},{"20c":{"quantity":7.0,"price":0.2}},{"10c":{"quantity":7.0,"price":0.1}},{"5c":{"quantity":7.0,"price":0.05}}],"Notes":[{"$100":{"quantity":12.0,"price":100.0}},{"$50":{"quantity":3.0,"price":50.0}},{"$20":{"quantity":10.0,"price":20.0}},{"$10":{"quantity":7.0,"price":10.0}},{"$5":{"quantity":7.0,"price":5.0}}]}
-=======
-{"Coins":[{"$2":{"quantity":3.0,"price":2.0}},{"$1":{"quantity":7.0,"price":1.0}},{"50c":{"quantity":7.0,"price":0.5}},{"20c":{"quantity":7.0,"price":0.2}},{"10c":{"quantity":7.0,"price":0.1}},{"5c":{"quantity":7.0,"price":0.05}}],"Notes":[{"$100":{"quantity":12.0,"price":100.0}},{"$50":{"quantity":3.0,"price":50.0}},{"$20":{"quantity":-1.0,"price":20.0}},{"$10":{"quantity":11.0,"price":10.0}},{"$5":{"quantity":7.0,"price":5.0}}]}
->>>>>>> ce0c67c58a9b27487cebb6ab475b0cf475ad477a

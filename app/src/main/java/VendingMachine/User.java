@@ -39,6 +39,8 @@ public abstract class User {
         this.cards = cards;
         this.storedCard = false;
         this.cancelTransaction = false;
+        this.cardName = "";
+        this.cardNumber = "";
     }
 
     public void setTransaction(Transaction transaction) {

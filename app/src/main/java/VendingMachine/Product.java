@@ -65,11 +65,11 @@ public abstract class Product {
         this.quantity = quantity;
     }
 
-    public int gettotalSold() {
+    public int getTotalSold() {
         return totalSold;
     }
 
-    public void settotalSold(int num) {
+    public void setTotalSold(int num) {
         this.totalSold = num;
     }
 }

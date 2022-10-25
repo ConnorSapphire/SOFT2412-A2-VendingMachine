@@ -396,6 +396,7 @@ public class FileManager {
         }
         JSONArray notes = (JSONArray) this.change.get("Notes");
         obj.put("Notes", notes);
+        obj.put("Coins", coins);
         try {
             FileWriter fw = new FileWriter("src/main/java/VendingMachine/" + changeFileName + ".json");
             obj.writeJSONString(fw);

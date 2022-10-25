@@ -97,6 +97,17 @@ public class CreateObjectTests {
         assertEquals(cards, customer.getCards());
     }
 
+    @Test
+    void storeCardTest(){
+        UserInterface ui = new UserInterface(null);
+        HashMap<String, String> cards = new HashMap<>();
+        cards.put("Name", "Number");
+        UserCreator creator = new RegisteredCustomerCreator();
+        User customer = creator.create("Name", "Password", ui, cards);
+
+        assertEquals(cards, customer.getCards());
+    }
+
 }
 
 

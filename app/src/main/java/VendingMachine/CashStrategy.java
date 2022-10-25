@@ -96,6 +96,13 @@ public class CashStrategy implements PaymentStrategy {
                 System.out.println("Please enter an integer quantity.");
             }
 
+            Change current = this.user.getChange().get(item);
+            current.setQuantity(current.getQuantity() + quantity);
+            if (current.getClass().getSimpleName().equalsIgnoreCase("Note")) {
+                this.user.getUI().getFileManager().updateNotes(current);
+            } else if (current.getClass().getSimpleName().equalsIgnoreCase("Coin")) {
+                this.user.getUI().getFileManager().updateCoins(current);
+            }
             userCash.merge(item, quantity, Integer::sum);
             // System.out.println("Item: " + item + " Quantity: " + userCash.get(item));
             totalCost = (double) (value * quantity); 
@@ -176,10 +183,17 @@ public class CashStrategy implements PaymentStrategy {
                 Integer quantity = customerChange.get(item);
                 if (quantity != 0) {
                     System.out.println(item + ": " + quantity);
+                    Change current = this.user.getChange().get(item);
+                    current.setQuantity(current.getQuantity() - quantity);
+                    if (current.getClass().getSimpleName().equalsIgnoreCase("Note")) {
+                        this.user.getUI().getFileManager().updateNotes(current);
+                    } else if (current.getClass().getSimpleName().equalsIgnoreCase("Coin")) {
+                        this.user.getUI().getFileManager().updateCoins(current);
+                    }
                 }
             }
 
-            // Doesn't affect change stored in CendingMachine <- needs to
+            // TODO Doesn't throw error if not enough change in machine <- needs to
             user.setChange(allChange);
             
         }

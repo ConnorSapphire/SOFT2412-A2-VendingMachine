@@ -1,6 +1,11 @@
 package VendingMachine;
 
 import java.util.LinkedHashMap;
+import java.util.stream.StreamSupport;
+
+import javax.swing.plaf.synth.SynthSeparatorUI;
+
+import java.lang.reflect.AnnotatedWildcardType;
 import java.util.HashMap;
 
 public class CashStrategy implements PaymentStrategy {
@@ -20,18 +25,8 @@ public class CashStrategy implements PaymentStrategy {
             cost += product.getPrice();
         }
 
-        String amount = ui.getInput();
-        if (amount.toLowerCase().equals("cancel")) {{
-            user.cancelTransaction();
-            return;
-        }}
-
-        getUserChange(cost);
-        
-        // Adjustments to be made below 
-        Double cashInput = Double.parseDouble(amount);
-        
-        
+        LinkedHashMap<String, Integer> userChange = getUserChange(cost);
+        addQuantity(cost, userChange);
         transaction.setEndTime();
     }
 
@@ -68,10 +63,8 @@ public class CashStrategy implements PaymentStrategy {
             
             String denomination = "";
             if (item.charAt(0) == '$'){
-                System.out.println("here");
                 denomination = item.substring(1);
             } else if (item.charAt(item.length() - 1) == 'c'){
-                System.out.println("over here");
                 denomination = item.substring(0, item.length() - 1);
             }
 
@@ -89,8 +82,7 @@ public class CashStrategy implements PaymentStrategy {
             totalCost = (double) (value * quantity); 
             
             if (totalCost >= amount) {
-                System.out.println("Cash accepted"); 
-                // Change this message
+                System.out.println("Payment accepted"); 
                 break;
             }            
         }
@@ -98,6 +90,23 @@ public class CashStrategy implements PaymentStrategy {
         return userCash;
     }
 
+    // Add user coins to vending machine till
+    public void addQuantity(Double cost, LinkedHashMap<String, Integer> userCash){
+        LinkedHashMap<String, Change> vMChange = user.getChange();
+        LinkedHashMap<String, Change> temp = new LinkedHashMap<>();
+        temp.putAll(vMChange);
+
+        for(String item: userCash.keySet()){
+            Change change = temp.get(item);
+
+            Integer addChange = change.getQuantity() + userCash.get(item);
+            change.setQuantity(addChange);
+        }
+
+        Double change = totalInputCash(userCash) - cost;
+        this.giveChange(change, temp);
+    }
+    
     // Get total amount of user input cash
     public double totalInputCash(LinkedHashMap<String, Integer> userCash){
         Double cost = 0.0;
@@ -119,22 +128,42 @@ public class CashStrategy implements PaymentStrategy {
         return cost;
     }
     
-    public void giveChange(Double cost, LinkedHashMap<String, Integer> userCash){
-        
-    }
+    // Calculate change 
+    public void giveChange(Double cost, LinkedHashMap<String, Change> allChange){
+        LinkedHashMap<String, Integer> customerChange = cashCount();
+        for (String item : allChange.keySet()) {
+            Change change = allChange.get(item);
+            Integer count = (int) (Math.floor(cost/change.getValue()));
 
-    public HashMap<String, Change> addQuantity(LinkedHashMap<String, Integer> userCash){
-        HashMap<String, Change> vMChange = user.getChange();
-        HashMap<String, Change> temp = new HashMap<>();
-        temp.putAll(vMChange);
+            if (count <= change.getQuantity()) {
+                customerChange.merge(item, count, Integer::sum);
+                int newQuantity = change.getQuantity() - count;
+                change.setQuantity(newQuantity);
+            } else if (count > change.getQuantity()) {
+                continue;
+            }
 
-        for(String item: userCash.keySet()){
-            Change change = temp.get(item);
-
-            Integer addChange = change.getQuantity() + userCash.get(item);
-            change.setQuantity(addChange);
+            Double total = count * change.getValue();
+            cost -= total;
         }
 
-        return temp;
+        if (cost != 0) {
+            System.out.println("Not enough change in machine.");
+            System.out.println("Please try again.");
+        }
+        else { 
+            System.out.println("Here is your change: ");
+            for (String item : customerChange.keySet()) {
+                Integer quantity = customerChange.get(item);
+                if (quantity != 0) {
+                    System.out.println(item + ": " + quantity);
+                }
+            }
+
+            user.setChange(allChange);
+            
+        }
     }
+
+    
 }

@@ -6,7 +6,7 @@ public class Main {
         while (!vm.isQuit()) {
             vm.getUser().setProducts(vm.getProducts());
             vm.getUser().setChange(vm.getChange());
-            vm.handleInput();
+            vm.handleInput(vm.getUser().getUI().getInput().toLowerCase());
         }
     }
 }

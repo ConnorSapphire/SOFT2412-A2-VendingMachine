@@ -39,6 +39,7 @@ public class MakeTransaction implements Runnable {
         if (!cancelTransaction) {
             if (prods.isEmpty()) {
                 user.getUI().displayErrorString("No products selected. Please view available stock and try again.");
+                cancel();
                 return;
             } else {
                 System.out.println("Selection complete, total price is $" + cost + ".");
@@ -50,6 +51,7 @@ public class MakeTransaction implements Runnable {
             user.setTransaction(currentTransaction);
             user.completeTransaction();
         }
-        cancelTransaction = false;
+        cancel();
+        return;
     }
 }

@@ -33,7 +33,6 @@ public class CardStrategy implements PaymentStrategy {
             if (user.getCurrentTransaction().isCancelled()) {
                 return;
             }
-            System.out.println();
             System.out.print("Input credit card number: ");
             String cardNumber = ui.getPlainInput();
             if (cardNumber.toLowerCase().equals("cancel")) {
@@ -43,7 +42,6 @@ public class CardStrategy implements PaymentStrategy {
             if (user.getCurrentTransaction().isCancelled()) {
                 return;
             }
-            System.out.println();
             boolean cardValid = false;
             if (cards.containsKey(cardName)) {
                 if (cards.get(cardName).equals(cardNumber)) {
@@ -70,6 +68,20 @@ public class CardStrategy implements PaymentStrategy {
             }
         }
         transaction.setEndTime();
-        ui.getFileManager().updateTransactionHistory(transaction.getEndTime(), transaction.getProducts(), cost, 0.0, transaction.getPaymentMethod()); 
+        // Update transaction history in file
+        ui.getFileManager().updateTransactionHistory(transaction.getEndTime(), transaction.getProducts(), cost, 0.0, transaction.getPaymentMethod());
+        // Update products in file and internal memory
+        for (Product product : transaction.getProducts()) {
+            product.setQuantity(product.getQuantity() - 1);
+            if (product.getCategory().equals("candy")) {
+                ui.getFileManager().updateCandies(product);
+            } else if (product.getCategory().equals("chocolate")) {
+                ui.getFileManager().updateChocolates(product);
+            } else if (product.getCategory().equals("chip")) {
+                ui.getFileManager().updateChips(product);
+            } else if (product.getCategory().equals("drink")) {
+                ui.getFileManager().updateDrinks(product);
+            }
+        }
     }
 }

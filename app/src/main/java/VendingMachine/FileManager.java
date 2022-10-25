@@ -130,7 +130,7 @@ public class FileManager {
             for (Object objKey : chocolate.keySet()) {
                 String key = (String) objKey;
                 JSONObject value = (JSONObject) chocolate.get(key);
-                Double[] num = new Double[] { (Double) value.get("price"), (Double) value.get("quantity") };
+                Double[] num = new Double[] { (Double) value.get("price"), (Double) value.get("quantity"), (Double) value.get("sold")};
                 String[] str = new String[]{key, (String) value.get("code")};
                 output.put(str, num);
             }
@@ -188,7 +188,7 @@ public class FileManager {
             for (Object objKey : chip.keySet()) {
                 String key = (String) objKey;
                 JSONObject value = (JSONObject) chip.get(key);
-                Double[] num = new Double[] { (Double) value.get("price"), (Double) value.get("quantity") };
+                Double[] num = new Double[] { (Double) value.get("price"), (Double) value.get("quantity"), (Double) value.get("sold")};
                 String[] str = new String[]{key, (String) value.get("code")};
                 output.put(str, num);
             }
@@ -246,7 +246,7 @@ public class FileManager {
             for (Object objKey : candy.keySet()) {
                 String key = (String) objKey;
                 JSONObject value = (JSONObject) candy.get(key);
-                Double[] num = new Double[] { (Double) value.get("price"), (Double) value.get("quantity") };
+                Double[] num = new Double[] { (Double) value.get("price"), (Double) value.get("quantity"), (Double) value.get("sold")};
                 String[] str = new String[]{key, (String) value.get("code")};
                 output.put(str, num);
             }
@@ -304,7 +304,7 @@ public class FileManager {
             for (Object objKey : note.keySet()) {
                 String key = (String) objKey;
                 JSONObject value = (JSONObject) note.get(key);
-                Double[] num = new Double[] { (Double) value.get("price"), (Double) value.get("quantity") };
+                Double[] num = new Double[] { (Double) value.get("price"), (Double) value.get("quantity"), (Double) value.get("sold")};
                 output.put(key, num);
             }
         }
@@ -355,7 +355,7 @@ public class FileManager {
             for (Object objKey : coin.keySet()) {
                 String key = (String) objKey;
                 JSONObject value = (JSONObject) coin.get(key);
-                Double[] num = new Double[] { (Double) value.get("price"), (Double) value.get("quantity") };
+                Double[] num = new Double[] { (Double) value.get("price"), (Double) value.get("quantity"), (Double) value.get("sold")};
                 output.put(key, num);
             }
         }
@@ -391,6 +391,50 @@ public class FileManager {
         try {
             FileWriter fw = new FileWriter("src/main/java/VendingMachine/" + changeFileName + ".json");
             obj.writeJSONString(fw);
+            fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public HashMap<String, String[]> lsUsers() {
+        HashMap<String, String[]> output = new HashMap<String, String[]>();
+        for (Object obj : this.users.keySet()) {
+            String key = (String) obj;
+            JSONObject user = (JSONObject) this.users.get(key);
+            JSONObject card = (JSONObject) user.get("card");
+            String[] value = new String[] {(String) user.get("password"), (String) card.get("name"), (String) card.get("number"), (String) user.get("access")};
+            output.put(key, value);
+        }
+        return output;
+    }
+
+    public void updateUsers(User user) {
+        if (this.users.containsKey(user.getUsername())) {
+            JSONObject userObject = (JSONObject) this.users.get(user.getUsername());
+            userObject.replace("password", user.getPassword());
+            JSONObject cardObject = (JSONObject) userObject.get("card");
+            cardObject.replace("name", user.getCardName());
+            cardObject.replace("number", user.getCardNumber());
+            userObject.replace("card", cardObject);
+            userObject.replace("access", user.getAccessLevel());
+            // update Transactions (need to save to User first)!
+            this.users.replace(user.getUsername(), userObject);
+        } else {
+            JSONObject userObject = new JSONObject();
+            userObject.put("password", user.getPassword());
+            JSONObject cardObject = new JSONObject();
+            cardObject.put("name", user.getCardName());
+            cardObject.put("number", user.getCardNumber());
+            userObject.put("card", cardObject);
+            userObject.put("access", user.getAccessLevel());
+            // update Transactions (need to save to user first)!
+            userObject.put("transaction", new JSONArray());
+            this.users.put(user.getUsername(), userObject);
+        }
+        try {
+            FileWriter fw = new FileWriter("src/main/java/VendingMachine/" + usersFileName + ".json");
+            this.users.writeJSONString(fw);
             fw.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -483,6 +527,43 @@ public class FileManager {
             e.printStackTrace();
         }
     } 
+
+    public void writeProductsFile(String fileName, HashMap<String[], Double[]> drinks, HashMap<String[], Double[]> candies, HashMap<String[], Double[]> chocolates, HashMap<String[], Double[]> chips) {
+        try {
+            FileWriter fw = new FileWriter(fileName);
+            fw.write("Drinks:\n");
+            for (String[] drink : drinks.keySet()) {
+                fw.write("\tProduct Name: " + drink[0] + "\n");
+                fw.write("\tProduct Cost: " + drinks.get(drink)[0] + "\n");
+                fw.write("\tProduct Quantities: " + drinks.get(drink)[1] + "\n");
+                fw.write("\n");
+            }
+            fw.write("Candies:\n");
+            for (String[] candy : candies.keySet()) {
+                fw.write("\tProduct Name: " + candy[0] + "\n");
+                fw.write("\tProduct Cost: " + candies.get(candy)[0] + "\n");
+                fw.write("\tProduct Quantities: " + candies.get(candy)[1] + "\n");
+                fw.write("\n");
+            }
+            fw.write("Chocolates:\n");
+            for (String[] chocolate : chocolates.keySet()) {
+                fw.write("\tProduct Name: " + chocolate[0] + "\n");
+                fw.write("\tProduct Cost: " + chocolates.get(chocolate)[0] + "\n");
+                fw.write("\tProduct Quantities: " + chocolates.get(chocolate)[1] + "\n");
+                fw.write("\n");
+            }
+            fw.write("Chips:\n");
+            for (String[] chip : chips.keySet()) {
+                fw.write("\tProduct Name: " + chip[0] + "\n");
+                fw.write("\tProduct Cost: " + chips.get(chip)[0] + "\n");
+                fw.write("\tProduct Quantities: " + chips.get(chip)[1] + "\n");
+                fw.write("\n");
+            }
+            fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public void modifyName(String category, String oldName, String newName){
         JSONArray oldcate = (JSONArray) stock.get(category);

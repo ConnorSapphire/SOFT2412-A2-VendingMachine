@@ -141,11 +141,21 @@ public class Seller extends User {
             this.getUI().displayerrorMessage("Price must be positive!");
             return false;
         }
+        ProductCreator pc = null;
         String[] all  = new String[]{"Drinks", "Chocolates", "Chips", "Candies"};
         boolean find = false;
         for(String cat : all){
             if(category.toLowerCase() == cat.toLowerCase()){
                 find = true;
+                if(cat.equals(all[0])){
+                    pc = new DrinkCreator();
+                }else if(cat.equals(all[1])){
+                    pc = new ChocolateCreator();
+                }else if(cat.equals(all[2])){
+                    pc = new ChipCreator();
+                }else{
+                    pc = new CandyCreator();
+                }
             }
         }
         if(!find){
@@ -163,11 +173,33 @@ public class Seller extends User {
                 return false;
             }
         }
-        // How to create a new product here?
+        if (pc != null) {
+            pc.create(name, code, price, quantity, 0);
+        }
         return true;
     }
 
     public void displayHelp() {
         this.getUI().displaySellerHelp();
     }
+
+    // public void reportCurrentAvailable(HashMap<String, Product> products){
+    //     CommandLineTable st = new CommandLineTable();
+    //     st.setHeaders("Code", "Name", "Category", "Price", "Quantity");
+    //     for(Product p : products){
+    //         if(p.getQuantity() > 0){
+    //             st.addRow(p.getCode(), p.getName(), p.getCategory(), Double.toString(p.getPrice()), Integer.toString(p.getQuantity()));
+    //         }
+    //     }
+    //     st.print();
+    // }
+
+    // public void reportSellingSummary(HashMap<String, Product> products){
+    //     CommandLineTable st = new CommandLineTable();
+    //     st.setHeaders("Code", "Name", "Total Quantity Sold");
+    //     for(Product p : products){
+    //         st.addRow(p.getCode(), p.getName(), Integer.toString(p.gettotalSold()));
+    //     }
+    //     st.print();
+    // }
 }

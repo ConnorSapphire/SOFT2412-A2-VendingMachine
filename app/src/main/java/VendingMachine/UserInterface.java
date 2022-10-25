@@ -144,6 +144,11 @@ public class UserInterface {
      * Includes product name, product code, category, price, and quantity.
      */
     public void displayDetailedStock() {
+        HashMap<String[], Double[]> drinks = fm.lsDrinks();
+        HashMap<String[], Double[]> candies = fm.lsCandies();
+        HashMap<String[], Double[]> chocolates = fm.lsChocolates();
+        HashMap<String[], Double[]> chips = fm.lsChips();
+        fm.writeProductsFile("src/main/java/VendingMachine/products.txt", drinks, candies, chocolates, chips);
         List<String> dataList = fm.readTextFile("src/main/java/VendingMachine/products.txt","utf-8");  //file can be utf8 or gbk
         for(String data:dataList){
             System.out.println(data);
@@ -300,7 +305,7 @@ public class UserInterface {
 
     public void displayProductTable(){
         CommandLineTable ct = new CommandLineTable();
-        ct.setHeaders("Category", "Name", "Price", "Quantity", "Shortcode");
+        ct.setHeaders("Name", "Category", "Price", "Quantity", "Shortcode");
         HashMap<String[], Double[]> Drinks = fm.lsDrinks();
         HashMap<String[], Double[]> Chocolates = fm.lsChocolates();
         HashMap<String[], Double[]> Chips = fm.lsChips();

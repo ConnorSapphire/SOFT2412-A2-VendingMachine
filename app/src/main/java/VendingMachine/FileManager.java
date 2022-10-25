@@ -290,8 +290,8 @@ public class FileManager {
         }
     }
 
-    public HashMap<String, Double[]> lsNotes() {
-        HashMap<String, Double[]> output = new HashMap<String, Double[]>();
+    public LinkedHashMap<String, Double[]> lsNotes() {
+        LinkedHashMap<String, Double[]> output = new LinkedHashMap<String, Double[]>();
         JSONArray notes = (JSONArray) this.change.get("Notes");
         for (Object obj : notes) {
             JSONObject note = (JSONObject) obj;
@@ -310,8 +310,8 @@ public class FileManager {
     
     }
 
-    public HashMap<String, Double[]> lsCoins() {
-        HashMap<String, Double[]> output = new HashMap<String, Double[]>();
+    public LinkedHashMap<String, Double[]> lsCoins() {
+        LinkedHashMap<String, Double[]> output = new LinkedHashMap<String, Double[]>();
         JSONArray coins = (JSONArray) this.change.get("Coins");
         for (Object obj : coins) {
             JSONObject coin = (JSONObject) obj;

@@ -91,13 +91,7 @@ public class UserInterface {
     //     }
     //     String password = getInput();
     //     System.setOut(out);
-       char[] charpassword = System.console().readPassword();
-       String password = charpassword.toString();
-       for (int i = 0; i < password.length(); i++) {
-           System.out.print("*");
-       }
-       System.out.println();
-       return password;
+        return null;
     }  
         
         
@@ -334,5 +328,9 @@ public class UserInterface {
             cm.addRow(str);
         }
         cm.print();
+    }
+
+    public void displayerrorMessage(String str){
+        System.out.println(ANSI_RED + str);
     }
 }

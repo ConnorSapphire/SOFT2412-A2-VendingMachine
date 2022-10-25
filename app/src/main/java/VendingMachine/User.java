@@ -5,6 +5,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 public abstract class User implements Runnable {
     private String username;
@@ -16,7 +17,7 @@ public abstract class User implements Runnable {
     private String cardName;
     private String cardNumber;
     private HashMap<String, Product> products;
-    private HashMap<String, Change> change;
+    private LinkedHashMap<String, Change> change;
     private boolean cancelTransaction;
 
     private HashMap<String, String> cards;
@@ -42,11 +43,11 @@ public abstract class User implements Runnable {
         this.products = products;
     }
 
-    public void setChange(HashMap<String, Change> change) {
-        this.change = change;
+    public void setChange(HashMap<String, Change> change2) {
+        this.change = (LinkedHashMap<String, Change>) change2;
     }
 
-    public HashMap<String, Change> getChange() {
+    public LinkedHashMap<String, Change> getChange() {
         return this.change;
     }
 

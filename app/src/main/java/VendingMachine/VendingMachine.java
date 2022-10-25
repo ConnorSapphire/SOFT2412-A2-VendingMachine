@@ -11,7 +11,7 @@ public class VendingMachine {
     private User user;
     private HashMap<String, User> users;
     private HashMap<String, Product> products;
-    private HashMap<String, Change> change;
+    private LinkedHashMap<String, Change> change;
     private HashMap<String, String> cards;
     private JSONObject json;
     private boolean quit;
@@ -44,7 +44,7 @@ public class VendingMachine {
         for (String[] chip : chips.keySet()) {
             products.put(chip[0], productCreator.create(chip[0], chip[1], chips.get(chip)[0], (int) Math.round(chips.get(chip)[1])));
         }
-        change = new HashMap<String, Change>();
+        change = new LinkedHashMap<String, Change>();
         HashMap<String, Double[]> notes = fileManager.lsNotes();
         ChangeCreator changeCreator = new NoteCreator();
         for (String note : notes.keySet()) {
@@ -67,7 +67,7 @@ public class VendingMachine {
         return this.products;
     }
 
-    public HashMap<String, Change> getChange() {
+    public LinkedHashMap<String, Change> getChange() {
         return this.change;
     }
 

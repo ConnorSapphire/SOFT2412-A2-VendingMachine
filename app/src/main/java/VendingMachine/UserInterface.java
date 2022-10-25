@@ -36,15 +36,6 @@ public class UserInterface {
         this.fm = fm;
         this.scanner = new Scanner(System.in);
     }
-
-    public static void main(String[] args){
-        //        UserInterface userInterface = new UserInterface();
-        //        System.out.print(userInterface.getInputPassword("12345"));
-               List<String> dataList = readTextFile("D:\\Ad-admin\\product.txt","utf-8");
-               for(String data:dataList){
-                   System.out.println(getANSIFont(data));
-               }
-            }
         
     public void displayWelcomeMessage() {
         System.out.println(ANSI_CYAN + "Welcome to " + ANSI_BLUE + "ATLANTIS" + ANSI_CYAN + " vending machine." + ANSI_RESET);
@@ -87,10 +78,10 @@ public class UserInterface {
         // }
         // return input.toString();
         
-        String pass = getPlainInput();
-        // String a = asterisk(pass);
-        // System.out.println(a);
-        return pass;
+        // String pass = getPlainInput();
+        // // String a = asterisk(pass);
+        // // System.out.println(a);
+        // return pass;
         
     //     PrintStream out = System.out;
     //     try {
@@ -100,14 +91,7 @@ public class UserInterface {
     //     }
     //     String password = getInput();
     //     System.setOut(out);
-    //    Console console = System.console();
-    //    char[] charpassword = console.readPassword();
-    //    String password = charpassword.toString();
-    //    for (int i = 0; i < password.length(); i++) {
-    //        System.out.print("*");
-    //    }
-    //    System.out.println();
-    //    return password;
+        return null;
     }  
         
         
@@ -180,7 +164,7 @@ public class UserInterface {
      * Includes product name, product code, category, price, and quantity.
      */
     public void displayDetailedStock() {
-        List<String> dataList = readTextFile("D:\\Ad-admin\\product.txt","utf-8");  //file can be utf8 or gbk
+        List<String> dataList = fm.readTextFile("src/main/java/VendingMachine/product.txt","utf-8");  //file can be utf8 or gbk
         for(String data:dataList){
             System.out.println(data);
         }
@@ -198,7 +182,7 @@ public class UserInterface {
      * Display text through terminal with a list of all previous successful transactions.
      */
     public void displayTransactionHistory() {
-        List<String> dataList = readTextFile("D:\\Ad-admin\\transaction.txt","utf-8");  //file can be utf8 or gbk
+        List<String> dataList = fm.readTextFile("src/main/java/VendingMachine/transaction.txt","utf-8");  //file can be utf8 or gbk
         for(String data:dataList){
             System.out.println(data);
         }
@@ -215,7 +199,7 @@ public class UserInterface {
      * Display text through terminal with a list of all the change currently in the vending machine.
      */
     public void displayChange() {
-        List<String> dataList = readTextFile("D:\\Ad-admin\\change.txt","utf-8");  //文件编码可以是utf8 或者gbk
+        List<String> dataList = fm.readTextFile("src/main/java/VendingMachine/change.txt","utf-8");  
         for(String data:dataList){
             System.out.println(data);
         }
@@ -345,25 +329,4 @@ public class UserInterface {
         }
         cm.print();
     }
-    
-        //read file
-    public static List readTextFile(String jsonFile,String encode) {
-        List<String> dataList = new ArrayList<>();
-        try {
-            FileInputStream fileInputStream = new FileInputStream(jsonFile);
-            InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream, encode);
-            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-            String tempString;
-            while ((tempString = bufferedReader.readLine()) != null)
-            {
-                dataList.add(tempString);
-               // stringBuilder.append(tempString);
-            }
-            bufferedReader.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return dataList;
-    }
-    
 }

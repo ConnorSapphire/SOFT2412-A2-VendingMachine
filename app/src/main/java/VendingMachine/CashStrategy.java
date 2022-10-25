@@ -1,8 +1,12 @@
 package VendingMachine;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.stream.StreamSupport;
 
-import javax.security.auth.kerberos.DelegationPermission;
+import javax.swing.plaf.synth.SynthSeparatorUI;
+
+import java.lang.reflect.AnnotatedWildcardType;
+import java.util.HashMap;
 
 public class CashStrategy implements PaymentStrategy {
     private User user;
@@ -21,31 +25,14 @@ public class CashStrategy implements PaymentStrategy {
             cost += product.getPrice();
         }
 
-        System.out.println("Please enter the amount to pay: ");
-        String amount = ui.getInput();
-        if (amount.toLowerCase().equals("cancel")) {{
-            user.cancelTransaction();
-            return;
-        }}
-
-        test(cost);
-        
-        // Adjustments to be made below 
-        Double cashInput = Double.parseDouble(amount);
-        
-        if (cashInput > cost){
-            Double change = cashInput - cost;
-            System.out.println("Here is your change: $" + change);
-        } else if (cashInput == cost){
-            System.out.println("Transaction successful");
-        } else {
-            System.out.println("Incorrect amount entered. Purchase cancelled.");
-        }
+        LinkedHashMap<String, Integer> userChange = getUserChange(cost);
+        addQuantity(cost, userChange);
         transaction.setEndTime();
     }
 
-    public HashMap<String, Integer> cashCount(){
-        HashMap<String, Integer> userCash = new HashMap<>();
+    // Empty hashmap of user cash inputs
+    public LinkedHashMap<String, Integer> cashCount(){
+        LinkedHashMap<String, Integer> userCash = new LinkedHashMap<>();
         userCash.put("$100", 0);
         userCash.put("$50", 0);
         userCash.put("$20", 0);
@@ -61,8 +48,9 @@ public class CashStrategy implements PaymentStrategy {
         return userCash;
     }
 
-    public HashMap<String, Integer> test(Double amount){
-        HashMap<String, Integer> userCash = cashCount();
+    // Update empty hashmap with quantities given by user
+    public LinkedHashMap<String, Integer> getUserChange(Double amount){
+        LinkedHashMap<String, Integer> userCash = cashCount();
         Double totalCost = 0.0;
         
         for (String item : userCash.keySet()){
@@ -75,11 +63,9 @@ public class CashStrategy implements PaymentStrategy {
             
             String denomination = "";
             if (item.charAt(0) == '$'){
-                System.out.println("here");
                 denomination = item.substring(1);
-            } else if (item.charAt(input.length() - 1) == 'c'){
-                System.out.println("over here");
-                denomination = item.substring(0, input.length() - 1);
+            } else if (item.charAt(item.length() - 1) == 'c'){
+                denomination = item.substring(0, item.length() - 1);
             }
 
             Integer value = Integer.parseInt(denomination);
@@ -96,8 +82,7 @@ public class CashStrategy implements PaymentStrategy {
             totalCost = (double) (value * quantity); 
             
             if (totalCost >= amount) {
-                System.out.println("Amount inputted is correct"); 
-                // Change this message
+                System.out.println("Payment accepted"); 
                 break;
             }            
         }
@@ -105,13 +90,80 @@ public class CashStrategy implements PaymentStrategy {
         return userCash;
     }
 
-    public void addQuantity(HashMap<String, Integer> userCash){
-        
+    // Add user coins to vending machine till
+    public void addQuantity(Double cost, LinkedHashMap<String, Integer> userCash){
+        LinkedHashMap<String, Change> vMChange = user.getChange();
+        LinkedHashMap<String, Change> temp = new LinkedHashMap<>();
+        temp.putAll(vMChange);
+
         for(String item: userCash.keySet()){
-            
+            Change change = temp.get(item);
+
+            Integer addChange = change.getQuantity() + userCash.get(item);
+            change.setQuantity(addChange);
         }
 
+        Double change = totalInputCash(userCash) - cost;
+        this.giveChange(change, temp);
+    }
+    
+    // Get total amount of user input cash
+    public double totalInputCash(LinkedHashMap<String, Integer> userCash){
+        Double cost = 0.0;
+
+        String denomination = "";
+        Integer quantity = 0;
+        for(String item: userCash.keySet()){
+            if (item.charAt(0) == '$'){
+                denomination = item.substring(1);
+            } else if (item.charAt(item.length() - 1) == 'c'){
+                denomination = item.substring(0, item.length() - 1);
+            }
+            quantity = userCash.get(item);
+
+            Integer value = Integer.parseInt(denomination);
+            cost += (value * quantity);
+        }
+
+        return cost;
+    }
+    
+    // Calculate change 
+    public void giveChange(Double cost, LinkedHashMap<String, Change> allChange){
+        LinkedHashMap<String, Integer> customerChange = cashCount();
+        for (String item : allChange.keySet()) {
+            Change change = allChange.get(item);
+            Integer count = (int) (Math.floor(cost/change.getValue()));
+
+            if (count <= change.getQuantity()) {
+                customerChange.merge(item, count, Integer::sum);
+                int newQuantity = change.getQuantity() - count;
+                change.setQuantity(newQuantity);
+            } else if (count > change.getQuantity()) {
+                continue;
+            }
+
+            Double total = count * change.getValue();
+            cost -= total;
+        }
+
+        if (cost != 0) {
+            System.out.println("Not enough change in machine.");
+            System.out.println("Please try again.");
+        }
+        else { 
+            System.out.println("Here is your change: ");
+            for (String item : customerChange.keySet()) {
+                Integer quantity = customerChange.get(item);
+                if (quantity != 0) {
+                    System.out.println(item + ": " + quantity);
+                }
+            }
+
+            user.setChange(allChange);
+            
+        }
     }
 
-
+    
 }

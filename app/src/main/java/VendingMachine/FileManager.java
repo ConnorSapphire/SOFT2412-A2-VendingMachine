@@ -183,10 +183,6 @@ public class FileManager {
     }
 
     public void modifyName(String category, String oldName, String newName){
-<<<<<<< HEAD
-        JSONObject cate = (JSONObject) stock.get(category);
-
-=======
         JSONArray oldcate = (JSONArray) stock.get(category);
         JSONArray newcate = new JSONArray();
         for (Object obj : oldcate) {
@@ -226,6 +222,5 @@ public class FileManager {
     public static void main(String[] args){
         FileManager fm = new FileManager();
         fm.modifyName("Chips", "Smiths", "S");
->>>>>>> ced2e7b373b4565d61efc045d415d37e3d2bc0dd
     }
 }

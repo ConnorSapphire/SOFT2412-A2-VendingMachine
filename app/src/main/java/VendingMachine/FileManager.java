@@ -130,7 +130,7 @@ public class FileManager {
             for (Object objKey : chocolate.keySet()) {
                 String key = (String) objKey;
                 JSONObject value = (JSONObject) chocolate.get(key);
-                Double[] num = new Double[] { (Double) value.get("price"), (Double) value.get("quantity"), (Double) value.get("sold")};
+                Double[] num = new Double[] { (Double) value.get("price"), (Double) value.get("quantity"), (Double) value.get("sold")       };
                 String[] str = new String[]{key, (String) value.get("code")};
                 output.put(str, num);
             }
@@ -146,7 +146,7 @@ public class FileManager {
             JSONObject chocolateObject = (JSONObject) chocObj;
             for (Object objKey : chocolateObject.keySet()) {
                 String key = (String) objKey;
-                if (key.equals(chocolate.getName())) {
+                if (key.equals(chocolate.getName())) { 
                     JSONObject value = (JSONObject) chocolateObject.get(key);
                     value.replace("price", chocolate.getPrice());
                     value.replace("quantity", Double.valueOf(chocolate.getQuantity()));

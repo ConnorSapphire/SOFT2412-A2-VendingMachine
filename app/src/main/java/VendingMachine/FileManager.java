@@ -7,22 +7,26 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import java.io.*;
+import java.lang.reflect.Array;
+import java.time.ZoneId;
 
 public class FileManager {
 
     private JSONObject stock, users, change;
-    private JSONArray creditCards;
-    private String stockFileName, usersFileName, creditCardsFileName, changeFileName;
+    private JSONArray creditCards, transactions;
+    private String stockFileName, usersFileName, creditCardsFileName, changeFileName, transactionsFileName;
 
-    public FileManager(String usersFileName, String stockFileName, String creditCardsFileName, String changeFileName) {
+    public FileManager(String usersFileName, String stockFileName, String creditCardsFileName, String changeFileName, String transactionsFileName) {
         this.users = (JSONObject) JfileReader(usersFileName);
         this.stock = (JSONObject) JfileReader(stockFileName);
         this.creditCards = (JSONArray) JfileReader(creditCardsFileName);
         this.change = (JSONObject) JfileReader(changeFileName);
+        this.transactions = (JSONArray) JfileReader(transactionsFileName);
         this.stockFileName = stockFileName;
         this.usersFileName = usersFileName;
         this.creditCardsFileName = creditCardsFileName;
         this.changeFileName = changeFileName;
+        this.transactionsFileName = transactionsFileName;
     }
 
     public FileManager() {
@@ -30,10 +34,12 @@ public class FileManager {
         this.stock = (JSONObject) JfileReader("stock");
         this.creditCards = (JSONArray) JfileReader("credit_cards");
         this.change = (JSONObject) JfileReader("change");
+        this.transactions = (JSONArray) JfileReader("transactions");
         this.usersFileName = "users";
         this.stockFileName = "stock";
         this.creditCardsFileName = "credit_cards";
         this.changeFileName = "change";
+        this.transactionsFileName = "transactions";
     }
 
     public Object JfileReader(String filename) {
@@ -381,6 +387,72 @@ public class FileManager {
         }
         return trans;
     }
+
+    public void updateTransactionHistory(Date date, ArrayList<Product> products, Double cost, Double change, String paymentMethod) {
+        JSONObject transaction = new JSONObject();
+        transaction.put("date", date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().toString());
+        transaction.put("time", date.toInstant().atZone(ZoneId.systemDefault()).toLocalTime().toString());
+        JSONArray productArray = new JSONArray();
+        for (Product product : products) {
+            productArray.add(product.getName());
+        }
+        transaction.put("products", productArray);
+        transaction.put("amount", cost);
+        transaction.put("change", change);
+        transaction.put("paymentMethod", paymentMethod);
+        transactions.add(transaction);
+        try {
+            FileWriter fw = new FileWriter("src/main/java/VendingMachine/" + transactionsFileName + ".json");
+            transactions.writeJSONString(fw);
+            fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public ArrayList<ArrayList<String>> lsTransactionHistory() {
+        ArrayList<ArrayList<String>> transactionHistory = new ArrayList<ArrayList<String>>();
+        for (Object obj : transactions) {
+            JSONObject transaction = (JSONObject) obj;
+            ArrayList<String> currentTransaction = new ArrayList<String>();
+            currentTransaction.add(transaction.get("date").toString());
+            currentTransaction.add(transaction.get("time").toString());
+            JSONArray products = (JSONArray) transaction.get("products");
+            String productsString = "";
+            for (Object productObj : products) {
+                String product = (String) productObj;
+                if (!productsString.equals("")) {
+                    productsString += " " + product;
+                } else {
+                    productsString += product;
+                }
+            }
+            currentTransaction.add(productsString);
+            currentTransaction.add(transaction.get("amount").toString());
+            currentTransaction.add(transaction.get("change").toString());
+            currentTransaction.add(transaction.get("paymentMethod").toString());
+            transactionHistory.add(currentTransaction);
+        }
+        return transactionHistory;
+    }
+
+    public void writeTransactionFile(String fileName, ArrayList<ArrayList<String>> transactions) {
+        try {
+            FileWriter fw = new FileWriter(fileName);
+            for (ArrayList<String> transaction : transactions) {
+                fw.write("Date: " + transaction.get(0) + "\n");
+                fw.write("Time: " + transaction.get(1) + "\n");
+                fw.write("Products: " + transaction.get(2) + "\n");
+                fw.write("Cost: " + transaction.get(3) + "\n");
+                fw.write("Change: " + transaction.get(4) + "\n");
+                fw.write("Payment Method: " + transaction.get(5) + "\n");
+                fw.write("\n");
+            }
+            fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    } 
 
     public void modifyName(String category, String oldName, String newName){
         JSONArray oldcate = (JSONArray) stock.get(category);

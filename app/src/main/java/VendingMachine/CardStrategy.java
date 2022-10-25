@@ -70,5 +70,6 @@ public class CardStrategy implements PaymentStrategy {
             }
         }
         transaction.setEndTime();
+        ui.getFileManager().updateTransactionHistory(transaction.getEndTime(), transaction.getProducts(), cost, 0.0, transaction.getPaymentMethod()); 
     }
 }

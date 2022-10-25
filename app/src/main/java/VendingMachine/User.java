@@ -133,12 +133,15 @@ public abstract class User {
         Thread t = new Thread(currentTransaction); // myRunnable does your calculations
 
         long startTime = System.currentTimeMillis();
-        long endTime = startTime + 10 * 1000;
+        long endTime = startTime + 120 * 1000;
 
         t.start(); // Kick off calculations
 
         while (System.currentTimeMillis() < endTime && !currentTransaction.isCancelled()) {
             // Still within time theshold, wait a little longer
+            if (currentTransaction.isCancelled()) {
+                break;
+            }
             try {
                 Thread.sleep(500L);  // Sleep 1/2 second
             } catch (InterruptedException e) {

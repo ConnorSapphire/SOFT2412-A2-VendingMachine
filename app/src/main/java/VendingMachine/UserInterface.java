@@ -41,6 +41,10 @@ public class UserInterface {
         this.fm = fm;
         this.scanner = new Scanner(System.in);
     }
+
+    public FileManager getFileManager() {
+        return this.fm;
+    }
         
     public void displayWelcomeMessage() {
         System.out.println(ANSI_CYAN + "Welcome to " + ANSI_BLUE + "ATLANTIS" + ANSI_CYAN + " vending machine." + ANSI_RESET);
@@ -164,6 +168,8 @@ public class UserInterface {
      * Display text through terminal with a list of all previous successful transactions.
      */
     public void displayTransactionHistory() {
+        ArrayList<ArrayList<String>> transactions = fm.lsTransactionHistory();
+        fm.writeTransactionFile("src/main/java/VendingMachine/transaction.txt", transactions);
         List<String> dataList = fm.readTextFile("src/main/java/VendingMachine/transaction.txt","utf-8");  //file can be utf8 or gbk
         for(String data:dataList){
             System.out.println(data);

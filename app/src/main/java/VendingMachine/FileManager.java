@@ -310,7 +310,6 @@ public class FileManager {
         }
         return output;
     }
-
     
     public void updateNotes(Change note) {
         JSONObject obj = new JSONObject();
@@ -364,7 +363,38 @@ public class FileManager {
     }
 
     public void updateCoins(Change coin) {
-
+        JSONObject obj = new JSONObject();
+        JSONArray coins = (JSONArray) this.change.get("Coins");
+        boolean found = false;
+        for (Object coinObj : coins) {
+            JSONObject coinObject = (JSONObject) coinObj;
+            for (Object objKey : coinObject.keySet()) {
+                String key = (String) objKey;
+                if (key.equals(coin.getName())) {
+                    JSONObject value = (JSONObject) coinObject.get(key);
+                    value.replace("price", coin.getValue());
+                    value.replace("quantity", Double.valueOf(coin.getQuantity()));
+                    found = true;
+                }
+            }
+        }
+        if (!found) {
+            JSONObject coinObj = new JSONObject();
+            JSONObject value = new JSONObject();
+            value.put("price", coin.getValue());
+            value.put("quantity", Double.valueOf(coin.getQuantity()));
+            coinObj.put(coin.getName(), value);
+            coins.add(coinObj);
+        }
+        JSONArray notes = (JSONArray) this.change.get("Notes");
+        obj.put("Notes", notes);
+        try {
+            FileWriter fw = new FileWriter("src/main/java/VendingMachine/" + changeFileName + ".json");
+            obj.writeJSONString(fw);
+            fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public HashMap<String, String> getCreditCards() {

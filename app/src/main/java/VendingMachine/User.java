@@ -18,6 +18,7 @@ public abstract class User {
     private String cardName;
     private String cardNumber;
     private HashMap<String, Product> products;
+    private HashMap<String, Product> shortProducts;
     private LinkedHashMap<String, Change> change;
     private boolean cancelTransaction;
 
@@ -50,6 +51,23 @@ public abstract class User {
 
     public void setProducts(HashMap<String, Product> products) {
         this.products = products;
+    }
+
+    public HashMap<String, Product> getProducts() {
+        return this.products;
+    }
+
+    public void createShortProducts(HashMap<String, Product> products) {
+        HashMap<String, Product> shortProductsTemp = new HashMap<String, Product>();
+        for (String productName : products.keySet()) {
+            Product product = products.get(productName);
+            shortProductsTemp.put(product.getCode(), product);
+        }
+        this.shortProducts = shortProductsTemp;
+    }
+
+    public HashMap<String, Product> getShortProducts() {
+        return this.shortProducts;
     }
 
     public void setChange(HashMap<String, Change> change2) {
@@ -149,9 +167,11 @@ public abstract class User {
             }
         }
 
+        if (System.currentTimeMillis() > endTime) {
+            ui.displayErrorString("\nTransaction Timed Out (Press Enter)");
+        }
         currentTransaction.cancel();
         t.interrupt();  // Tell the thread to stop
-        ui.displayErrorString("\nTransaction Timed Out (Press Enter)");
         try {
             t.join();       // Wait for the thread to cleanup and finish
         } catch (InterruptedException e) {
@@ -186,6 +206,8 @@ public abstract class User {
             cancelTransaction();
         } else if (products.containsKey(product)) {
             return products.get(product);
+        } else if (shortProducts.containsKey(product.toUpperCase())) {
+            return shortProducts.get(product.toUpperCase());
         }
         return null;
     }

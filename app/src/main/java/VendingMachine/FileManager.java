@@ -484,6 +484,43 @@ public class FileManager {
         }
     } 
 
+    public void writeProductsFile(String fileName, HashMap<String[], Double[]> drinks, HashMap<String[], Double[]> candies, HashMap<String[], Double[]> chocolates, HashMap<String[], Double[]> chips) {
+        try {
+            FileWriter fw = new FileWriter(fileName);
+            fw.write("Drinks:\n");
+            for (String[] drink : drinks.keySet()) {
+                fw.write("\tProduct Name: " + drink[0] + "\n");
+                fw.write("\tProduct Cost: " + drinks.get(drink)[0] + "\n");
+                fw.write("\tProduct Quantities: " + drinks.get(drink)[1] + "\n");
+                fw.write("\n");
+            }
+            fw.write("Candies:\n");
+            for (String[] candy : candies.keySet()) {
+                fw.write("\tProduct Name: " + candy[0] + "\n");
+                fw.write("\tProduct Cost: " + candies.get(candy)[0] + "\n");
+                fw.write("\tProduct Quantities: " + candies.get(candy)[1] + "\n");
+                fw.write("\n");
+            }
+            fw.write("Chocolates:\n");
+            for (String[] chocolate : chocolates.keySet()) {
+                fw.write("\tProduct Name: " + chocolate[0] + "\n");
+                fw.write("\tProduct Cost: " + chocolates.get(chocolate)[0] + "\n");
+                fw.write("\tProduct Quantities: " + chocolates.get(chocolate)[1] + "\n");
+                fw.write("\n");
+            }
+            fw.write("Chips:\n");
+            for (String[] chip : chips.keySet()) {
+                fw.write("\tProduct Name: " + chip[0] + "\n");
+                fw.write("\tProduct Cost: " + chips.get(chip)[0] + "\n");
+                fw.write("\tProduct Quantities: " + chips.get(chip)[1] + "\n");
+                fw.write("\n");
+            }
+            fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void modifyName(String category, String oldName, String newName){
         JSONArray oldcate = (JSONArray) stock.get(category);
         JSONArray newcate = new JSONArray();

@@ -26,8 +26,26 @@ public class CashStrategy implements PaymentStrategy {
         }
 
         LinkedHashMap<String, Integer> userChange = getUserChange(cost);
-        addQuantity(cost, userChange);
+        LinkedHashMap<String, Integer> changeGiven = addQuantity(cost, userChange);
         transaction.setEndTime();
+        double change = 0.0;
+        // Update transaction history -> TODO: correct change
+        ui.getFileManager().updateTransactionHistory(transaction.getEndTime(), transaction.getProducts(), cost, change, transaction.getPaymentMethod()); 
+        // Update products in file and internal memory
+        for (Product product : transaction.getProducts()) {
+            product.setQuantity(product.getQuantity() - 1);
+            if (product.getCategory().equals("candy")) {
+                ui.getFileManager().updateCandies(product);
+            } else if (product.getCategory().equals("chocolate")) {
+                ui.getFileManager().updateChocolates(product);
+            } else if (product.getCategory().equals("chip")) {
+                ui.getFileManager().updateChips(product);
+            } else if (product.getCategory().equals("drink")) {
+                ui.getFileManager().updateDrinks(product);
+            }
+        }
+        // Update change in file and internal memory
+        
     }
 
     // Empty hashmap of user cash inputs
@@ -91,7 +109,7 @@ public class CashStrategy implements PaymentStrategy {
     }
 
     // Add user coins to vending machine till
-    public void addQuantity(Double cost, LinkedHashMap<String, Integer> userCash){
+    public LinkedHashMap<String, Integer> addQuantity(Double cost, LinkedHashMap<String, Integer> userCash){
         LinkedHashMap<String, Change> vMChange = user.getChange();
         LinkedHashMap<String, Change> temp = new LinkedHashMap<>();
         temp.putAll(vMChange);
@@ -104,7 +122,7 @@ public class CashStrategy implements PaymentStrategy {
         }
 
         Double change = totalInputCash(userCash) - cost;
-        this.giveChange(change, temp);
+        return giveChange(change, temp);
     }
     
     // Get total amount of user input cash
@@ -129,7 +147,7 @@ public class CashStrategy implements PaymentStrategy {
     }
     
     // Calculate change 
-    public void giveChange(Double cost, LinkedHashMap<String, Change> allChange){
+    public LinkedHashMap<String, Integer> giveChange(Double cost, LinkedHashMap<String, Change> allChange){
         LinkedHashMap<String, Integer> customerChange = cashCount();
         for (String item : allChange.keySet()) {
             Change change = allChange.get(item);
@@ -160,9 +178,11 @@ public class CashStrategy implements PaymentStrategy {
                 }
             }
 
+            // Doesn't affect change stored in CendingMachine <- needs to
             user.setChange(allChange);
             
         }
+        return customerChange;
     }
 
     

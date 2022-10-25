@@ -8,7 +8,7 @@ public class Candy extends Product {
      * @param price
      * @param quantity
      */
-    public Candy(String name, String code, double price, int quantity) {
-        super(name, code, "candy", price, quantity);
+    public Candy(String name, String code, double price, int quantity, int totalSold) {
+        super(name, code, "candy", price, quantity, totalSold);
     }
 }

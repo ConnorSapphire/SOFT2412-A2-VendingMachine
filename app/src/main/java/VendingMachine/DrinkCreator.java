@@ -9,7 +9,7 @@ public class DrinkCreator implements ProductCreator {
      * @param quantity
      * @return
      */
-    public Product create(String name, String code, double price, int quantity) {
-        return new Drink(name, code, price, quantity);
+    public Product create(String name, String code, double price, int quantity, int totalSold) {
+        return new Drink(name, code, price, quantity, totalSold);
     }
 }

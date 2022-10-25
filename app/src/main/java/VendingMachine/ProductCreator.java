@@ -9,5 +9,5 @@ public interface ProductCreator {
      * @param quantity
      * @return
      */
-    public Product create(String name, String code, double price, int quantity);
+    public Product create(String name, String code, double price, int quantity, int totalSold);
 }

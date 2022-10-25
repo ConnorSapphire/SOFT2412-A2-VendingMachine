@@ -77,28 +77,6 @@ public class UserInterface {
     }
 
     public String getInputPassword() {
-<<<<<<< HEAD
-        // StringBuilder input = new StringBuilder();
-        // while (scanner.hasNext()) {
-        //     input.append(scanner.next());
-        // }
-        // return input.toString();
-        
-        // String pass = getPlainInput();
-        // // String a = asterisk(pass);
-        // // System.out.println(a);
-        // return pass;
-        
-    //     PrintStream out = System.out;
-    //     try {
-    //         System.setOut(new PrintStream("src/main/java/VendingMachine/attempt.txt"));
-    //     } catch (FileNotFoundException fnfe) {
-    //         fnfe.printStackTrace();
-    //     }
-    //     String password = getInput();
-    //     System.setOut(out);
-        return null;
-=======
         PasswordHider et = new PasswordHider(" ");
         Thread mask = new Thread(et);
         mask.start();
@@ -115,7 +93,6 @@ public class UserInterface {
         et.stopMasking();
         // return the password entered by the user
         return password;
->>>>>>> connor
     }  
 
     /**

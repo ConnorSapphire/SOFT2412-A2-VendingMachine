@@ -21,12 +21,27 @@ public class VendingMachine {
         this.cards = fileManager.getCreditCards();
         this.user = userCreator.create("", "", ui, cards);
         users = new HashMap<String, User>();
-        userCreator = new RegisteredCustomerCreator();
-        users.put("Charles", userCreator.create("Charles", "abcd", ui, cards));
-        userCreator = new CashierCreator();
-        users.put("Cashier", userCreator.create("Cashier", "password", ui, cards));
-        userCreator = new SellerCreator();
-        users.put("Seller", userCreator.create("Seller", "password", ui, cards));
+        HashMap<String, String[]> userFileInfo = fileManager.lsUsers();
+        for (String username : userFileInfo.keySet()) {
+            String password = userFileInfo.get(username)[0];
+            String cardName = userFileInfo.get(username)[1];
+            String cardNumber = userFileInfo.get(username)[2];
+            String access = userFileInfo.get(username)[3];
+            if (access.equals("customer")) {
+                userCreator = new RegisteredCustomerCreator();
+            } else if (access.equals("seller")) {
+                userCreator = new SellerCreator();
+            } else if (access.equals("cashier")) {
+                userCreator = new CashierCreator();
+            } else if (access.equals("owner")) {
+                userCreator = new OwnerCreator();
+            }
+            User current = userCreator.create(username, password, ui, cards);
+            if (!cardName.equals("")) {
+                current.storeCard(cardName, cardNumber);
+            }
+            users.put(username, current);
+        }
         products = new HashMap<String, Product>();
         HashMap<String[], Double[]> drinks = fileManager.lsDrinks();
         ProductCreator productCreator = new DrinkCreator();
@@ -111,7 +126,7 @@ public class VendingMachine {
 
     public User newRegisteredCustomer() {
         UserCreator customerCreator = new RegisteredCustomerCreator();
-        System.out.println("Enter your username");
+        System.out.print("Enter your username: ");
         String newUsername = ui.getPlainInput();
         if(newUsername.equals("")){
             System.out.println("No user name entered.");
@@ -121,11 +136,12 @@ public class VendingMachine {
             System.out.println("Username already exists.");
             return user;
         }
-
+        System.out.print("Enter your password: ");
         String newPassword = ui.getInputPassword();
 
         User customer = customerCreator.create(newUsername, newPassword, ui, cards);
         users.put(newUsername, customer);
+        fileManager.updateUsers(customer);
         user = customer;
         return customer;
     }

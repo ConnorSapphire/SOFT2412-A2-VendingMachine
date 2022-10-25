@@ -1,18 +1,4 @@
-{
-    "Charles" : {
-        "password" : "abcd",
-        "card" : {
-            "name" : "Charles",
-            "number" : "40691"
-        },
-        "transaction" : ["Sprite", "M&M"]
-    },
-    "Alice" : {
-        "password" : "hi",
-        "card" : {
-            "name" : "",
-            "number" : ""
-        },
-        "transaction" : ["Sprite"]
-    }
+{"Charles":{"password":"abcd","card":{"number":"40691","name":"Charles"},"access":"customer","transaction":["Sprite","M&M"]},"Alice":{"password":"hi","card":{"number":"","name":""},"access":"customer","transaction":["Sprite"]},"Connor":{"password":"connor","card":{"number":"","name":""},"access":"customer","transaction":[]},
+    "Cashier" : {"password":"password","card":{"number":"","name":""},"access":"cashier","transaction":[]},    
+    "Seller" : {"password":"password","card":{"number":"","name":""},"access":"seller","transaction":[]}    
 }

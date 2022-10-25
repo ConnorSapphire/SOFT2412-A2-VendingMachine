@@ -397,6 +397,50 @@ public class FileManager {
         }
     }
 
+    public HashMap<String, String[]> lsUsers() {
+        HashMap<String, String[]> output = new HashMap<String, String[]>();
+        for (Object obj : this.users.keySet()) {
+            String key = (String) obj;
+            JSONObject user = (JSONObject) this.users.get(key);
+            JSONObject card = (JSONObject) user.get("card");
+            String[] value = new String[] {(String) user.get("password"), (String) card.get("name"), (String) card.get("number"), (String) user.get("access")};
+            output.put(key, value);
+        }
+        return output;
+    }
+
+    public void updateUsers(User user) {
+        if (this.users.containsKey(user.getUsername())) {
+            JSONObject userObject = (JSONObject) this.users.get(user.getUsername());
+            userObject.replace("password", user.getPassword());
+            JSONObject cardObject = (JSONObject) userObject.get("card");
+            cardObject.replace("name", user.getCardName());
+            cardObject.replace("number", user.getCardNumber());
+            userObject.replace("card", cardObject);
+            userObject.replace("access", user.getAccessLevel());
+            // update Transactions (need to save to User first)!
+            this.users.replace(user.getUsername(), userObject);
+        } else {
+            JSONObject userObject = new JSONObject();
+            userObject.put("password", user.getPassword());
+            JSONObject cardObject = new JSONObject();
+            cardObject.put("name", user.getCardName());
+            cardObject.put("number", user.getCardNumber());
+            userObject.put("card", cardObject);
+            userObject.put("access", user.getAccessLevel());
+            // update Transactions (need to save to user first)!
+            userObject.put("transaction", new JSONArray());
+            this.users.put(user.getUsername(), userObject);
+        }
+        try {
+            FileWriter fw = new FileWriter("src/main/java/VendingMachine/" + usersFileName + ".json");
+            this.users.writeJSONString(fw);
+            fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public HashMap<String, String> getCreditCards() {
         HashMap<String, String> cards = new HashMap<String, String>();
         Iterator iteratorr = creditCards.iterator();

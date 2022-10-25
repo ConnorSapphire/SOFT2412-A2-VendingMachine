@@ -5,8 +5,13 @@ import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.io.BufferedReader;
 import java.io.Console;
+import java.io.File;
 import java.io.FileInputStream;
 import java.util.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.awt.Desktop;
 
 public class UserInterface {
     public static final String RESET = "\033[0m";
@@ -72,64 +77,29 @@ public class UserInterface {
     }
 
     public String getInputPassword() {
-        // StringBuilder input = new StringBuilder();
-        // while (scanner.hasNext()) {
-        //     input.append(scanner.next());
-        // }
-        // return input.toString();
-        
-        // String pass = getPlainInput();
-        // // String a = asterisk(pass);
-        // // System.out.println(a);
-        // return pass;
-        
-    //     PrintStream out = System.out;
-    //     try {
-    //         System.setOut(new PrintStream("src/main/java/VendingMachine/attempt.txt"));
-    //     } catch (FileNotFoundException fnfe) {
-    //         fnfe.printStackTrace();
-    //     }
-    //     String password = getInput();
-    //     System.setOut(out);
-       char[] charpassword = System.console().readPassword();
-       String password = charpassword.toString();
-       for (int i = 0; i < password.length(); i++) {
-           System.out.print("*");
-       }
-       System.out.println();
-       return password;
+        PasswordHider et = new PasswordHider(" ");
+        Thread mask = new Thread(et);
+        mask.start();
+
+        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+        String password = "";
+
+        try {
+           password = in.readLine();
+        } catch (IOException ioe) {
+          ioe.printStackTrace();
+        }
+        // stop masking
+        et.stopMasking();
+        // return the password entered by the user
+        return password;
     }  
-        
-        
-    public String getInputPassword(String password) {
-        String newPassword = "";
-        for (int i = 0; i < password.length(); i++) {
-            newPassword = newPassword + "*";
-        }
-        return newPassword;
-    
-    }
-
-    public static String asterisk(String password) {
-        if (password == null) {
-            return null;
-        }
-
-        char[] chs = new char[password.length()];
-        for (int i = 1; i < chs.length; i++) {
-            chs[i] = '*';
-        }
-        chs[0] = password.charAt(0);
-        chs[chs.length - 1] = password.charAt(password.length() - 1);
-        return new String(chs);
-    }
-
 
     /**
      * Display text through terminal prompting user to select a product from the vending machine.
      */
     public void displaySelectProduct() {
-        System.out.println(ANSI_CYAN + "Please select a product (type 'done' to finish selection): " + ANSI_RESET);
+        System.out.println(ANSI_CYAN + "Please select a product (type " + ANSI_YELLOW + "'done'" + ANSI_CYAN + " to finish selection): " + ANSI_RESET);
     }
 
     /**
@@ -170,9 +140,15 @@ public class UserInterface {
      * Includes product name, product code, category, price, and quantity.
      */
     public void displayDetailedStock() {
-        List<String> dataList = fm.readTextFile("src/main/java/VendingMachine/product.txt","utf-8");  //file can be utf8 or gbk
+        List<String> dataList = fm.readTextFile("src/main/java/VendingMachine/products.txt","utf-8");  //file can be utf8 or gbk
         for(String data:dataList){
             System.out.println(data);
+        }
+        Desktop desktop = Desktop.getDesktop();
+        try { 
+            desktop.open(new File("src/main/java/VendingMachine/products.txt"));
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -192,6 +168,12 @@ public class UserInterface {
         for(String data:dataList){
             System.out.println(data);
         }
+        Desktop desktop = Desktop.getDesktop();
+        try { 
+            desktop.open(new File("src/main/java/VendingMachine/transaction.txt"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -208,6 +190,12 @@ public class UserInterface {
         List<String> dataList = fm.readTextFile("src/main/java/VendingMachine/change.txt","utf-8");  
         for(String data:dataList){
             System.out.println(data);
+        }
+        Desktop desktop = Desktop.getDesktop();
+        try { 
+            desktop.open(new File("src/main/java/VendingMachine/change.txt"));
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

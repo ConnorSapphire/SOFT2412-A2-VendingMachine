@@ -141,17 +141,17 @@ public class Seller extends User {
             this.getUI().displayerrorMessage("Price must be positive!");
             return false;
         }
-        ProductCreater pc = new ProductCreator();
+        ProductCreator pc = null;
         String[] all  = new String[]{"Drinks", "Chocolates", "Chips", "Candies"};
         boolean find = false;
         for(String cat : all){
             if(category.toLowerCase() == cat.toLowerCase()){
                 find = true;
-                if(cat.equals(String[0])){
+                if(cat.equals(all[0])){
                     pc = new DrinkCreator();
-                }else if(cat.equals(String[1])){
+                }else if(cat.equals(all[1])){
                     pc = new ChocolateCreator();
-                }else if(cat.equals(String[2])){
+                }else if(cat.equals(all[2])){
                     pc = new ChipCreator();
                 }else{
                     pc = new CandyCreator();
@@ -173,7 +173,9 @@ public class Seller extends User {
                 return false;
             }
         }
-        pc.create(name, code, price, quantity);
+        if (pc != null) {
+            pc.create(name, code, price, quantity);
+        }
         return true;
     }
 

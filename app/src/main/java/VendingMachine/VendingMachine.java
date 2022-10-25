@@ -53,7 +53,7 @@ public class VendingMachine {
         HashMap<String, Double[]> coins = fileManager.lsCoins();
         changeCreator = new CoinCreator();
         for (String coin : coins.keySet()) {
-            change.put(coin, changeCreator.create(coin, notes.get(coin)[0], (int) Math.round(notes.get(coin)[1])));
+            change.put(coin, changeCreator.create(coin, coins.get(coin)[0], (int) Math.round(coins.get(coin)[1])));
         }
         this.quit = false;
         ui.displayWelcomeMessage();

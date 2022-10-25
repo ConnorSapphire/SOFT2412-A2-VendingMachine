@@ -52,17 +52,17 @@ public class VendingMachine {
         HashMap<String[], Double[]> chocolates = fileManager.lsChocolates();
         productCreator = new ChocolateCreator();
         for (String[] chocolate : chocolates.keySet()) {
-            products.put(chocolate[0], productCreator.create(chocolate[0], chocolate[1], chocolates.get(chocolate)[0], (int) Math.round(chocolates.get(chocolate)[1]), (int) Math.round(drinks.get(chocolate)[2])));
+            products.put(chocolate[0], productCreator.create(chocolate[0], chocolate[1], chocolates.get(chocolate)[0], (int) Math.round(chocolates.get(chocolate)[1]), (int) Math.round(chocolates.get(chocolate)[2])));
         }
         HashMap<String[], Double[]> candies = fileManager.lsCandies();
         productCreator = new CandyCreator();
         for (String[] candy : candies.keySet()) {
-            products.put(candy[0], productCreator.create(candy[0], candy[1], candies.get(candy)[0], (int) Math.round(candies.get(candy)[1]), (int) Math.round(drinks.get(candy)[2])));
+            products.put(candy[0], productCreator.create(candy[0], candy[1], candies.get(candy)[0], (int) Math.round(candies.get(candy)[1]), (int) Math.round(candies.get(candy)[2])));
         }
         HashMap<String[], Double[]> chips = fileManager.lsChips();
         productCreator = new ChipCreator();
         for (String[] chip : chips.keySet()) {
-            products.put(chip[0], productCreator.create(chip[0], chip[1], chips.get(chip)[0], (int) Math.round(chips.get(chip)[1]), (int) Math.round(drinks.get(chip)[2])));
+            products.put(chip[0], productCreator.create(chip[0], chip[1], chips.get(chip)[0], (int) Math.round(chips.get(chip)[1]), (int) Math.round(chips.get(chip)[2])));
         }
         change = new LinkedHashMap<String, Change>();
         HashMap<String, Double[]> notes = fileManager.lsNotes();

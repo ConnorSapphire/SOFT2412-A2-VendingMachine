@@ -21,9 +21,13 @@ public class Cashier extends User {
      */
     public boolean fillChange(Change change, int quantity) {
         if (quantity > 0) {
-            change.setQuantity(quantity);
+            change.setQuantity(change.getQuantity() + quantity);
             System.out.println("The vending machine now contains " + change.getQuantity() + " of " + change.getName() + ".");
-            // TODO: Update change file
+            if (change.getClass().getSimpleName().equalsIgnoreCase("Note")) {
+                this.getUI().getFileManager().updateNotes(change);
+            } else if (change.getClass().getSimpleName().equalsIgnoreCase("Coin")) {
+                this.getUI().getFileManager().updateCoins(change);
+            }
             return true;
         }
         getUI().displayErrorString("Quantity provided is invalid. Cannot have negative or zero of a coin/note.");

@@ -7,12 +7,13 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
-public abstract class User implements Runnable {
+public abstract class User {
     private String username;
     private String password;
     private String accessLevel;
     private UserInterface ui;
-    private Transaction currentTransaction;
+    private MakeTransaction currentTransaction;
+    private Transaction transaction;
     private boolean storedCard;
     private String cardName;
     private String cardNumber;
@@ -37,6 +38,14 @@ public abstract class User implements Runnable {
         this.cards = cards;
         this.storedCard = false;
         this.cancelTransaction = false;
+    }
+
+    public void setTransaction(Transaction transaction) {
+        this.transaction = transaction;
+    }
+
+    public Transaction getTransaction() {
+        return this.transaction;
     }
 
     public void setProducts(HashMap<String, Product> products) {
@@ -83,7 +92,7 @@ public abstract class User implements Runnable {
         return this.ui;
     }
 
-    public Transaction getCurrentTransaction() {
+    public MakeTransaction getCurrentTransaction() {
         return currentTransaction;
     }
 
@@ -120,15 +129,19 @@ public abstract class User implements Runnable {
      * @return Whether the transaction was successful.
      */
     public boolean makeTransaction() {
-        Thread t = new Thread(this); // myRunnable does your calculations
+        this.currentTransaction = new MakeTransaction(this);
+        Thread t = new Thread(currentTransaction); // myRunnable does your calculations
 
         long startTime = System.currentTimeMillis();
         long endTime = startTime + 120 * 1000;
 
         t.start(); // Kick off calculations
 
-        while (System.currentTimeMillis() < endTime) {
+        while (System.currentTimeMillis() < endTime && !currentTransaction.isCancelled()) {
             // Still within time theshold, wait a little longer
+            if (currentTransaction.isCancelled()) {
+                break;
+            }
             try {
                 Thread.sleep(500L);  // Sleep 1/2 second
             } catch (InterruptedException e) {
@@ -136,8 +149,9 @@ public abstract class User implements Runnable {
             }
         }
 
+        currentTransaction.cancel();
         t.interrupt();  // Tell the thread to stop
-        ui.displayErrorString("\nTransaction Timed Out");
+        ui.displayErrorString("\nTransaction Timed Out (Press Enter)");
         try {
             t.join();       // Wait for the thread to cleanup and finish
         } catch (InterruptedException e) {
@@ -145,50 +159,19 @@ public abstract class User implements Runnable {
         }
         return false;
     }
-
-    public void run() {
-        Date startTime = new Date();
-        ArrayList<Product> prods = new ArrayList<Product>();
-        displayStock();
-        Product product = selectProduct();
-        while(product != null && !cancelTransaction) {
-            prods.add(product);
-            product = selectProduct();
-        }
-        double cost = 0;
-        for (Product prod : prods) {
-            cost += prod.getPrice();
-        }
-        String paymentMethod = "";
-        if (!cancelTransaction) {
-            if (prods.isEmpty()) {
-                ui.displayErrorString("No products selected. Please view available stock and try again.");
-                return;
-            } else {
-                System.out.println("Selection complete, total price is $" + cost + ".");
-            }
-            paymentMethod = selectPaymentMethod();
-        }
-        if (!cancelTransaction) {
-            Transaction transaction = new Transaction(startTime, prods, paymentMethod);
-            currentTransaction = transaction;
-            completeTransaction();
-        }
-        cancelTransaction = false;
-    }
     
     public void completeTransaction() {
-        if (currentTransaction.getPaymentMethod().contains("cash")) {
+        if (transaction.getPaymentMethod().contains("cash")) {
             PaymentContext context = new PaymentContext(new CashStrategy(this));
             context.pay();
-        } else if (currentTransaction.getPaymentMethod().contains("card")) {
+        } else if (transaction.getPaymentMethod().contains("card")) {
             PaymentContext context = new PaymentContext(new CardStrategy(this));
             context.pay();
         }
     }
 
     public void cancelTransaction() {
-        cancelTransaction = true;
+        currentTransaction.cancel();
         ui.displayErrorString("Transaction has been cancelled.");
     }
 

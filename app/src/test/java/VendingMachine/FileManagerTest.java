@@ -7,7 +7,7 @@ import java.util.HashMap;
 import org.junit.jupiter.api.*;
 
 public class FileManagerTest {
-    private FileManager fileManager = new FileManager("usersTest", "stockTest", "creditCardsTest", "changeTest");
+    private FileManager fileManager = new FileManager("usersTest", "stockTest", "creditCardsTest", "changeTest", "transactionTest");
 
     @Test
     public void lsNotesTest() {

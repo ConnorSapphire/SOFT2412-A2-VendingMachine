@@ -35,19 +35,19 @@ public class UserTest {
         System.setOut(originalOut);
     }
 
-    @Test
-    public void setGetChangeTest() {
-        HashMap<String, Change> change= new HashMap<String, Change>();
-        change.put("test", new Note("test", 0.0, 1));
-        user.setChange(change);
-        assertSame(change, user.getChange());
-    }
+    // @Test
+    // public void setGetChangeTest() {
+    //     HashMap<String, Change> change= new HashMap<String, Change>();
+    //     change.put("test", new Note("test", 0.0, 1));
+    //     user.setChange(change);
+    //     assertSame(change, user.getChange());
+    // }
 
-    @Test
-    public void cancelTransactionTest() {
-        user.cancelTransaction();
-        assertTrue(user.isTransactionCancelled());
-    }
+    // @Test
+    // public void cancelTransactionTest() {
+    //     user.cancelTransaction();
+    //     assertTrue(user.isTransactionCancelled());
+    // }
 
     @Test
     public void getUsernameTest() {

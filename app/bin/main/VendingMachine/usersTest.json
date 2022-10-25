@@ -1,0 +1,18 @@
+{
+    "Charles" : {
+        "password" : "abcd",
+        "card" : {
+            "name" : "Charles",
+            "number" : "40691"
+        },
+        "transaction" : ["Sprite", "M&M"]
+    },
+    "Alice" : {
+        "password" : "hi",
+        "card" : {
+            "name" : "",
+            "number" : ""
+        },
+        "transaction" : ["Sprite"]
+    }
+}

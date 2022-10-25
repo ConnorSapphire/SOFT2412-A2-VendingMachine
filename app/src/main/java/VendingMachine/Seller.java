@@ -36,7 +36,7 @@ public class Seller extends User {
      */
     public boolean fillProduct(Product product, int quantity) {
         if(quantity < 0){
-            System.out.println("Please provide a non-negative number of stock added");
+            this.getUI().displayerrorMessage("Please provide a non-negative number of stock added");
             return false;
         }
         if(product.getQuantity() + quantity <= 15){
@@ -56,9 +56,9 @@ public class Seller extends User {
         for(String key : products.keySet()){
             if(key.equals(name)){
                 if(products.get(key).equals(product)){
-                    System.out.println("Can not modify the name. Please give a different name.");
+                    this.getUI().displayerrorMessage("Can not modify the name. Please give a different name.");
                 }else{
-                    System.out.println("Name already exists.");
+                    this.getUI().displayerrorMessage("Name already exists.");
                 }
                 return false;
             }
@@ -76,16 +76,16 @@ public class Seller extends User {
     public boolean modifyProductCode(Product product, String code, HashMap<String, Product> products) {
         char[] check = code.toCharArray();
         if(check.length != 3){
-            System.out.println("Only 3 digit code accepted.");
+            this.getUI().displayerrorMessage("Only 3 digit code accepted.");
             return false;
         }
         for(String str : products.keySet()){
             Product p = products.get(str);
             if(code.equals(p.getCode())){
                 if(p.equals(product)){
-                    System.out.println("Can not modify the code. Please give a different code.");
+                    this.getUI().displayerrorMessage("Can not modify the code. Please give a different code.");
                 }else{
-                    System.out.println("Code already exists.");
+                    this.getUI().displayerrorMessage("Code already exists.");
                 }
                 return false;
             }
@@ -102,7 +102,7 @@ public class Seller extends User {
      */
     public boolean modifyProductPrice(Product product, double price) {
         if(price <= 0){
-            System.out.println("Please give a positive price.");
+            this.getUI().displayerrorMessage("Please give a positive price.");
             return false;
         }
         product.setPrice(price);
@@ -123,7 +123,7 @@ public class Seller extends User {
                 return true;
             }
         }
-        System.out.println("Please give a valid category!");
+        this.getUI().displayerrorMessage("Please give a valid category!");
         return false;
     }
 
@@ -138,7 +138,7 @@ public class Seller extends User {
      */
     public boolean addProduct(String name, String code, String category, int quantity, double price, HashMap<String, Product> products) {
         if(price <= 0){
-            System.out.println("Price must be positive!");
+            this.getUI().displayerrorMessage("Price must be positive!");
             return false;
         }
         String[] all  = new String[]{"Drinks", "Chocolates", "Chips", "Candies"};
@@ -149,17 +149,17 @@ public class Seller extends User {
             }
         }
         if(!find){
-            System.out.println("Category not valid!");
+            this.getUI().displayerrorMessage("Category not valid!");
             return false;
         }
         for(String key : products.keySet()){
             Product pro = products.get(key);
             if(key.equals(name)){
-                System.out.println("Name exists!");
+                this.getUI().displayerrorMessage("Name exists!");
                 return false;
             }
             if(pro.getCode().equals(code)){
-                System.out.println("Code exists!");
+                this.getUI().displayerrorMessage("Code exists!");
                 return false;
             }
         }

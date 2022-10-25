@@ -6,6 +6,7 @@ public abstract class Product {
     private String category;
     private double price;
     private int quantity;
+    private int totalSold;
 
     /**
      * 
@@ -21,6 +22,7 @@ public abstract class Product {
         this.category = category;
         this.price = price;
         this.quantity = quantity;
+        this.totalSold = 0;
     }
 
     public String getName() {
@@ -61,5 +63,13 @@ public abstract class Product {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public int gettotalSold() {
+        return totalSold;
+    }
+
+    public void addtotalSold(int num) {
+        this.totalSold += num;
     }
 }

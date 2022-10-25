@@ -16,7 +16,7 @@ public class CashStrategy implements PaymentStrategy {
     public CashStrategy(User user) {
         this.user = user;
         this.ui = user.getUI();
-        this.transaction = user.getCurrentTransaction();
+        this.transaction = user.getTransaction();
     }
 
     public void pay() {

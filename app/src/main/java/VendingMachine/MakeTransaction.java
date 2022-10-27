@@ -36,9 +36,20 @@ public class MakeTransaction implements Runnable {
         Date startTime = new Date();
         ArrayList<Product> prods = new ArrayList<Product>();
         user.displayStock();
-        ArrayList<Product> product = user.selectProduct();
+        Product product = user.selectProduct();
         while(product != null && !cancelTransaction) {
-            prods.addAll(product);
+            int quantity = user.selectProductQuantity(product);
+            if (quantity == 0) {
+                cancel("Invalid input.");
+                break;
+            } else if (quantity > product.getQuantity()) {
+                user.getUI().displayErrorString("Vending machine does not have enough " + product.getName() + ".");
+                cancel("Not enough stock.");
+                break;
+            }
+            for (int i = 0; i < quantity; i++) {
+                prods.add(product);
+            }
             product = user.selectProduct();
         }
         double cost = 0;
@@ -49,7 +60,7 @@ public class MakeTransaction implements Runnable {
         if (!cancelTransaction) {
             if (prods.isEmpty()) {
                 user.getUI().displayErrorString("No products selected. Please view available stock and try again.");
-                cancel();
+                cancel("No products selected.");
                 return;
             } else {
                 System.out.println("Selection complete, total price is $" + cost + ".");

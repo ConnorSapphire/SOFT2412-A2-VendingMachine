@@ -1,12 +1,7 @@
 package VendingMachine;
 
 import java.util.LinkedHashMap;
-import java.util.stream.StreamSupport;
-
-import javax.swing.plaf.synth.SynthSeparatorUI;
-
-import java.lang.reflect.AnnotatedWildcardType;
-import java.util.HashMap;
+import java.util.TreeMap;
 
 public class CashStrategy implements PaymentStrategy {
     private User user;
@@ -20,165 +15,176 @@ public class CashStrategy implements PaymentStrategy {
     }
 
     public void pay() {
+        user.sortChangeHashMap();
+
         double cost = 0;
         for (Product product : transaction.getProducts()) {
             cost += product.getPrice();
         }
 
-        LinkedHashMap<String, Integer> userChange = getUserChange(cost);
-        if (userChange == null) {
+        LinkedHashMap<String, Integer> userCash = getUserCashInput(cost);
+        if (userCash == null) {
             return;
         }
-        LinkedHashMap<String, Integer> changeGiven = addQuantity(cost, userChange);
+        addChangeToMachine(userCash);
+        Double paid = totalPaid(userCash);
+        Double change = paid - cost;
+        boolean changeGiven = giveChange(change, user.getChange());
         transaction.setEndTime();
-        double change = 0.0;
-        // Update transaction history -> TODO: correct change
-        ui.getFileManager().updateTransactionHistory(transaction.getEndTime(), transaction.getProducts(), cost, change, transaction.getPaymentMethod()); 
-        // Update products in file and internal memory
-        for (Product product : transaction.getProducts()) {
-            product.setQuantity(product.getQuantity() - 1);
-            product.setTotalSold(product.getTotalSold() + 1);
-            if (product.getCategory().equals("candy")) {
-                ui.getFileManager().updateCandies(product);
-            } else if (product.getCategory().equals("chocolate")) {
-                ui.getFileManager().updateChocolates(product);
-            } else if (product.getCategory().equals("chip")) {
-                ui.getFileManager().updateChips(product);
-            } else if (product.getCategory().equals("drink")) {
-                ui.getFileManager().updateDrinks(product);
+        if (changeGiven) {
+            // Update transaction history
+            ui.getFileManager().updateTransactionHistory(transaction.getEndTime(), transaction.getProducts(), cost, paid, change, transaction.getPaymentMethod()); 
+            // Update products in file and internal memory
+            for (Product product : transaction.getProducts()) {
+                product.setQuantity(product.getQuantity() - 1);
+                product.setTotalSold(product.getTotalSold() + 1);
+                if (product.getCategory().equals("candy")) {
+                    ui.getFileManager().updateCandies(product);
+                } else if (product.getCategory().equals("chocolate")) {
+                    ui.getFileManager().updateChocolates(product);
+                } else if (product.getCategory().equals("chip")) {
+                    ui.getFileManager().updateChips(product);
+                } else if (product.getCategory().equals("drink")) {
+                    ui.getFileManager().updateDrinks(product);
+                }
             }
+        } else {
+            removeChangeFromMachine(userCash);
         }
-        // Update change in file and internal memory
-
     }
 
     // Empty hashmap of user cash inputs
     public LinkedHashMap<String, Integer> cashCount(){
         LinkedHashMap<String, Integer> userCash = new LinkedHashMap<>();
-        userCash.put("$100", 0);
-        userCash.put("$50", 0);
-        userCash.put("$20", 0);
-        userCash.put("$10", 0);
-        userCash.put("$5", 0);
-        userCash.put("$2", 0);
-        userCash.put("$1", 0);
-        userCash.put("50c", 0);
-        userCash.put("20c", 0);
-        userCash.put("10c", 0);
-        userCash.put("5c", 0);
-    
+        for (String changeName : user.getChange().keySet()) {
+            userCash.put(changeName, 0);
+        }
         return userCash;
     }
 
     // Update empty hashmap with quantities given by user
-    public LinkedHashMap<String, Integer> getUserChange(Double amount){
+    public LinkedHashMap<String, Integer> getUserCashInput(Double amount){
         LinkedHashMap<String, Integer> userCash = cashCount();
-        Double totalCost = 0.0;
+        Double totalPaid = 0.0;
+        boolean completelyPaid = false;
         
         for (String item : userCash.keySet()){
             ui.displayQuestionString("Enter the number of " + item + ": ");
-            String input = ui.getInput();
+            String input = ui.getPlainInput();
             if (input.toLowerCase().equals("cancel")) {{
                 user.cancelTransaction();
                 return null;
             }}
             
-            String denomination = "";
-            if (item.charAt(0) == '$'){
-                denomination = item.substring(1);
-            } else if (item.charAt(item.length() - 1) == 'c'){
-                denomination = item.substring(0, item.length() - 1);
-            }
-
-            Integer value = Integer.parseInt(denomination);
+            double value = user.getChange().get(item).getValue();
 
             Integer quantity = 0;
-            try {
-                quantity = Integer.parseInt(input);
-            } catch (IllegalArgumentException iea){
-                ui.displayErrorString("Quantity must be an integer.");
+            if (!input.equals("")) {
+                try {
+                    quantity = Integer.parseInt(input);
+                } catch (IllegalArgumentException iea){
+                    ui.displayErrorString("Quantity must be an integer.");
+                }
             }
 
-            Change current = this.user.getChange().get(item);
-            current.setQuantity(current.getQuantity() + quantity);
-            if (current.getClass().getSimpleName().equalsIgnoreCase("Note")) {
-                this.user.getUI().getFileManager().updateNotes(current);
-            } else if (current.getClass().getSimpleName().equalsIgnoreCase("Coin")) {
-                this.user.getUI().getFileManager().updateCoins(current);
-            }
             userCash.merge(item, quantity, Integer::sum);
             // System.out.println("Item: " + item + " Quantity: " + userCash.get(item));
-            totalCost = (double) (value * quantity); 
+            totalPaid = (double) (value * quantity); 
             
-            if (totalCost >= amount) {
+            if (totalPaid >= amount) {
+                completelyPaid = true;
                 System.out.println("Payment accepted"); 
                 break;
             }            
         }
-
-        return userCash;
+        if (completelyPaid) {
+            return userCash;
+        } else {
+            ui.displayErrorString("Not enough money was provided.");
+            user.cancelTransaction("Not enough money was provided.");
+            return null;
+        }
     }
 
     // Add user coins to vending machine till
-    public LinkedHashMap<String, Integer> addQuantity(Double cost, LinkedHashMap<String, Integer> userCash){
+    public void addChangeToMachine(LinkedHashMap<String, Integer> userCash){
         LinkedHashMap<String, Change> vMChange = user.getChange();
-        LinkedHashMap<String, Change> temp = new LinkedHashMap<>();
-        temp.putAll(vMChange);
 
         for(String item: userCash.keySet()){
-            Change change = temp.get(item);
+            Change change = vMChange.get(item);
 
             Integer addChange = change.getQuantity() + userCash.get(item);
             change.setQuantity(addChange);
+            if (change.getClass().getSimpleName().equalsIgnoreCase("Note")) {
+                this.user.getUI().getFileManager().updateNotes(change);
+            } else if (change.getClass().getSimpleName().equalsIgnoreCase("Coin")) {
+                this.user.getUI().getFileManager().updateCoins(change);
+            }
         }
+    }
 
-        Double change = totalInputCash(userCash) - cost;
-        return giveChange(change, temp);
+    // Refund user coins from vending machine till
+    public void removeChangeFromMachine(LinkedHashMap<String, Integer> userCash) {
+        LinkedHashMap<String, Change> vMChange = user.getChange();
+
+        for(String item: userCash.keySet()){
+            Change change = vMChange.get(item);
+
+            Integer removeChange = change.getQuantity() - userCash.get(item);
+            change.setQuantity(removeChange);
+            if (change.getClass().getSimpleName().equalsIgnoreCase("Note")) {
+                this.user.getUI().getFileManager().updateNotes(change);
+            } else if (change.getClass().getSimpleName().equalsIgnoreCase("Coin")) {
+                this.user.getUI().getFileManager().updateCoins(change);
+            }
+        }
     }
     
     // Get total amount of user input cash
-    public double totalInputCash(LinkedHashMap<String, Integer> userCash){
-        Double cost = 0.0;
+    public double totalPaid(LinkedHashMap<String, Integer> userCash){
+        Double paid = 0.0;
 
-        String denomination = "";
-        Integer quantity = 0;
         for(String item: userCash.keySet()){
-            if (item.charAt(0) == '$'){
-                denomination = item.substring(1);
-            } else if (item.charAt(item.length() - 1) == 'c'){
-                denomination = item.substring(0, item.length() - 1);
-            }
-            quantity = userCash.get(item);
-
-            Integer value = Integer.parseInt(denomination);
-            cost += (value * quantity);
+            int quantity = userCash.get(item);
+            double value = user.getChange().get(item).getValue();
+            paid += (value * quantity);
         }
 
-        return cost;
+        return paid;
     }
     
     // Calculate change 
-    public LinkedHashMap<String, Integer> giveChange(Double cost, LinkedHashMap<String, Change> allChange){
+    public boolean giveChange(Double cost, LinkedHashMap<String, Change> allChange){
+        boolean changeGiven = true;
         LinkedHashMap<String, Integer> customerChange = cashCount();
         for (String item : allChange.keySet()) {
             Change change = allChange.get(item);
-            Integer count = (int) (Math.floor(cost/change.getValue()));
-
-            if (count <= change.getQuantity()) {
-                customerChange.merge(item, count, Integer::sum);
-                int newQuantity = change.getQuantity() - count;
-                change.setQuantity(newQuantity);
-            } else if (count > change.getQuantity()) {
+            long costInt = Math.round(cost * 100);
+            long changeInt = Math.round(change.getValue() * 100);
+            Integer count = (int) (Math.floor(costInt/changeInt));
+            if (count == 0) {
                 continue;
+            } else if (count <= change.getQuantity()) {
+                customerChange.merge(item, count, Integer::sum);
+            } else if (count > change.getQuantity()) {
+                count = change.getQuantity();
+                customerChange.merge(item, count, Integer::sum);
             }
-
-            Double total = count * change.getValue();
-            cost -= total;
+            
+            long total = count * changeInt;
+            costInt -= total;
+            cost = costInt / 100d;
+            if (cost == 0) {
+                break;
+            }
         }
 
         if (cost != 0) {
             ui.displayErrorString("Not enough change in machine.");
+            System.out.println("Payment refunded.");
             user.cancelTransaction("Not enough change in machine.");
+            customerChange = cashCount();
+            changeGiven = false;
         }
         else { 
             System.out.println("Here is your change: ");
@@ -187,7 +193,7 @@ public class CashStrategy implements PaymentStrategy {
                 if (quantity != 0) {
                     System.out.println(item + ": " + quantity);
                     Change current = this.user.getChange().get(item);
-                    current.setQuantity(current.getQuantity() - quantity);
+                    current.setQuantity(current.getQuantity() + quantity);
                     if (current.getClass().getSimpleName().equalsIgnoreCase("Note")) {
                         this.user.getUI().getFileManager().updateNotes(current);
                     } else if (current.getClass().getSimpleName().equalsIgnoreCase("Coin")) {
@@ -195,12 +201,8 @@ public class CashStrategy implements PaymentStrategy {
                     }
                 }
             }
-
-            // TODO Doesn't throw error if not enough change in machine <- needs to
-            user.setChange(allChange);
-            
         }
-        return customerChange;
+        return changeGiven;
     }
 
     

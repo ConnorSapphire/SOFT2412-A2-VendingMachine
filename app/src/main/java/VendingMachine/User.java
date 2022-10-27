@@ -3,6 +3,7 @@ package VendingMachine;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.TreeMap;
 
 public abstract class User {
     private String username;
@@ -225,9 +226,8 @@ public abstract class User {
      * 
      * @return The selected Product.
      */
-    public ArrayList<Product> selectProduct() {
+    public Product selectProduct() {
         ui.displaySelectProduct();
-        ArrayList<Product> productArray = new ArrayList<Product>();
         String name = ui.getPlainInput();
         Product product = null;
         if (name.toLowerCase().equalsIgnoreCase("cancel")) {
@@ -236,9 +236,11 @@ public abstract class User {
             product = products.get(name);
         } else if (shortProducts.containsKey(name.toUpperCase())) {
             product = shortProducts.get(name.toUpperCase());
-        } else {
-            return null;
-        }
+        } 
+        return product;
+    }
+    
+    public int selectProductQuantity(Product product) {
         ui.displayQuestionString("Enter quantity: ");
         int quantity = 0;
         try {
@@ -250,15 +252,9 @@ public abstract class User {
             }
         } catch (NumberFormatException e) {
             ui.displayErrorString("Quantity must be an integer.");
-            return null;
+            return 0;
         }
-        if (product != null) {
-            for (int i = 0; i < quantity; i++) {
-                productArray.add(product);
-            }
-            return productArray;
-        }
-        return null;
+        return quantity;
     }
 
     /**
@@ -498,5 +494,20 @@ public abstract class User {
 
     public void displayHelp() {
         ui.displayCustomerHelp();
+    }
+
+    public void sortChangeHashMap() {
+        LinkedHashMap<String, Change> change = getChange();
+        LinkedHashMap<Double, String> changeByValue = new LinkedHashMap<Double, String>();
+        for (Change item : change.values()) {
+            changeByValue.put(item.getValue(), item.getName());
+        }
+        TreeMap<Double, String> sortedChangeByValue = new TreeMap<Double, String>(changeByValue);
+        for (Double value : sortedChangeByValue.descendingKeySet()) {
+            String key = sortedChangeByValue.get(value);
+            Change item = change.get(key);
+            change.remove(key);
+            change.put(key, item);
+        }
     }
 }

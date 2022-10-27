@@ -264,8 +264,10 @@ public class VendingMachine {
                 Product selected;
                 if (products.containsKey(productName)) {
                     selected = products.get(productName);
+                } else if (user.getShortProducts().containsKey(productName.toUpperCase())) {
+                    selected = user.getShortProducts().get(productName.toUpperCase());
                 } else {
-                    ui.displayErrorString("Provided change, " + productName + ", does not exist.");
+                    ui.displayErrorString("Provided product, " + productName + ", does not exist.");
                     return;
                 }
                 ui.displayQuestionString("Enter quantity to store: ");

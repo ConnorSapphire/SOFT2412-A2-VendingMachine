@@ -598,7 +598,7 @@ public class FileManager {
         return trans;
     }
 
-    public void updateTransactionHistory(Date date, ArrayList<Product> products, Double cost, Double change, String paymentMethod) {
+    public void updateTransactionHistory(Date date, ArrayList<Product> products, Double cost, Double paid, Double change, String paymentMethod) {
         JSONObject transaction = new JSONObject();
         transaction.put("date", date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().toString());
         transaction.put("time", date.toInstant().atZone(ZoneId.systemDefault()).toLocalTime().toString());
@@ -608,6 +608,7 @@ public class FileManager {
         }
         transaction.put("products", productArray);
         transaction.put("amount", cost);
+        transaction.put("paid", paid);
         transaction.put("change", change);
         transaction.put("paymentMethod", paymentMethod);
         transactions.add(transaction);
@@ -639,6 +640,7 @@ public class FileManager {
             }
             currentTransaction.add(productsString);
             currentTransaction.add(transaction.get("amount").toString());
+            currentTransaction.add(transaction.get("paid").toString());
             currentTransaction.add(transaction.get("change").toString());
             currentTransaction.add(transaction.get("paymentMethod").toString());
             transactionHistory.add(currentTransaction);
@@ -718,8 +720,9 @@ public class FileManager {
                 fw.write("Time: " + transaction.get(1) + "\n");
                 fw.write("Products: " + transaction.get(2) + "\n");
                 fw.write("Cost: " + transaction.get(3) + "\n");
-                fw.write("Change: " + transaction.get(4) + "\n");
-                fw.write("Payment Method: " + transaction.get(5) + "\n");
+                fw.write("Paid: " + transaction.get(4) + "\n");
+                fw.write("Change: " + transaction.get(5) + "\n");
+                fw.write("Payment Method: " + transaction.get(6) + "\n");
                 fw.write("\n");
             }
             fw.close();
@@ -735,14 +738,14 @@ public class FileManager {
             for (String coin : coins.keySet()) {
                 fw.write("\tCoin Name: " + coin + "\n");
                 fw.write("\tCoin Value: " + coins.get(coin)[0] + "\n");
-                fw.write("\tCoin Quantities: " + coins.get(coin)[1] + "\n");
+                fw.write("\tCoin Quantity: " + coins.get(coin)[1] + "\n");
                 fw.write("\n");
             }
             fw.write("Notes:\n");
             for (String note : notes.keySet()) {
                 fw.write("\tNote Name: " + note + "\n");
                 fw.write("\tNote Value: " + notes.get(note)[0] + "\n");
-                fw.write("\tNote Quantities: " + notes.get(note)[1] + "\n");
+                fw.write("\tNote Quantity: " + notes.get(note)[1] + "\n");
                 fw.write("\n");
             }
             fw.close();

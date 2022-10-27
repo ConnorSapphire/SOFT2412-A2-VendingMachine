@@ -343,6 +343,7 @@ public class Owner extends User {
         if (type.equalsIgnoreCase("coin")) {
             Change change = creator.create(name, value, quantity);
             this.getChange().put(name, change);
+            this.sortChangeHashMap();
             this.getUI().getFileManager().updateCoins(change);
             this.getUI().displaySuccessString("Successfully added change type " + name + " " + type + " to the machine." );
             return true;
@@ -350,6 +351,7 @@ public class Owner extends User {
             creator = new NoteCreator();
             Change change = creator.create(name, value, quantity);
             this.getChange().put(name, change);
+            this.sortChangeHashMap();
             this.getUI().getFileManager().updateNotes(change);
             this.getUI().displaySuccessString("Successfully added change type " + name + " " + type + " to the machine." );
             return true;

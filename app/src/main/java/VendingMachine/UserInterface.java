@@ -375,9 +375,9 @@ public class UserInterface {
     public void displayTransactionsTable() {
         ArrayList<ArrayList<String>> transactions = fm.lsTransactionHistory();
         CommandLineTable table = new CommandLineTable();
-        table.setHeaders("Date", "Time", "Products", "Cost", "Change", "Payment Method");
+        table.setHeaders("Date", "Time", "Products", "Cost", "Paid", "Change", "Payment Method");
         for (ArrayList<String> transaction : transactions) {
-            table.addRow(transaction.get(0), transaction.get(1), transaction.get(2), transaction.get(3), transaction.get(4), transaction.get(5));
+            table.addRow(transaction.get(0), transaction.get(1), transaction.get(2), transaction.get(3), transaction.get(4), transaction.get(5), transaction.get(6));
         }
         table.print();
     }

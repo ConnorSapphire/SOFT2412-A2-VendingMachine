@@ -13,3 +13,28 @@ Time: 15:37:48.142
 User: Owner
 Reason: Transaction timed out.
 
+Date: 2022-10-27
+Time: 17:45:24.834
+User: Anonymous
+Reason: Transaction timed out.
+
+Date: 2022-10-27
+Time: 17:50:06.372
+User: Anonymous
+Reason: Transaction timed out.
+
+Date: 2022-10-27
+Time: 17:50:36.531
+User: Anonymous
+Reason: Invalid user input.
+
+Date: 2022-10-27
+Time: 19:36:09.548
+User: Anonymous
+Reason: No products selected.
+
+Date: 2022-10-27
+Time: 19:49:10.332
+User: Anonymous
+Reason: Not enough stock.
+

@@ -69,7 +69,7 @@ public class CardStrategy implements PaymentStrategy {
         }
         transaction.setEndTime();
         // Update transaction history in file
-        ui.getFileManager().updateTransactionHistory(transaction.getEndTime(), transaction.getProducts(), cost, 0.0, transaction.getPaymentMethod());
+        ui.getFileManager().updateTransactionHistory(transaction.getEndTime(), transaction.getProducts(), cost, cost, 0.0, transaction.getPaymentMethod());
         // Update products in file and internal memory
         for (Product product : transaction.getProducts()) {
             product.setQuantity(product.getQuantity() - 1);

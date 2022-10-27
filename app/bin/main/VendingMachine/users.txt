@@ -22,6 +22,9 @@ Role: registered
 Name: Lachlan
 Role: registered
 
+Name: Frank
+Role: owner
+
 Name: Cashier
 Role: cashier
 

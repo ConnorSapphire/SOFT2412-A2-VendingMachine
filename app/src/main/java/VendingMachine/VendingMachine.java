@@ -103,7 +103,7 @@ public class VendingMachine {
         // Get username and password
         ui.displayQuestionString("Enter username: ");
         String username = ui.getPlainInput();
-        if (username.equals("cancel")) {
+        if (username.equalsIgnoreCase("cancel")) {
             return user;
         }
         ui.displayQuestionString("Enter password: ");
@@ -132,7 +132,7 @@ public class VendingMachine {
         UserCreator customerCreator = new RegisteredCustomerCreator();
         ui.displayErrorString("Enter your username: ");
         String newUsername = ui.getPlainInput();
-        if (newUsername.equals("cancel")) {
+        if (newUsername.equalsIgnoreCase("cancel")) {
             return user;
         }
         if(newUsername.equals("")){
@@ -182,12 +182,10 @@ public class VendingMachine {
         if (user.getAccessLevel().equals("cashier") || user.getAccessLevel().equals("owner")) {
             if (input.contains("fill change")) {
                 System.out.println("The change available to fill include: ");
-                for (String ch : change.keySet()) {
-                    System.out.print(ch + " ");
-                }
+                user.displayChangeTable();
                 ui.displayQuestionString("Enter change: ");
                 String changeName = ui.getPlainInput();
-                if (changeName.equals("cancel")) {
+                if (changeName.equalsIgnoreCase("cancel")) {
                     return;
                 }
                 Change selected;
@@ -206,6 +204,48 @@ public class VendingMachine {
                     return;
                 }
                 user.fillChange(selected, quantity);
+            } else if (input.contains("add change")) {
+                ui.displayQuestionString("Enter change name: ");
+                String name = ui.getPlainInput();
+                if (name.equalsIgnoreCase("cancel")) {
+                    return;
+                }
+                ui.displayQuestionString("Enter change type: ");
+                String type = ui.getPlainInput();
+                if (type.equalsIgnoreCase("cancel")) {
+                    return;
+                }
+                ui.displayQuestionString("Enter change quantity: ");
+                int quantity = 0;
+                try {
+                    quantity = Integer.parseInt(ui.getPlainInput());
+                } catch (NumberFormatException e) {
+                    ui.displayErrorString("Quantity must be an integer.");
+                    return;
+                }
+                ui.displayQuestionString("Enter change value: ");
+                double value = 0.0;
+                try {
+                    value = Double.parseDouble(ui.getPlainInput());
+                } catch (NumberFormatException e) {
+                    ui.displayErrorString("Value must be a number.");
+                    return;
+                }
+                user.addChange(name, quantity, value, type);
+            } else if (input.contains("remove change")) {
+                System.out.println("The change available to fill include: ");
+                user.displayChangeTable();
+                ui.displayQuestionString("Enter change name: ");
+                String name = ui.getPlainInput();
+                if (name.equalsIgnoreCase("cancel")) {
+                    return;
+                }
+                if (change.containsKey(name)) {
+                    user.removeChange(change.get(name));
+                } else {
+                    ui.displayErrorString("No change found by that name.");
+                    return;
+                }
             } else if (input.contains("display change")) {
                 user.displayChange();
             } else if (input.contains("display transactions")) {
@@ -218,7 +258,7 @@ public class VendingMachine {
                 user.displayStock();
                 ui.displayQuestionString("Enter product: ");
                 String productName = ui.getPlainInput();
-                if (productName.equals("cancel")) {
+                if (productName.equalsIgnoreCase("cancel")) {
                     return;
                 }
                 Product selected;
@@ -240,17 +280,17 @@ public class VendingMachine {
             } else if (input.contains("add product")) {
                 ui.displayQuestionString("Enter product name: ");
                 String name = ui.getPlainInput();
-                if (name.equals("cancel")) {
+                if (name.equalsIgnoreCase("cancel")) {
                     return;
                 }
                 ui.displayQuestionString("Enter product code: ");
                 String code = ui.getPlainInput();
-                if (code.equals("cancel")) {
+                if (code.equalsIgnoreCase("cancel")) {
                     return;
                 }
                 ui.displayQuestionString("Enter product category: ");
                 String category = ui.getPlainInput();
-                if (category.equals("cancel")) {
+                if (category.equalsIgnoreCase("cancel")) {
                     return;
                 }
                 ui.displayQuestionString("Enter quantity: ");
@@ -275,7 +315,7 @@ public class VendingMachine {
                 user.displayStock();
                 ui.displayQuestionString("Enter product: ");
                 String productName = ui.getPlainInput();
-                if (productName.equals("cancel")) {
+                if (productName.equalsIgnoreCase("cancel")) {
                     return;
                 }
                 Product product = null;
@@ -289,7 +329,7 @@ public class VendingMachine {
                 }
                 ui.displayQuestionString("Enter new name: ");
                 String name = ui.getPlainInput();
-                if (name.equals("cancel")) {
+                if (name.equalsIgnoreCase("cancel")) {
                     return;
                 }
                 user.modifyProductName(product, name);
@@ -298,7 +338,7 @@ public class VendingMachine {
                 user.displayStock();
                 ui.displayQuestionString("Enter product: ");
                 String productName = ui.getPlainInput();
-                if (productName.equals("cancel")) {
+                if (productName.equalsIgnoreCase("cancel")) {
                     return;
                 }
                 Product product = null;
@@ -312,7 +352,7 @@ public class VendingMachine {
                 }
                 ui.displayQuestionString("Enter new code: ");
                 String code = ui.getPlainInput();
-                if (code.equals("cancel")) {
+                if (code.equalsIgnoreCase("cancel")) {
                     return;
                 }
                 user.modifyProductCode(product, code);
@@ -321,7 +361,7 @@ public class VendingMachine {
                 user.displayStock();
                 ui.displayQuestionString("Enter product: ");
                 String productName = ui.getPlainInput();
-                if (productName.equals("cancel")) {
+                if (productName.equalsIgnoreCase("cancel")) {
                     return;
                 }
                 Product product = null;
@@ -347,7 +387,7 @@ public class VendingMachine {
                 user.displayStock();
                 ui.displayQuestionString("Enter product: ");
                 String productName = ui.getPlainInput();
-                if (productName.equals("cancel")) {
+                if (productName.equalsIgnoreCase("cancel")) {
                     return;
                 }
                 Product product = null;
@@ -361,7 +401,7 @@ public class VendingMachine {
                 }
                 ui.displayQuestionString("Enter new category: ");
                 String category = ui.getPlainInput();
-                if (category.equals("cancel")) {
+                if (category.equalsIgnoreCase("cancel")) {
                     return;
                 }
                 user.modifyProductCategory(product, category);
@@ -370,7 +410,7 @@ public class VendingMachine {
                 user.displayStock();
                 ui.displayQuestionString("Enter product: ");
                 String productName = ui.getPlainInput();
-                if (productName.equals("cancel")) {
+                if (productName.equalsIgnoreCase("cancel")) {
                     return;
                 }
                 Product product = null;
@@ -397,20 +437,94 @@ public class VendingMachine {
             } else if (input.contains("add user")) {
                 ui.displayQuestionString("Enter username: ");
                 String username = ui.getPlainInput();
-                if (username.equals("cancel")) {
+                if (username.equalsIgnoreCase("cancel")) {
                     return;
                 }
                 ui.displayQuestionString("Enter password: ");
                 String password = ui.getInputPassword();
-                if (password.equals("cancel")) {
+                if (password.equalsIgnoreCase("cancel")) {
                     return;
                 }
                 ui.displayQuestionString("Enter access level: ");
                 String access = ui.getPlainInput();
-                if (access.equals("cancel")) {
+                if (access.equalsIgnoreCase("cancel")) {
                     return;
                 }
                 user.addUser(username, password, access, ui);
+            } else if (input.contains("remove user")) {
+                System.out.println("The users available to remove include: ");
+                user.displayUsersTable();
+                ui.displayQuestionString("Enter user: ");
+                String name = ui.getPlainInput();
+                if (name.equalsIgnoreCase("cancel")) {
+                    return;
+                }
+                if (users.containsKey(name)) {
+                    user.removeUser(users.get(name));
+                } else {
+                    ui.displayErrorString("User " + name + " not found.");
+                    return;
+                }
+            } else if (input.contains("modify user name")) {
+                System.out.println("The users available to modify include: ");
+                user.displayUsersTable();
+                ui.displayQuestionString("Enter user: ");
+                String name = ui.getPlainInput();
+                if (name.equalsIgnoreCase("cancel")) {
+                    return;
+                }
+                User selected = null;
+                if (users.containsKey(name)) {
+                    selected = users.get(name);
+                } else {
+                    ui.displayErrorString("User " + name + " not found.");
+                    return;
+                }
+                ui.displayQuestionString("Enter new name: ");
+                String newName = ui.getPlainInput();
+                if (newName.equalsIgnoreCase("cancel")) {
+                    return;
+                }
+                user.modifyUserUsername(selected, newName);
+            } else if (input.contains("modify user password")) {
+                System.out.println("The users available to modify include: ");
+                user.displayUsersTable();
+                ui.displayQuestionString("Enter user: ");
+                String name = ui.getPlainInput();
+                if (name.equalsIgnoreCase("cancel")) {
+                    return;
+                }
+                User selected = null;
+                if (users.containsKey(name)) {
+                    selected = users.get(name);
+                } else {
+                    ui.displayErrorString("User " + name + " not found.");
+                    return;
+                }
+                ui.displayQuestionString("Enter new password: ");
+                String password = ui.getInputPassword();
+                user.modifyUserPassword(selected, password);
+            } else if (input.contains("modify user role")) {
+                System.out.println("The users available to modify include: ");
+                user.displayUsersTable();
+                ui.displayQuestionString("Enter user: ");
+                String name = ui.getPlainInput();
+                if (name.equalsIgnoreCase("cancel")) {
+                    return;
+                }
+                User selected = null;
+                if (users.containsKey(name)) {
+                    selected = users.get(name);
+                } else {
+                    ui.displayErrorString("User " + name + " not found.");
+                    return;
+                }
+                ui.displayQuestionString("Enter new role: ");
+                String role = ui.getPlainInput();
+                if (role.equalsIgnoreCase("cancel")) {
+                    return;
+                }
+                user.modifyUserAccess(selected, role);
             }
         }
     }

@@ -22,7 +22,7 @@ public class Cashier extends User {
     public boolean fillChange(Change change, int quantity) {
         if (quantity > 0) {
             change.setQuantity(change.getQuantity() + quantity);
-            System.out.println("The vending machine now contains " + change.getQuantity() + " of " + change.getName() + ".");
+            this.getUI().displaySuccessString("The vending machine now contains " + change.getQuantity() + " of " + change.getName() + ".");
             if (change.getClass().getSimpleName().equalsIgnoreCase("Note")) {
                 this.getUI().getFileManager().updateNotes(change);
             } else if (change.getClass().getSimpleName().equalsIgnoreCase("Coin")) {
@@ -76,12 +76,14 @@ public class Cashier extends User {
             Change change = creator.create(name, value, quantity);
             this.getChange().put(name, change);
             this.getUI().getFileManager().updateCoins(change);
+            this.getUI().displaySuccessString("Successfully added change type " + name + " " + type + " to the machine." );
             return true;
         } else if (type.equalsIgnoreCase("note")) {
             creator = new NoteCreator();
             Change change = creator.create(name, value, quantity);
             this.getChange().put(name, change);
             this.getUI().getFileManager().updateNotes(change);
+            this.getUI().displaySuccessString("Successfully added change type " + name + " " + type + " to the machine." );
             return true;
         }
         this.getUI().displayErrorString("Invalid type, please enter either 'coin' or 'note'.");
@@ -92,7 +94,12 @@ public class Cashier extends User {
      * 
      */
     public void displayChange() {
+        displayChangeTable();
         this.getUI().displayChange();
+    }
+
+    public void displayChangeTable() {
+        this.getUI().displayChangeTable(this.getChange());
     }
 
     /**

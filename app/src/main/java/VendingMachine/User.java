@@ -213,7 +213,7 @@ public abstract class User {
     public Product selectProduct() {
         ui.displaySelectProduct();
         String product = ui.getInput();
-        if (product.toLowerCase().equals("cancel")) {
+        if (product.toLowerCase().equalsIgnoreCase("cancel")) {
             cancelTransaction();
         } else if (products.containsKey(product)) {
             return products.get(product);
@@ -230,7 +230,7 @@ public abstract class User {
     public String selectPaymentMethod() {
         ui.displaySelectPaymentMethod();
         String paymentMethod = ui.getInput();
-        if (paymentMethod.toLowerCase().equals("cancel")) {
+        if (paymentMethod.toLowerCase().equalsIgnoreCase("cancel")) {
             cancelTransaction();
         } else if (paymentMethod.contains("card")) {
             return "card";
@@ -361,7 +361,7 @@ public abstract class User {
      * @param quantity
      * @return
      */
-    public boolean removeChange(Change change, int quantity) {
+    public boolean removeChange(Change change) {
         ui.displayUnauthorisedAccess("remove change");
         return false;
     }
@@ -373,7 +373,7 @@ public abstract class User {
      * @param value
      * @return
      */
-    public boolean addChange(Change change, int quantity, double value) {
+    public boolean addChange(String name, int quantity, double value, String type) {
         ui.displayUnauthorisedAccess("add change");
         return false;
     }
@@ -383,6 +383,10 @@ public abstract class User {
      */
     public void displayChange() {
         ui.displayUnauthorisedAccess("display change");
+    }
+
+    public void displayChangeTable() {
+        ui.displayUnauthorisedAccess("");
     }
 
     /**
@@ -395,6 +399,11 @@ public abstract class User {
      */
     public boolean addUser(String username, String password, String accessLevel, UserInterface ui) {
         ui.displayUnauthorisedAccess("add user");
+        return false;
+    }
+
+    public boolean removeUser(User user) {
+        ui.displayUnauthorisedAccess("remove user");
         return false;
     }
 
@@ -436,6 +445,10 @@ public abstract class User {
      */
     public void displayUsers() {
         ui.displayUnauthorisedAccess("display users");
+    }
+
+    public void displayUsersTable() {
+        ui.displayUnauthorisedAccess("");
     }
 
     /**

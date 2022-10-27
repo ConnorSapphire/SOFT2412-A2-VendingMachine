@@ -106,12 +106,12 @@ public class UserTest {
 
     @Test
     public void removeChangeTest() {
-        assertFalse(user.removeChange(null, 0));
+        assertFalse(user.removeChange(null));
     }
 
     @Test
     public void addChangeTest() {
-        assertFalse(user.addChange(null, 0, 0));
+        assertFalse(user.addChange("", 0, 0, ""));
     }
 
     @Test

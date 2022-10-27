@@ -632,7 +632,7 @@ public class FileManager {
             for (Object productObj : products) {
                 String product = (String) productObj;
                 if (!productsString.equals("")) {
-                    productsString += " " + product;
+                    productsString += ", " + product;
                 } else {
                     productsString += product;
                 }

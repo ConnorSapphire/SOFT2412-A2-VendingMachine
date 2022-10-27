@@ -1,11 +1,11 @@
 Coins:
 	Coin Name: $2
 	Coin Value: 2.0
-	Coin Quantities: -1.0
+	Coin Quantities: 9.0
 
 	Coin Name: $1
 	Coin Value: 1.0
-	Coin Quantities: 7.0
+	Coin Quantities: 3.0
 
 	Coin Name: 50c
 	Coin Value: 0.5
@@ -24,17 +24,13 @@ Coins:
 	Coin Quantities: 7.0
 
 Notes:
-	Note Name: $100
-	Note Value: 100.0
-	Note Quantities: 12.0
-
 	Note Name: $50
 	Note Value: 50.0
-	Note Quantities: 3.0
+	Note Quantities: 1.0
 
 	Note Name: $20
 	Note Value: 20.0
-	Note Quantities: 11.0
+	Note Quantities: 7.0
 
 	Note Name: $10
 	Note Value: 10.0
@@ -42,5 +38,9 @@ Notes:
 
 	Note Name: $5
 	Note Value: 5.0
-	Note Quantities: 7.0
+	Note Quantities: 5.0
+
+	Note Name: $100
+	Note Value: 100.0
+	Note Quantities: 10.0
 

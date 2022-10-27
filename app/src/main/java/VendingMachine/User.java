@@ -1,5 +1,6 @@
 package VendingMachine;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
@@ -206,6 +207,8 @@ public abstract class User {
         } else if (transaction.getPaymentMethod().contains("card")) {
             PaymentContext context = new PaymentContext(new CardStrategy(this));
             context.pay();
+        } else {
+            currentTransaction.cancel("Invalid user input.");
         }
     }
 
@@ -222,15 +225,38 @@ public abstract class User {
      * 
      * @return The selected Product.
      */
-    public Product selectProduct() {
+    public ArrayList<Product> selectProduct() {
         ui.displaySelectProduct();
-        String product = ui.getInput();
-        if (product.toLowerCase().equalsIgnoreCase("cancel")) {
+        ArrayList<Product> productArray = new ArrayList<Product>();
+        String name = ui.getPlainInput();
+        Product product = null;
+        if (name.toLowerCase().equalsIgnoreCase("cancel")) {
             cancelTransaction();
-        } else if (products.containsKey(product)) {
-            return products.get(product);
-        } else if (shortProducts.containsKey(product.toUpperCase())) {
-            return shortProducts.get(product.toUpperCase());
+        } else if (products.containsKey(name)) {
+            product = products.get(name);
+        } else if (shortProducts.containsKey(name.toUpperCase())) {
+            product = shortProducts.get(name.toUpperCase());
+        } else {
+            return null;
+        }
+        ui.displayQuestionString("Enter quantity: ");
+        int quantity = 0;
+        try {
+            String quanString = ui.getPlainInput();
+            if (quanString.equals("")) {
+                quantity = 1;
+            } else {
+                quantity = Integer.parseInt(quanString);
+            }
+        } catch (NumberFormatException e) {
+            ui.displayErrorString("Quantity must be an integer.");
+            return null;
+        }
+        if (product != null) {
+            for (int i = 0; i < quantity; i++) {
+                productArray.add(product);
+            }
+            return productArray;
         }
         return null;
     }
@@ -241,7 +267,7 @@ public abstract class User {
      */
     public String selectPaymentMethod() {
         ui.displaySelectPaymentMethod();
-        String paymentMethod = ui.getInput();
+        String paymentMethod = ui.getPlainInput();
         if (paymentMethod.toLowerCase().equalsIgnoreCase("cancel")) {
             cancelTransaction();
         } else if (paymentMethod.contains("card")) {
@@ -249,7 +275,7 @@ public abstract class User {
         } else if (paymentMethod.contains("cash")) {
             return "cash";
         }
-        return null;
+        return "invalid";
     }
 
     /**

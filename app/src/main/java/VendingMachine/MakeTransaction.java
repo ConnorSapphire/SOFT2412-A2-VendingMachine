@@ -36,9 +36,9 @@ public class MakeTransaction implements Runnable {
         Date startTime = new Date();
         ArrayList<Product> prods = new ArrayList<Product>();
         user.displayStock();
-        Product product = user.selectProduct();
+        ArrayList<Product> product = user.selectProduct();
         while(product != null && !cancelTransaction) {
-            prods.add(product);
+            prods.addAll(product);
             product = user.selectProduct();
         }
         double cost = 0;

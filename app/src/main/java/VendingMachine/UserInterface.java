@@ -97,14 +97,14 @@ public class UserInterface {
      * Display text through terminal prompting user to select a product from the vending machine.
      */
     public void displaySelectProduct() {
-        System.out.println(ANSI_CYAN + "Please select a product (type " + ANSI_YELLOW + "'done'" + ANSI_CYAN + " to finish selection): " + ANSI_RESET);
+        System.out.print(ANSI_CYAN + "Enter product (type " + ANSI_YELLOW + "'done'" + ANSI_CYAN + " to finish): " + ANSI_RESET);
     }
 
     /**
      * Display text through terminal prompting user to select a method of payment. Either card or cash.
      */
     public void displaySelectPaymentMethod() {
-        System.out.println(ANSI_CYAN + "Please enter your payment method, either " + ANSI_YELLOW  + "'cash'" + ANSI_CYAN + " or " + ANSI_YELLOW  + "'card'" + ANSI_CYAN + "." + ANSI_RESET);
+        System.out.print(ANSI_CYAN + "Enter payment method (" + ANSI_YELLOW  + "'cash'" + ANSI_CYAN + " or " + ANSI_YELLOW  + "'card'" + ANSI_CYAN + "): " + ANSI_RESET);
     }
 
     /**

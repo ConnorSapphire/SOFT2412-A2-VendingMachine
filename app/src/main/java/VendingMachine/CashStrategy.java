@@ -76,7 +76,7 @@ public class CashStrategy implements PaymentStrategy {
         Double totalCost = 0.0;
         
         for (String item : userCash.keySet()){
-            System.out.println("Enter the number of " + item + ": ");
+            ui.displayQuestionString("Enter the number of " + item + ": ");
             String input = ui.getInput();
             if (input.toLowerCase().equals("cancel")) {{
                 user.cancelTransaction();
@@ -96,7 +96,7 @@ public class CashStrategy implements PaymentStrategy {
             try {
                 quantity = Integer.parseInt(input);
             } catch (IllegalArgumentException iea){
-                System.out.println("Please enter an integer quantity.");
+                ui.displayErrorString("Quantity must be an integer.");
             }
 
             Change current = this.user.getChange().get(item);
@@ -177,8 +177,7 @@ public class CashStrategy implements PaymentStrategy {
         }
 
         if (cost != 0) {
-            System.out.println("Not enough change in machine.");
-            System.out.println("Please try again.");
+            ui.displayErrorString("Not enough change in machine.");
             user.cancelTransaction("Not enough change in machine.");
         }
         else { 

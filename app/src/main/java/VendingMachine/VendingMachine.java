@@ -101,11 +101,13 @@ public class VendingMachine {
 
     public User login(){
         // Get username and password
-        System.out.print("Enter username: ");
+        ui.displayQuestionString("Enter username: ");
         String username = ui.getPlainInput();
-        System.out.print("Enter password: ");
+        if (username.equals("cancel")) {
+            return user;
+        }
+        ui.displayQuestionString("Enter password: ");
         String password = ui.getInputPassword();
-    
         // Check username exists in system  
         boolean exists = false;      
         for (String name : users.keySet()){
@@ -113,17 +115,14 @@ public class VendingMachine {
                 exists = true;
             }
         }
-        
         if (!exists){
             ui.displayLoginFailed();
             return user;
         }
-
         if (!password.equals(users.get(username).getPassword())) {
             ui.displayLoginFailed();
             return user;
         }
-
         user = users.get(username);
         ui.displayLoginSuccess(user);
         return user;
@@ -131,19 +130,21 @@ public class VendingMachine {
 
     public User newRegisteredCustomer() {
         UserCreator customerCreator = new RegisteredCustomerCreator();
-        System.out.print("Enter your username: ");
+        ui.displayErrorString("Enter your username: ");
         String newUsername = ui.getPlainInput();
+        if (newUsername.equals("cancel")) {
+            return user;
+        }
         if(newUsername.equals("")){
-            System.out.println("No user name entered.");
+            ui.displayErrorString("No user name entered.");
             return user;
         }
         if (users.containsKey(newUsername)) {
-            System.out.println("Username already exists.");
+            ui.displayErrorString("Username already exists.");
             return user;
         }
-        System.out.print("Enter your password: ");
+        ui.displayQuestionString("Enter your password: ");
         String newPassword = ui.getInputPassword();
-
         User customer = customerCreator.create(newUsername, newPassword, ui, cards);
         users.put(newUsername, customer);
         fileManager.updateUsers(customer);
@@ -184,8 +185,11 @@ public class VendingMachine {
                 for (String ch : change.keySet()) {
                     System.out.print(ch + " ");
                 }
-                System.out.print("Which change do you want to fill? ");
+                ui.displayQuestionString("Enter change: ");
                 String changeName = ui.getPlainInput();
+                if (changeName.equals("cancel")) {
+                    return;
+                }
                 Change selected;
                 if (change.containsKey(changeName)) {
                     selected = change.get(changeName);
@@ -193,8 +197,14 @@ public class VendingMachine {
                     ui.displayErrorString("Provided change, " + changeName + ", does not exist.");
                     return;
                 }
-                System.out.print("How many " + changeName + " do you wish to store? ");
-                int quantity = Integer.parseInt(ui.getPlainInput());
+                ui.displayQuestionString("Enter quantity to store: ");
+                int quantity = 0;
+                try {
+                    quantity = Integer.parseInt(ui.getPlainInput());
+                } catch (NumberFormatException e) {
+                    ui.displayErrorString("Quantity must be an integer.");
+                    return;
+                }
                 user.fillChange(selected, quantity);
             } else if (input.contains("display change")) {
                 user.displayChange();
@@ -205,11 +215,12 @@ public class VendingMachine {
         if (user.getAccessLevel().equals("seller") || user.getAccessLevel().equals("owner")) {
             if (input.contains("fill product")) {
                 System.out.println("The products available to fill include: ");
-                for (String product : products.keySet()) {
-                    System.out.print(product + " ");
-                }
-                System.out.print("Which product do you want to fill? ");
+                user.displayStock();
+                ui.displayQuestionString("Enter product: ");
                 String productName = ui.getPlainInput();
+                if (productName.equals("cancel")) {
+                    return;
+                }
                 Product selected;
                 if (products.containsKey(productName)) {
                     selected = products.get(productName);
@@ -217,9 +228,161 @@ public class VendingMachine {
                     ui.displayErrorString("Provided change, " + productName + ", does not exist.");
                     return;
                 }
-                System.out.print("How many " + productName + " do you wish to store? ");
-                int quantity = Integer.parseInt(ui.getPlainInput());
+                ui.displayQuestionString("Enter quantity to store: ");
+                int quantity = 0;
+                try {
+                    quantity = Integer.parseInt(ui.getPlainInput());
+                } catch (NumberFormatException e) {
+                    ui.displayErrorString("Quantity must be an integer.");
+                    return;
+                }
                 user.fillProduct(selected, quantity);
+            } else if (input.contains("add product")) {
+                ui.displayQuestionString("Enter product name: ");
+                String name = ui.getPlainInput();
+                if (name.equals("cancel")) {
+                    return;
+                }
+                ui.displayQuestionString("Enter product code: ");
+                String code = ui.getPlainInput();
+                if (code.equals("cancel")) {
+                    return;
+                }
+                ui.displayQuestionString("Enter product category: ");
+                String category = ui.getPlainInput();
+                if (category.equals("cancel")) {
+                    return;
+                }
+                ui.displayQuestionString("Enter quantity: ");
+                int quantity = 0;
+                try {
+                    quantity = Integer.parseInt(ui.getPlainInput());
+                } catch (NumberFormatException e) {
+                    ui.displayErrorString("Quantity must be an integer.");
+                    return;
+                }
+                ui.displayQuestionString("Enter price: ");
+                double price = 0.0;
+                try {
+                    price = Double.parseDouble(ui.getPlainInput());
+                } catch (NumberFormatException e) {
+                    ui.displayErrorString("Price must be a number.");
+                    return;
+                } 
+                user.addProduct(name, code, category, quantity, price);
+            } else if (input.contains("modify product name")) {
+                System.out.println("The products available to change include:");
+                user.displayStock();
+                ui.displayQuestionString("Enter product: ");
+                String productName = ui.getPlainInput();
+                if (productName.equals("cancel")) {
+                    return;
+                }
+                Product product = null;
+                if (products.containsKey(productName)) {
+                    product = products.get(productName);
+                } else if (user.getShortProducts().containsKey(productName.toUpperCase())) {
+                    product = user.getShortProducts().get(productName.toUpperCase());
+                } else {
+                    ui.displayErrorString("Product " + productName + " not found.");
+                    return;
+                }
+                ui.displayQuestionString("Enter new name: ");
+                String name = ui.getPlainInput();
+                if (name.equals("cancel")) {
+                    return;
+                }
+                user.modifyProductName(product, name);
+            } else if (input.contains("modify product code")) {
+                System.out.println("The products available to change include:");
+                user.displayStock();
+                ui.displayQuestionString("Enter product: ");
+                String productName = ui.getPlainInput();
+                if (productName.equals("cancel")) {
+                    return;
+                }
+                Product product = null;
+                if (products.containsKey(productName)) {
+                    product = products.get(productName);
+                } else if (user.getShortProducts().containsKey(productName.toUpperCase())) {
+                    product = user.getShortProducts().get(productName.toUpperCase());
+                } else {
+                    ui.displayErrorString("Product " + productName + " not found.");
+                    return;
+                }
+                ui.displayQuestionString("Enter new code: ");
+                String code = ui.getPlainInput();
+                if (code.equals("cancel")) {
+                    return;
+                }
+                user.modifyProductCode(product, code);
+            } else if (input.contains("modify product price")) {
+                System.out.println("The products available to change include:");
+                user.displayStock();
+                ui.displayQuestionString("Enter product: ");
+                String productName = ui.getPlainInput();
+                if (productName.equals("cancel")) {
+                    return;
+                }
+                Product product = null;
+                if (products.containsKey(productName)) {
+                    product = products.get(productName);
+                } else if (user.getShortProducts().containsKey(productName.toUpperCase())) {
+                    product = user.getShortProducts().get(productName.toUpperCase());
+                } else {
+                    ui.displayErrorString("Product " + productName + " not found.");
+                    return;
+                }
+                ui.displayQuestionString("Enter new price: ");
+                double price = 0.0;
+                try {
+                    price = Double.parseDouble(ui.getPlainInput());
+                } catch (NumberFormatException e) {
+                    ui.displayErrorString("Price must be a number.");
+                    return;
+                }
+                user.modifyProductPrice(product, price);
+            } else if (input.contains("modify product category")) {
+                System.out.println("The products available to change include:");
+                user.displayStock();
+                ui.displayQuestionString("Enter product: ");
+                String productName = ui.getPlainInput();
+                if (productName.equals("cancel")) {
+                    return;
+                }
+                Product product = null;
+                if (products.containsKey(productName)) {
+                    product = products.get(productName);
+                } else if (user.getShortProducts().containsKey(productName.toUpperCase())) {
+                    product = user.getShortProducts().get(productName.toUpperCase());
+                } else {
+                    ui.displayErrorString("Product " + productName + " not found.");
+                    return;
+                }
+                ui.displayQuestionString("Enter new category: ");
+                String category = ui.getPlainInput();
+                if (category.equals("cancel")) {
+                    return;
+                }
+                user.modifyProductCategory(product, category);
+            } else if (input.contains("remove product")) {
+                System.out.println("The products available to remove include:");
+                user.displayStock();
+                ui.displayQuestionString("Enter product: ");
+                String productName = ui.getPlainInput();
+                if (productName.equals("cancel")) {
+                    return;
+                }
+                Product product = null;
+                if (products.containsKey(productName)) {
+                    product = products.get(productName);
+                } else if (user.getShortProducts().containsKey(productName.toUpperCase())) {
+                    product = user.getShortProducts().get(productName.toUpperCase());
+                } else {
+                    ui.displayErrorString("Product " + productName + " not found.");
+                    return;
+                }
+                user.removeProduct(product);
             } else if (input.contains("display stock")) {
                 user.displayDetailedStock();
             } else if (input.contains("display sales")) {
@@ -232,12 +395,21 @@ public class VendingMachine {
             } else if (input.contains("display users")) {
                 user.displayUsers();
             } else if (input.contains("add user")) {
-                System.out.print("Username: ");
+                ui.displayQuestionString("Enter username: ");
                 String username = ui.getPlainInput();
-                System.out.print("Password: ");
+                if (username.equals("cancel")) {
+                    return;
+                }
+                ui.displayQuestionString("Enter password: ");
                 String password = ui.getInputPassword();
-                System.out.print("Access level: ");
+                if (password.equals("cancel")) {
+                    return;
+                }
+                ui.displayQuestionString("Enter access level: ");
                 String access = ui.getPlainInput();
+                if (access.equals("cancel")) {
+                    return;
+                }
                 user.addUser(username, password, access, ui);
             }
         }

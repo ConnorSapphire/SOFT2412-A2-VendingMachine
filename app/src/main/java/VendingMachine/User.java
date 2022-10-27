@@ -252,14 +252,14 @@ public abstract class User {
      * such as product code, category, price, and quantity.
      */
     public void displayDetailedStock() {
-        ui.displayUnauthorisedAccess("displayDetailedStock");
+        ui.displayUnauthorisedAccess("display stock");
     }
 
     /**
      * Display all stock, with details about how much was sold of each. "product code; product name; quantity sold".
      */
     public void displayStockSales() {
-        ui.displayUnauthorisedAccess("displayStockSales");
+        ui.displayUnauthorisedAccess("display sales");
     }
 
     /**
@@ -267,7 +267,7 @@ public abstract class User {
      * payment method.
      */
     public void displayTransactionHistory() {
-        ui.displayUnauthorisedAccess("displayTransactionHistory");
+        ui.displayUnauthorisedAccess("display transaction history");
     }
 
     /**
@@ -277,7 +277,7 @@ public abstract class User {
      * @return
      */
     public boolean fillProduct(Product product, int quantity) {
-        ui.displayUnauthorisedAccess("fillProduct");
+        ui.displayUnauthorisedAccess("fill product");
         return false;
     }
 
@@ -288,7 +288,7 @@ public abstract class User {
      * @return
      */
     public boolean modifyProductName(Product product, String name) {
-        ui.displayUnauthorisedAccess("modifyProductName");
+        ui.displayUnauthorisedAccess("modify product name");
         return false;
     }
 
@@ -299,7 +299,7 @@ public abstract class User {
      * @return
      */
     public boolean modifyProductCode(Product product, String code) {
-        ui.displayUnauthorisedAccess("modifyProductCode");
+        ui.displayUnauthorisedAccess("modify product code");
         return false;
     }
 
@@ -310,7 +310,7 @@ public abstract class User {
      * @return
      */
     public boolean modifyProductPrice(Product product, double price) {
-        ui.displayUnauthorisedAccess("modifyProductPrice");
+        ui.displayUnauthorisedAccess("modify product price");
         return false;
     }
 
@@ -321,7 +321,7 @@ public abstract class User {
      * @return
      */
     public boolean modifyProductCategory(Product product, String category) {
-        ui.displayUnauthorisedAccess("modifyProductCategory");
+        ui.displayUnauthorisedAccess("modify product category");
         return false;
     }
 
@@ -335,7 +335,12 @@ public abstract class User {
      * @return
      */
     public boolean addProduct(String name, String code, String category, int quantity, double price) {
-        ui.displayUnauthorisedAccess("addProduct");
+        ui.displayUnauthorisedAccess("add product");
+        return false;
+    }
+
+    public boolean removeProduct(Product product) {
+        ui.displayUnauthorisedAccess("remove product");
         return false;
     }
 
@@ -346,7 +351,7 @@ public abstract class User {
      * @return
      */
     public boolean fillChange(Change change, int quantity) {
-        ui.displayUnauthorisedAccess("fillChange");
+        ui.displayUnauthorisedAccess("fill change");
         return false;
     }
 
@@ -357,7 +362,7 @@ public abstract class User {
      * @return
      */
     public boolean removeChange(Change change, int quantity) {
-        ui.displayUnauthorisedAccess("removeChange");
+        ui.displayUnauthorisedAccess("remove change");
         return false;
     }
 
@@ -369,7 +374,7 @@ public abstract class User {
      * @return
      */
     public boolean addChange(Change change, int quantity, double value) {
-        ui.displayUnauthorisedAccess("addChange");
+        ui.displayUnauthorisedAccess("add change");
         return false;
     }
 
@@ -377,7 +382,7 @@ public abstract class User {
      * 
      */
     public void displayChange() {
-        ui.displayUnauthorisedAccess("displayChange");
+        ui.displayUnauthorisedAccess("display change");
     }
 
     /**
@@ -389,7 +394,7 @@ public abstract class User {
      * @return
      */
     public boolean addUser(String username, String password, String accessLevel, UserInterface ui) {
-        ui.displayUnauthorisedAccess("addUser");
+        ui.displayUnauthorisedAccess("add user");
         return false;
     }
 
@@ -400,7 +405,7 @@ public abstract class User {
      * @return
      */
     public boolean modifyUserAccess(User user, String accessLevel) {
-        ui.displayUnauthorisedAccess("modifyUserAccess");
+        ui.displayUnauthorisedAccess("modify user access");
         return false;
     }
 
@@ -411,7 +416,7 @@ public abstract class User {
      * @return
      */
     public boolean modifyUserUsername(User user, String username) {
-        ui.displayUnauthorisedAccess("modifyUserUsername");
+        ui.displayUnauthorisedAccess("modify user username");
         return false;
     }
 
@@ -422,7 +427,7 @@ public abstract class User {
      * @return
      */
     public boolean modifyUserPassword(User user, String password) {
-        ui.displayUnauthorisedAccess("modifyUserPassword");
+        ui.displayUnauthorisedAccess("modify user password");
         return false;
     }
 
@@ -430,14 +435,14 @@ public abstract class User {
      * 
      */
     public void displayUsers() {
-        ui.displayUnauthorisedAccess("displayUsers");
+        ui.displayUnauthorisedAccess("display users");
     }
 
     /**
      * 
      */
     public void displayCancelledTransactions() {
-        ui.displayUnauthorisedAccess("displayCancelledTransactions");
+        ui.displayUnauthorisedAccess("display cancelled transactions");
     }
 
     public void displayHelp() {

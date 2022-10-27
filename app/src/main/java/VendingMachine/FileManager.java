@@ -311,50 +311,59 @@ public class FileManager {
     public void removeProduct(Product product) {
         JSONObject obj = new JSONObject();
         JSONArray candies = (JSONArray) this.stock.get("Candies");
+        JSONArray remove = new JSONArray();
         boolean found = false;
         for (Object candyObj : candies) {
             JSONObject candyObject = (JSONObject) candyObj;
             for (Object objKey : candyObject.keySet()) {
                 String key = (String) objKey;
                 if (key.equals(product.getName())) {
-                    candies.remove(candyObject);
+                    remove.add(candyObject);
                     found = true;
                 }
             }
         }
+        candies.removeAll(remove);
+        remove = new JSONArray();
         JSONArray chips = (JSONArray) this.stock.get("Chips");
         for (Object chipObj : chips) {
             JSONObject chipObject = (JSONObject) chipObj;
             for (Object objKey : chipObject.keySet()) {
                 String key = (String) objKey;
                 if (key.equals(product.getName())) {
-                    chips.remove(chipObject);
+                    remove.add(chipObject);
                     found = true;
                 }
             }
         }
+        chips.removeAll(remove);
+        remove = new JSONArray();
         JSONArray chocolates = (JSONArray) this.stock.get("Chocolates");
         for (Object chocObj : chocolates) {
             JSONObject chocolateObject = (JSONObject) chocObj;
             for (Object objKey : chocolateObject.keySet()) {
                 String key = (String) objKey;
                 if (key.equals(product.getName())) { 
-                    chocolates.remove(chocolateObject);
+                    remove.add(chocolateObject);
                     found = true;
                 }
             }
         }
+        chocolates.removeAll(remove);
+        remove = new JSONArray();
         JSONArray drinks = (JSONArray) this.stock.get("Drinks");
         for (Object drinkObj : drinks) {
             JSONObject drinkObject = (JSONObject) drinkObj;
             for (Object objKey : drinkObject.keySet()) {
                 String key = (String) objKey;
                 if (key.equals(product.getName())) {
-                    drinks.remove(drinkObject);
+                    remove.add(drinkObject);
                     found = true;
                 }
             }
         }
+        drinks.removeAll(remove);
+        remove = new JSONArray();
         obj.put("Drinks", drinks);
         obj.put("Chocolates", chocolates);
         obj.put("Chips", chips);
@@ -473,28 +482,33 @@ public class FileManager {
     public void removeChange(Change change) {
         JSONObject obj = new JSONObject();
         JSONArray coins = (JSONArray) this.change.get("Coins");
+        JSONArray remove = new JSONArray();
         boolean found = false;
         for (Object coinObj : coins) {
             JSONObject coinObject = (JSONObject) coinObj;
             for (Object objKey : coinObject.keySet()) {
                 String key = (String) objKey;
                 if (key.equals(change.getName())) {
-                    coins.remove(coinObject);
+                    remove.add(coinObject);
                     found = true;
                 }
             }
         }
+        coins.removeAll(remove);
+        remove = new JSONArray();
         JSONArray notes = (JSONArray) this.change.get("Notes");
         for (Object noteObj : notes) {
             JSONObject noteObject = (JSONObject) noteObj;
             for (Object objKey : noteObject.keySet()) {
                 String key = (String) objKey;
                 if (key.equals(change.getName())) {
-                    coins.remove(noteObject);
+                    remove.add(noteObject);
                     found = true;
                 }
             }
         }
+        notes.removeAll(remove);
+        remove = new JSONArray();
         obj.put("Notes", notes);
         obj.put("Coins", coins);
         try {

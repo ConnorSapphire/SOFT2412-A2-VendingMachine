@@ -51,6 +51,7 @@ public class Seller extends User {
             } else if (product.getCategory().equals("candy")) {
                 this.getUI().getFileManager().updateCandies(product);
             }
+            this.getUI().displaySuccessString("Vending machine now contains " + product.getQuantity() + " of " + product.getName() + ".");
             return true;
         } else {
             this.getUI().displayErrorString("The vending machine does not have enough space for this quantity.");
@@ -64,7 +65,8 @@ public class Seller extends User {
      * @param newName
      * @return
      */
-    public boolean modifyProductName(Product product, String name, HashMap<String, Product> products) {
+    public boolean modifyProductName(Product product, String name) {
+        HashMap<String, Product> products = this.getProducts();
         for(String key : products.keySet()){
             if(key.equals(name)){
                 if(products.get(key).equals(product)){
@@ -79,6 +81,7 @@ public class Seller extends User {
             this.getProducts().remove(product.getName());
             this.getUI().getFileManager().removeProduct(product);
         }
+        String oldName = product.getName();
         product.setName(name);
         this.getProducts().put(name, product);
         if (product.getCategory().equalsIgnoreCase("drink")) {
@@ -90,6 +93,7 @@ public class Seller extends User {
         } else if (product.getCategory().equalsIgnoreCase("chip")) {
             this.getUI().getFileManager().updateChips(product);
         }
+        this.getUI().displaySuccessString("Product name succesfully changed from " + oldName + " to " + product.getName() + ".");
         return true;
     }
 
@@ -99,7 +103,8 @@ public class Seller extends User {
      * @param code
      * @return
      */
-    public boolean modifyProductCode(Product product, String code, HashMap<String, Product> products) {
+    public boolean modifyProductCode(Product product, String code) {
+        HashMap<String, Product> products = this.getProducts();
         char[] check = code.toCharArray();
         if(check.length != 3){
             this.getUI().displayerrorMessage("Only 3 digit code accepted.");
@@ -195,13 +200,18 @@ public class Seller extends User {
      * @param price
      * @return
      */
-    public boolean addProduct(String name, String code, String category, int quantity, double price, HashMap<String, Product> products) {
+    public boolean addProduct(String name, String code, String category, int quantity, double price) {
+        HashMap<String, Product> products = this.getProducts();
         if(price <= 0){
             this.getUI().displayerrorMessage("Price must be positive!");
             return false;
         }
         if(quantity < 0){
             this.getUI().displayerrorMessage("Quantity must be non-negative!");
+            return false;
+        }
+        if(code.length() != 3){
+            this.getUI().displayerrorMessage("Only 3 digit code accepted.");
             return false;
         }
         ProductCreator pc = null;
@@ -237,7 +247,17 @@ public class Seller extends User {
             }
         }
         if (pc != null) {
-            pc.create(name, code, price, quantity, 0);
+            Product newProduct = pc.create(name, code, price, quantity, 0);
+            this.getProducts().put(name, newProduct);
+            if (newProduct.getCategory().equalsIgnoreCase("drink")) {
+                this.getUI().getFileManager().updateDrinks(newProduct);
+            } else if (newProduct.getCategory().equalsIgnoreCase("chocolate")) {
+                this.getUI().getFileManager().updateChocolates(newProduct);
+            } else if (newProduct.getCategory().equalsIgnoreCase("candy")) {
+                this.getUI().getFileManager().updateCandies(newProduct);
+            } else if (newProduct.getCategory().equalsIgnoreCase("chip")) {
+                this.getUI().getFileManager().updateChips(newProduct);
+            }
         }
         this.getUI().displaySuccessString("New product successfully created.");
         return true;

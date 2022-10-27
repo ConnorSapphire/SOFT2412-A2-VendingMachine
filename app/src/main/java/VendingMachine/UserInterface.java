@@ -119,7 +119,7 @@ public class UserInterface {
      * @param user The User account that was logged into.
      */
     public void displayLoginSuccess(User user) {
-        System.out.println(ANSI_CYAN + "Login success! Welcome " + ANSI_BLUE + user.getUsername() + ANSI_CYAN + "!" + ANSI_RESET);
+        System.out.println(ANSI_GREEN + "Login success! Welcome " + ANSI_CYAN + user.getUsername() + ANSI_GREEN + "!" + ANSI_RESET);
     }
 
     public void displayLogout() {
@@ -287,6 +287,12 @@ public class UserInterface {
         System.out.println("> display stock" + ANSI_YELLOW + "\n\tDisplay a detailed summary of stock." + ANSI_RESET);
         System.out.println("> display sales" + ANSI_YELLOW + "\n\tDisplay a detailed summary of stock and stock flow." + ANSI_RESET);
         System.out.println("> fill product" + ANSI_YELLOW + "\n\tFill the vending machine with a selected product to a selected quantity." + ANSI_RESET);
+        System.out.println("> add product" + ANSI_YELLOW + "\n\tAdd a completely new product to the vending machine." + ANSI_RESET);
+        System.out.println("> remove product" + ANSI_YELLOW + "\n\tCompletely remove a product from the vending machine." + ANSI_RESET);
+        System.out.println("> modify product name" + ANSI_YELLOW + "\n\tChange the name of the selected product." + ANSI_RESET);
+        System.out.println("> modify product code" + ANSI_YELLOW + "\n\tChange the code of the selected product." + ANSI_RESET);
+        System.out.println("> modify product price" + ANSI_YELLOW + "\n\tChange the price of the selected product." + ANSI_RESET);
+        System.out.println("> modify product category" + ANSI_YELLOW + "\n\tChange the category of the selected product." + ANSI_RESET);
         System.out.println("> help" + ANSI_YELLOW + "\n\tDisplay all available commands." + ANSI_RESET);
         System.out.println("> quit" + ANSI_YELLOW + "\n\tExit the application." + ANSI_RESET);
     }
@@ -304,6 +310,12 @@ public class UserInterface {
         System.out.println("> fill change" + ANSI_YELLOW + "\n\tFill the vending machine with a selected change to a selected quantity." + ANSI_RESET);
         System.out.println("> display stock" + ANSI_YELLOW + "\n\tDisplay a detailed summary of stock and stock flow." + ANSI_RESET);
         System.out.println("> fill product" + ANSI_YELLOW + "\n\tFill the vending machine with a selected product to a selected quantity." + ANSI_RESET);
+        System.out.println("> add product" + ANSI_YELLOW + "\n\tAdd a completely new product to the vending machine." + ANSI_RESET);
+        System.out.println("> remove product" + ANSI_YELLOW + "\n\tCompletely remove a product from the vending machine." + ANSI_RESET);
+        System.out.println("> modify product name" + ANSI_YELLOW + "\n\tChange the name of the selected product." + ANSI_RESET);
+        System.out.println("> modify product code" + ANSI_YELLOW + "\n\tChange the code of the selected product." + ANSI_RESET);
+        System.out.println("> modify product price" + ANSI_YELLOW + "\n\tChange the price of the selected product." + ANSI_RESET);
+        System.out.println("> modify product category" + ANSI_YELLOW + "\n\tChange the category of the selected product." + ANSI_RESET);
         System.out.println("> add user" + ANSI_YELLOW + "\n\tAdd a user of any access level to the vending machine." + ANSI_RESET);
         System.out.println("> display users" + ANSI_YELLOW + "\n\tDisplay all users and their role." + ANSI_RESET);
         System.out.println("> display cancelled transactions" + ANSI_YELLOW + "\n\tDisplay all cancelled previous transactions." + ANSI_RESET);
@@ -336,8 +348,12 @@ public class UserInterface {
         System.out.println(ANSI_GREEN + success + ANSI_RESET);
     }
 
+    public void displayQuestionString(String question) {
+        System.out.print(ANSI_CYAN + question + ANSI_RESET);
+    }
+
     public void displayUnauthorisedAccess(String commandName) {
-        System.out.println(ANSI_RED + "You do not have a high enough access level to access this feature." + ANSI_RESET);
+        System.out.println(ANSI_RED + "You do not have a high enough access level to access the command " + ANSI_YELLOW + commandName + ANSI_RED + "." + ANSI_RESET);
     }
 
     public void displayProductTable(){
@@ -373,6 +389,6 @@ public class UserInterface {
     }
 
     public void displayerrorMessage(String str){
-        System.out.println(ANSI_RED + str);
+        System.out.println(ANSI_RED + str + ANSI_RESET);
     }
 }

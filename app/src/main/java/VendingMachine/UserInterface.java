@@ -195,7 +195,18 @@ public class UserInterface {
      * Display text through terminal with a list of all previous unsuccessful transactions.
      */
     public void displayCancelledTransactions() {
-
+        ArrayList<ArrayList<String>> cancelledTransactions = fm.lsCancelledTransactions();
+        fm.writeCancelledTransactionFile("src/main/java/VendingMachine/cancelledTransactions.txt", cancelledTransactions);
+        List<String> dataList = fm.readTextFile("src/main/java/VendingMachine/cancelledTransactions.txt","utf-8");  //file can be utf8 or gbk
+        for(String data:dataList){
+            System.out.println(data);
+        }
+        Desktop desktop = Desktop.getDesktop();
+        try { 
+            desktop.open(new File("src/main/java/VendingMachine/cancelledTransactions.txt"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -222,7 +233,18 @@ public class UserInterface {
      * and displays their access level.
      */
     public void displayUsers() {
-
+        HashMap<String, String[]> users = fm.lsUsers();
+        fm.writeUsersFile("src/main/java/VendingMachine/users.txt", users);
+        List<String> dataList = fm.readTextFile("src/main/java/VendingMachine/users.txt","utf-8");  
+        for(String data:dataList){
+            System.out.println(data);
+        }
+        Desktop desktop = Desktop.getDesktop();
+        try { 
+            desktop.open(new File("src/main/java/VendingMachine/users.txt"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -282,6 +304,9 @@ public class UserInterface {
         System.out.println("> fill change" + ANSI_YELLOW + "\n\tFill the vending machine with a selected change to a selected quantity." + ANSI_RESET);
         System.out.println("> display stock" + ANSI_YELLOW + "\n\tDisplay a detailed summary of stock and stock flow." + ANSI_RESET);
         System.out.println("> fill product" + ANSI_YELLOW + "\n\tFill the vending machine with a selected product to a selected quantity." + ANSI_RESET);
+        System.out.println("> add user" + ANSI_YELLOW + "\n\tAdd a user of any access level to the vending machine." + ANSI_RESET);
+        System.out.println("> display users" + ANSI_YELLOW + "\n\tDisplay all users and their role." + ANSI_RESET);
+        System.out.println("> display cancelled transactions" + ANSI_YELLOW + "\n\tDisplay all cancelled previous transactions." + ANSI_RESET);
         System.out.println("> help" + ANSI_YELLOW + "\n\tDisplay all available commands." + ANSI_RESET);
         System.out.println("> quit" + ANSI_YELLOW + "\n\tExit the application." + ANSI_RESET);
     }
@@ -305,6 +330,10 @@ public class UserInterface {
      */
     public void displayErrorString(String error) {
         System.out.println(ANSI_RED + error + ANSI_RESET);
+    }
+
+    public void displaySuccessString(String success) {
+        System.out.println(ANSI_GREEN + success + ANSI_RESET);
     }
 
     public void displayUnauthorisedAccess(String commandName) {

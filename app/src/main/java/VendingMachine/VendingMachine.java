@@ -83,6 +83,10 @@ public class VendingMachine {
         return this.user;
     }
 
+    public HashMap<String, User> getUsers() {
+        return this.users;
+    }
+
     public HashMap<String, Product> getProducts() {
         return this.products;
     }
@@ -157,7 +161,9 @@ public class VendingMachine {
         }  else if (input.contains("buy")) {
             user.makeTransaction();
         } else if (input.contains("cancel")) {
-            user.cancelTransaction();
+            if (user.getTransaction() != null) {
+                user.cancelTransaction();
+            }
         } else if (input.contains("login")) {
             user = this.login();
         } else if (input.contains("logout")) {
@@ -218,6 +224,21 @@ public class VendingMachine {
                 user.displayDetailedStock();
             } else if (input.contains("display sales")) {
                 user.displayStockSales();
+            }
+        }
+        if (user.getAccessLevel().equals("owner")) {
+            if (input.contains("display cancelled transactions")) {
+                user.displayCancelledTransactions();
+            } else if (input.contains("display users")) {
+                user.displayUsers();
+            } else if (input.contains("add user")) {
+                System.out.print("Username: ");
+                String username = ui.getPlainInput();
+                System.out.print("Password: ");
+                String password = ui.getInputPassword();
+                System.out.print("Access level: ");
+                String access = ui.getPlainInput();
+                user.addUser(username, password, access, ui);
             }
         }
     }

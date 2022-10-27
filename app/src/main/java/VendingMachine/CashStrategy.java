@@ -179,6 +179,7 @@ public class CashStrategy implements PaymentStrategy {
         if (cost != 0) {
             System.out.println("Not enough change in machine.");
             System.out.println("Please try again.");
+            user.cancelTransaction("Not enough change in machine.");
         }
         else { 
             System.out.println("Here is your change: ");

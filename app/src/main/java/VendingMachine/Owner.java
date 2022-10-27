@@ -129,6 +129,7 @@ public class Owner extends User {
      * 
      */
     public void displayChange() {
+        this.getUI().displayChange();
     }
 
     /**
@@ -136,6 +137,7 @@ public class Owner extends User {
      * payment method.
      */
     public void displayTransactionHistory() {
+        this.getUI().displayTransactionHistory();
     }
 
     // OWNER METHODS
@@ -149,6 +151,35 @@ public class Owner extends User {
      * @return
      */
     public boolean addUser(String username, String password, String accessLevel, UserInterface ui) {
+        UserCreator creator = new RegisteredCustomerCreator();
+        if (accessLevel.equalsIgnoreCase("seller")) {
+            creator = new SellerCreator();
+        } else if (accessLevel.equalsIgnoreCase("cashier")) {
+            creator = new CashierCreator();
+        } else if (accessLevel.equalsIgnoreCase("owner")) {
+            creator = new OwnerCreator();
+        }
+        for (User exists : this.getUsers().values()) {
+            if (exists.getUsername().equals(username)) {
+                this.getUI().displayErrorString("Username already exists. Unable to create new user.");
+                return false;
+            }
+        }
+        User newUser = creator.create(username, password, this.getUI(), this.getCards());
+        this.getUsers().put(username, newUser);
+        this.getUI().getFileManager().updateUsers(newUser);
+        this.getUI().displaySuccessString("Successfully created new user!");
+        return true;
+    }
+
+    public boolean removeUser(User user) {
+        if (this.getUsers().containsKey(user.getUsername())) {
+            this.getUsers().remove(user.getUsername());
+            this.getUI().getFileManager().removeUser(user);
+            this.getUI().displaySuccessString("Successfully removed user " + user.getUsername() + ".");
+            return true;
+        }
+        this.getUI().displayerrorMessage("Cannot remove user, as " + user.getUsername() + " does not exist in vending machine.");
         return false;
     }
 
@@ -186,12 +217,14 @@ public class Owner extends User {
      * 
      */
     public void displayUsers() {
+        this.getUI().displayUsers();
     }
 
     /**
      * 
      */
     public void displayCancelledTransactions() {
+        this.getUI().displayCancelledTransactions();
     }
 
     public void displayHelp() {

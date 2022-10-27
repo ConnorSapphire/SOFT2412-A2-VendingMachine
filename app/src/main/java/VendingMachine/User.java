@@ -17,7 +17,7 @@ public abstract class User {
     private HashMap<String, Product> shortProducts;
     private LinkedHashMap<String, Change> change;
     private boolean cancelTransaction;
-
+    private HashMap<String, User> users;
     private HashMap<String, String> cards;
 
     /**
@@ -37,6 +37,14 @@ public abstract class User {
         this.cancelTransaction = false;
         this.cardName = "";
         this.cardNumber = "";
+    }
+
+    public void setUsers(HashMap<String, User> users) {
+        this.users = users;
+    }
+
+    public HashMap<String, User> getUsers() {
+        return this.users;
     }
 
     public void setTransaction(Transaction transaction) {
@@ -167,8 +175,9 @@ public abstract class User {
 
         if (System.currentTimeMillis() > endTime) {
             ui.displayErrorString("\nTransaction Timed Out (Press Enter)");
+            currentTransaction.cancel("Transaction timed out.");
         }
-        currentTransaction.cancel();
+        currentTransaction.finish();
         t.interrupt();  // Tell the thread to stop
         try {
             t.join();       // Wait for the thread to cleanup and finish
@@ -188,9 +197,13 @@ public abstract class User {
         }
     }
 
-    public void cancelTransaction() {
-        currentTransaction.cancel();
+    public void cancelTransaction(String reason) {
+        currentTransaction.cancel(reason);
         ui.displayErrorString("Transaction has been cancelled.");
+    }
+
+    public void cancelTransaction() {
+        cancelTransaction("Cancelled by user.");
     }
 
     /**

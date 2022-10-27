@@ -1,12 +1,4 @@
 Drinks:
-	Product Name: Coca cola
-	Product Cost: 3.0
-	Product Quantities: 7.0
-
-	Product Name: Sprite
-	Product Cost: 3.0
-	Product Quantities: 5.0
-
 	Product Name: Mineral Water
 	Product Cost: 3.0
 	Product Quantities: 7.0
@@ -15,15 +7,19 @@ Drinks:
 	Product Cost: 3.0
 	Product Quantities: 7.0
 
-	Product Name: Juice
+	Product Name: Sprite
 	Product Cost: 3.0
 	Product Quantities: 4.0
 
-Candies:
-	Product Name: Sour Patch
+	Product Name: Coca cola
 	Product Cost: 3.0
 	Product Quantities: 7.0
 
+	Product Name: Juice
+	Product Cost: 3.0
+	Product Quantities: 2.0
+
+Candies:
 	Product Name: Mentos
 	Product Cost: 3.0
 	Product Quantities: 7.0
@@ -32,37 +28,45 @@ Candies:
 	Product Cost: 3.0
 	Product Quantities: 7.0
 
+	Product Name: Sour Patch
+	Product Cost: 3.0
+	Product Quantities: 7.0
+
 Chocolates:
 	Product Name: Mars
 	Product Cost: 3.0
-	Product Quantities: 6.0
+	Product Quantities: 5.0
+
+	Product Name: happy
+	Product Cost: 1.0
+	Product Quantities: 10.0
 
 	Product Name: Snickers
 	Product Cost: 3.0
 	Product Quantities: 7.0
 
-	Product Name: Bounty
-	Product Cost: 3.0
-	Product Quantities: 8.0
-
 	Product Name: M&M
 	Product Cost: 3.0
 	Product Quantities: 5.0
 
-Chips:
-	Product Name: Kettle
+	Product Name: Bounty
 	Product Cost: 3.0
-	Product Quantities: 7.0
+	Product Quantities: 8.0
+
+Chips:
+	Product Name: Pringles
+	Product Cost: 3.0
+	Product Quantities: 6.0
 
 	Product Name: Thins
 	Product Cost: 3.0
-	Product Quantities: 7.0
-
-	Product Name: Pringles
-	Product Cost: 3.0
-	Product Quantities: 7.0
+	Product Quantities: 6.0
 
 	Product Name: Smiths
 	Product Cost: 3.0
 	Product Quantities: 11.0
+
+	Product Name: Kettle
+	Product Cost: 3.0
+	Product Quantities: 7.0
 

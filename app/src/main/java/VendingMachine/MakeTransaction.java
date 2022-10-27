@@ -13,8 +13,18 @@ public class MakeTransaction implements Runnable {
         this.user = user;
         this.cancelTransaction = false;
     }
+
+    public void cancel(String reason) {
+        this.cancelTransaction = true;
+        Date endTime = new Date();
+        this.user.getUI().getFileManager().updateCancelTransaction(user, endTime, reason);
+    }
  
     public void cancel() {
+        cancel("Cancelled by user.");
+    }
+
+    public void finish() {
         this.cancelTransaction = true;
     }
 
@@ -51,7 +61,7 @@ public class MakeTransaction implements Runnable {
             user.setTransaction(currentTransaction);
             user.completeTransaction();
         }
-        cancel();
+        finish();
         return;
     }
 }

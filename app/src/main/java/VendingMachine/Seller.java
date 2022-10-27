@@ -75,7 +75,21 @@ public class Seller extends User {
                 return false;
             }
         }
+        if (this.getProducts().containsKey(product.getName())) {
+            this.getProducts().remove(product.getName());
+            this.getUI().getFileManager().removeProduct(product);
+        }
         product.setName(name);
+        this.getProducts().put(name, product);
+        if (product.getCategory().equalsIgnoreCase("drink")) {
+            this.getUI().getFileManager().updateDrinks(product);
+        } else if (product.getCategory().equalsIgnoreCase("chocolate")) {
+            this.getUI().getFileManager().updateChocolates(product);
+        } else if (product.getCategory().equalsIgnoreCase("candy")) {
+            this.getUI().getFileManager().updateCandies(product);
+        } else if (product.getCategory().equalsIgnoreCase("chip")) {
+            this.getUI().getFileManager().updateChips(product);
+        }
         return true;
     }
 
@@ -102,7 +116,18 @@ public class Seller extends User {
                 return false;
             }
         }
+        String oldCode = product.getCode();
         product.setCode(code.toUpperCase());
+        if (product.getCategory().equalsIgnoreCase("drink")) {
+            this.getUI().getFileManager().updateDrinks(product);
+        } else if (product.getCategory().equalsIgnoreCase("chocolate")) {
+            this.getUI().getFileManager().updateChocolates(product);
+        } else if (product.getCategory().equalsIgnoreCase("candy")) {
+            this.getUI().getFileManager().updateCandies(product);
+        } else if (product.getCategory().equalsIgnoreCase("chip")) {
+            this.getUI().getFileManager().updateChips(product);
+        }
+        this.getUI().displaySuccessString("Product code of " + product.getName() + " successfully changed from " + oldCode + " to " + product.getCode() + ".");
         return true;
     }
 
@@ -117,7 +142,18 @@ public class Seller extends User {
             this.getUI().displayerrorMessage("Please give a positive price.");
             return false;
         }
+        double oldPrice = product.getPrice();
         product.setPrice(price);
+        if (product.getCategory().equalsIgnoreCase("drink")) {
+            this.getUI().getFileManager().updateDrinks(product);
+        } else if (product.getCategory().equalsIgnoreCase("chocolate")) {
+            this.getUI().getFileManager().updateChocolates(product);
+        } else if (product.getCategory().equalsIgnoreCase("candy")) {
+            this.getUI().getFileManager().updateCandies(product);
+        } else if (product.getCategory().equalsIgnoreCase("chip")) {
+            this.getUI().getFileManager().updateChips(product);
+        }
+        this.getUI().displaySuccessString("Product price of " + product.getName() + " successfully changed from $" + oldPrice + " to $" + product.getPrice() + ".");
         return true;
     }
 
@@ -129,9 +165,20 @@ public class Seller extends User {
      */
     public boolean modifyProductCategory(Product product, String category) {
         String[] all  = new String[]{"Drinks", "Chocolates", "Chips", "Candies"};
+        String oldCategory = product.getCategory();
         for(String cat : all){
             if(category.toLowerCase().equals(cat.toLowerCase())){
                 product.setCategory(cat);
+                if (product.getCategory().equalsIgnoreCase("drink")) {
+                    this.getUI().getFileManager().updateDrinks(product);
+                } else if (product.getCategory().equalsIgnoreCase("chocolate")) {
+                    this.getUI().getFileManager().updateChocolates(product);
+                } else if (product.getCategory().equalsIgnoreCase("candy")) {
+                    this.getUI().getFileManager().updateCandies(product);
+                } else if (product.getCategory().equalsIgnoreCase("chip")) {
+                    this.getUI().getFileManager().updateChips(product);
+                }
+                this.getUI().displaySuccessString("Product category of " + product.getName() + " successfully changed from " + oldCategory + " to " + product.getCategory() + ".");
                 return true;
             }
         }
@@ -192,7 +239,19 @@ public class Seller extends User {
         if (pc != null) {
             pc.create(name, code, price, quantity, 0);
         }
+        this.getUI().displaySuccessString("New product successfully created.");
         return true;
+    }
+
+    public boolean removeProduct(Product product) {
+        if (this.getProducts().containsKey(product.getName())) {
+            this.getProducts().remove(product.getName());
+            this.getUI().getFileManager().removeProduct(product);
+            this.getUI().displaySuccessString("Successfully removed product " + product.getName() + ".");
+            return true;
+        }
+        this.getUI().displayErrorString("Product " + product.getName() + " not found in vending machine. Could not be removed.");
+        return false;
     }
 
     public void displayHelp() {

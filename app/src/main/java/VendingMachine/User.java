@@ -92,6 +92,10 @@ public abstract class User {
         return this.username;
     }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     /**
      * 
      * @return
@@ -100,12 +104,20 @@ public abstract class User {
         return this.password;
     }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     /**
      * 
      * @return
      */
     public String getAccessLevel() {
         return this.accessLevel;
+    }
+
+    public void setAccessLevel(String accessLevel) {
+        this.accessLevel = accessLevel;
     }
 
     /**

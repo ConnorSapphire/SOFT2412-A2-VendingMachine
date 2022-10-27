@@ -429,6 +429,46 @@ public class Owner extends User {
      * @return
      */
     public boolean modifyUserAccess(User user, String accessLevel) {
+        String oldAccessLevel = user.getAccessLevel();
+        UserCreator creator = new RegisteredCustomerCreator();
+        if (accessLevel.equalsIgnoreCase("seller")) {
+            creator = new SellerCreator();
+            User newUser = creator.create(user.getUsername(), user.getPassword(), getUI(), getCards());
+            this.getUsers().remove(user.getUsername());
+            this.getUI().getFileManager().removeUser(user);
+            this.getUsers().put(newUser.getUsername(), newUser);
+            this.getUI().getFileManager().updateUsers(newUser);
+            this.getUI().displaySuccessString("Successfully changed user " + user.getUsername() + " from " + oldAccessLevel + " to " + accessLevel.toLowerCase() + ".");
+            return true;
+        } else if (accessLevel.equalsIgnoreCase("owner")) {
+            creator = new OwnerCreator();
+            User newUser = creator.create(user.getUsername(), user.getPassword(), getUI(), getCards());
+            this.getUsers().remove(user.getUsername());
+            this.getUI().getFileManager().removeUser(user);
+            this.getUsers().put(newUser.getUsername(), newUser);
+            this.getUI().getFileManager().updateUsers(newUser);
+            this.getUI().displaySuccessString("Successfully changed user " + user.getUsername() + " from " + oldAccessLevel + " to " + accessLevel.toLowerCase() + ".");
+            return true;
+        } else if (accessLevel.equalsIgnoreCase("cashier")) {
+            creator = new CashierCreator();
+            User newUser = creator.create(user.getUsername(), user.getPassword(), getUI(), getCards());
+            this.getUsers().remove(user.getUsername());
+            this.getUI().getFileManager().removeUser(user);
+            this.getUsers().put(newUser.getUsername(), newUser);
+            this.getUI().getFileManager().updateUsers(newUser);
+            this.getUI().displaySuccessString("Successfully changed user " + user.getUsername() + " from " + oldAccessLevel + " to " + accessLevel.toLowerCase() + ".");
+            return true;
+        } else if (accessLevel.equalsIgnoreCase("customer") || accessLevel.toLowerCase().contains("registered")) {
+            creator = new RegisteredCustomerCreator();
+            User newUser = creator.create(user.getUsername(), user.getPassword(), getUI(), getCards());
+            this.getUsers().remove(user.getUsername());
+            this.getUI().getFileManager().removeUser(user);
+            this.getUsers().put(newUser.getUsername(), newUser);
+            this.getUI().getFileManager().updateUsers(newUser);
+            this.getUI().displaySuccessString("Successfully changed user " + user.getUsername() + " from " + oldAccessLevel + " to " + accessLevel.toLowerCase() + ".");
+            return true;
+        }
+        this.getUI().displayErrorString("Role " + accessLevel + " not recognised.");
         return false;
     }
 
@@ -439,7 +479,25 @@ public class Owner extends User {
      * @return
      */
     public boolean modifyUserUsername(User user, String username) {
-        return false;
+        if (this.getUsers().containsKey(username)) {
+            this.getUI().displayErrorString("The username " + username + " is already in use.");
+            return false;
+        }
+        UserCreator creator = new RegisteredCustomerCreator();
+        if (user.getAccessLevel().equalsIgnoreCase("seller")) {
+            creator = new SellerCreator();
+        } else if (user.getAccessLevel().equalsIgnoreCase("owner")) {
+            creator = new OwnerCreator();
+        } else if (user.getAccessLevel().equalsIgnoreCase("cashier")) {
+            creator = new CashierCreator();
+        }
+        User newUser = creator.create(username, user.getPassword(), getUI(), getCards());
+        this.getUsers().remove(user.getUsername());
+        this.getUI().getFileManager().removeUser(user);
+        this.getUsers().put(username, newUser);
+        this.getUI().getFileManager().updateUsers(newUser);
+        this.getUI().displaySuccessString("Successfully changed user's name from " + user.getUsername() + " to " + username + ".");
+        return true;
     }
 
     /**
@@ -449,7 +507,10 @@ public class Owner extends User {
      * @return
      */
     public boolean modifyUserPassword(User user, String password) {
-        return false;
+        user.setPassword(password);
+        this.getUI().getFileManager().updateUsers(user);
+        this.getUI().displaySuccessString("Password of " + user.getUsername() + " successfully updated.");
+        return true;
     }
 
     /**

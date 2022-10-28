@@ -6,52 +6,7 @@ import java.util.HashMap;
 
 import org.junit.jupiter.api.*;
 
-public class CreateObjectTests {
-    
-    @Test 
-    void getCoinName(){
-        ChangeCreator testCoin = new CoinCreator();
-        Change coin = testCoin.create("$100", 100, 10);
-        assertEquals("$100", coin.getName());
-    }
-
-    @Test 
-    void setCoinName(){
-        ChangeCreator testCoin = new CoinCreator();
-        Change coin = testCoin.create("100", 100, 10);
-        coin.setName("$100");
-        assertEquals("$100", coin.getName());
-    }
-
-    @Test 
-    void getCoinValue(){
-        ChangeCreator testCoin = new CoinCreator();
-        Change coin = testCoin.create("$100", 100, 10);
-        assertEquals(100, coin.getValue());
-    }
-
-    @Test 
-    void setCoinValue(){
-        ChangeCreator testCoin = new CoinCreator();
-        Change coin = testCoin.create("$100", 0, 10);
-        coin.setValue(100);
-        assertEquals(100, coin.getValue());
-    }
-
-    @Test 
-    void getCoinQuantity(){
-        ChangeCreator testCoin = new CoinCreator();
-        Change coin = testCoin.create("$100", 100, 10);
-        assertEquals(10, coin.getQuantity());
-    }
-
-    @Test 
-    void setCoinQuantity(){
-        ChangeCreator testCoin = new CoinCreator();
-        Change coin = testCoin.create("$100", 100, 0);
-        coin.setQuantity(10);
-        assertEquals(10, coin.getQuantity());
-    }
+public class CreateUserTests {
 
     @Test
     void getCustomerName(){
@@ -108,7 +63,20 @@ public class CreateObjectTests {
         assertEquals(cards, customer.getCards());
     }
 
-    
+    @Test
+    void setGetUsers(){
+        UserInterface ui = new UserInterface(null);
+        HashMap<String, User> users = new HashMap<>();
+        
+        UserCreator creator = new OwnerCreator();
+        User customer = creator.create("Name", "Password", ui, null);
+        
+        customer.setUsers(users);
+        assertEquals(users, customer.getUsers());
+
+    }
+
+
 
 }
 

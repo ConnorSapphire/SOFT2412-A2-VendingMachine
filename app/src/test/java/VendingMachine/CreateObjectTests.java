@@ -108,6 +108,19 @@ public class CreateObjectTests {
         assertEquals(cards, customer.getCards());
     }
 
+    @Test
+    void setGetUsers(){
+        UserInterface ui = new UserInterface(null);
+        HashMap<String, User> users = new HashMap<>();
+        
+        UserCreator creator = new OwnerCreator();
+        User customer = creator.create("Name", "Password", ui, null);
+        
+        customer.setUsers(users);
+        assertEquals(users, customer.getUsers());
+
+    }
+
     
 
 }

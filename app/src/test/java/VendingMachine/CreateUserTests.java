@@ -5,8 +5,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.HashMap;
 
-import javax.annotation.meta.Exhaustive;
-
 import org.junit.jupiter.api.*;
 
 public class CreateUserTests {
@@ -72,6 +70,8 @@ public class CreateUserTests {
 
     @Test
     void setGetUsersOwner(){
+        // NULL FILEMANAGER 
+        
         UserInterface ui = new UserInterface(null);
         HashMap<String, User> users = new HashMap<>();
         
@@ -82,6 +82,41 @@ public class CreateUserTests {
         assertEquals(users, customer.getUsers());
 
     }
+
+    // @Test 
+    // void removeUser(){
+    //     // NULL FILEMANAGER
+    //     FileManager fm = new FileManager();
+    //     UserInterface ui = new UserInterface(fm);
+    //     HashMap<String, User> users = new HashMap<>();
+
+    //     UserCreator addUser = new OwnerCreator();
+    //     User user = addUser.create("AddUser", "Password", ui, null);
+
+    //     users.put("AddUser", user);
+        
+    //     UserCreator creator = new OwnerCreator();
+    //     User customer = creator.create("Name", "Password", ui, null);
+        
+    //     customer.setUsers(users);
+    //     boolean removed = customer.removeUser(user);
+        
+    //     assertFalse(removed);
+    // }
+
+    // @Test 
+    // void addUser(){
+    //     HashMap<String, User> users = new HashMap<>();
+    //     UserInterface ui = new UserInterface(null);
+       
+    //     UserCreator creator = new OwnerCreator();
+    //     User customer = creator.create("Name", "Password", ui, null);
+        
+    //     customer.setUsers(users);
+    //     boolean added = customer.addUser("newName", "randomPassword", null, null);
+        
+    //     assertFalse(false);
+    // }
 
     @Test
     void storeNewCard(){

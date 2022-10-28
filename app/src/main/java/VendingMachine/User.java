@@ -130,6 +130,10 @@ public abstract class User {
         return this.ui;
     }
 
+    public void setCurrentTransaction(MakeTransaction mt) {
+        this.currentTransaction = mt;
+    }
+
     public MakeTransaction getCurrentTransaction() {
         return currentTransaction;
     }

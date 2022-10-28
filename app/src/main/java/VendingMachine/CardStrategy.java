@@ -39,9 +39,6 @@ public class CardStrategy implements PaymentStrategy {
                 user.cancelTransaction();
                 return;
             }
-            if (user.getCurrentTransaction().isCancelled()) {
-                return;
-            }
             boolean cardValid = false;
             if (cards.containsKey(cardName)) {
                 if (cards.get(cardName).equals(cardNumber)) {
@@ -50,6 +47,8 @@ public class CardStrategy implements PaymentStrategy {
             }
             if (!cardValid) {
                 ui.displayErrorString("The provided card details were invalid. Have a great day!");
+                user.cancelTransaction("Invalid card details.");
+                return;
             } else {
                 System.out.println("Purchase successful! Your card has been charged $" + cost + ".");
                 if (!user.getAccessLevel().contains("anonymous")) {

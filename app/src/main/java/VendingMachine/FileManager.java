@@ -17,33 +17,33 @@ public class FileManager {
     private String stockFileName, usersFileName, creditCardsFileName, changeFileName, transactionsFileName, cancelledTransactionsFileName;
 
     public FileManager(String usersFileName, String stockFileName, String creditCardsFileName, String changeFileName, String transactionsFileName, String cancelledTransactionsFileName) {
-        this.users = (JSONObject) JfileReader(usersFileName);
-        this.stock = (JSONObject) JfileReader(stockFileName);
-        this.creditCards = (JSONArray) JfileReader(creditCardsFileName);
-        this.change = (JSONObject) JfileReader(changeFileName);
-        this.transactions = (JSONArray) JfileReader(transactionsFileName);
-        this.cancelledTransactions = (JSONArray) JfileReader(cancelledTransactionsFileName);
         this.stockFileName = stockFileName;
         this.usersFileName = usersFileName;
         this.creditCardsFileName = creditCardsFileName;
         this.changeFileName = changeFileName;
         this.transactionsFileName = transactionsFileName;
         this.cancelledTransactionsFileName = cancelledTransactionsFileName;
+        this.users = (JSONObject) JfileReader(usersFileName);
+        this.stock = (JSONObject) JfileReader(stockFileName);
+        this.creditCards = (JSONArray) JfileReader(creditCardsFileName);
+        this.change = (JSONObject) JfileReader(changeFileName);
+        this.transactions = (JSONArray) JfileReader(transactionsFileName);
+        this.cancelledTransactions = (JSONArray) JfileReader(cancelledTransactionsFileName);
     }
 
     public FileManager() {
-        this.users = (JSONObject) JfileReader("users");
-        this.stock = (JSONObject) JfileReader("stock");
-        this.creditCards = (JSONArray) JfileReader("credit_cards");
-        this.change = (JSONObject) JfileReader("change");
-        this.transactions = (JSONArray) JfileReader("transactions");
-        this.cancelledTransactions = (JSONArray) JfileReader("cancelledTransactions");
         this.usersFileName = "users";
         this.stockFileName = "stock";
         this.creditCardsFileName = "credit_cards";
         this.changeFileName = "change";
         this.transactionsFileName = "transactions";
         this.cancelledTransactionsFileName = "cancelledTransactions";
+        this.users = (JSONObject) JfileReader(usersFileName);
+        this.stock = (JSONObject) JfileReader(stockFileName);
+        this.creditCards = (JSONArray) JfileReader(creditCardsFileName);
+        this.change = (JSONObject) JfileReader(changeFileName);
+        this.transactions = (JSONArray) JfileReader(transactionsFileName);
+        this.cancelledTransactions = (JSONArray) JfileReader(cancelledTransactionsFileName);
     }
 
     public Object JfileReader(String filename) {

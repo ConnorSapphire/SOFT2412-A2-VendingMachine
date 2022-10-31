@@ -175,13 +175,13 @@ public class Seller extends User {
         for(String cat : all){
             if(category.toLowerCase().equals(cat.toLowerCase())){
                 product.setCategory(cat);
-                if (product.getCategory().equalsIgnoreCase("drink")) {
+                if (product.getCategory().equalsIgnoreCase("drinks")) {
                     this.getUI().getFileManager().updateDrinks(product);
-                } else if (product.getCategory().equalsIgnoreCase("chocolate")) {
+                } else if (product.getCategory().equalsIgnoreCase("chocolates")) {
                     this.getUI().getFileManager().updateChocolates(product);
-                } else if (product.getCategory().equalsIgnoreCase("candy")) {
+                } else if (product.getCategory().equalsIgnoreCase("candies")) {
                     this.getUI().getFileManager().updateCandies(product);
-                } else if (product.getCategory().equalsIgnoreCase("chip")) {
+                } else if (product.getCategory().equalsIgnoreCase("chips")) {
                     this.getUI().getFileManager().updateChips(product);
                 }
                 this.getUI().displaySuccessString("Product category of " + product.getName() + " successfully changed from " + oldCategory + " to " + product.getCategory() + ".");
@@ -250,13 +250,13 @@ public class Seller extends User {
         if (pc != null) {
             Product newProduct = pc.create(name, code, price, quantity, 0);
             this.getProducts().put(name, newProduct);
-            if (newProduct.getCategory().equalsIgnoreCase("drink")) {
+            if (newProduct.getCategory().equalsIgnoreCase("drinks")) {
                 this.getUI().getFileManager().updateDrinks(newProduct);
-            } else if (newProduct.getCategory().equalsIgnoreCase("chocolate")) {
+            } else if (newProduct.getCategory().equalsIgnoreCase("chocolates")) {
                 this.getUI().getFileManager().updateChocolates(newProduct);
-            } else if (newProduct.getCategory().equalsIgnoreCase("candy")) {
+            } else if (newProduct.getCategory().equalsIgnoreCase("candies")) {
                 this.getUI().getFileManager().updateCandies(newProduct);
-            } else if (newProduct.getCategory().equalsIgnoreCase("chip")) {
+            } else if (newProduct.getCategory().equalsIgnoreCase("chips")) {
                 this.getUI().getFileManager().updateChips(newProduct);
             }
         }
@@ -296,7 +296,7 @@ public class Seller extends User {
         st.print();
         return st;
     }
-    
+
     public void displayHelp() {
         this.getUI().displaySellerHelp();
     }

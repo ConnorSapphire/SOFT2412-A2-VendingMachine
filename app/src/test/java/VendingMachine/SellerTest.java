@@ -243,7 +243,28 @@ public class SellerTest {
     }
 
     @Test
-    public void modifyProductCategory(){
+    public void modifyProductCategory1(){
+        Product p = new Chocolate("happy", "HPH", 1.0, 5, 0);
+        boolean modified = user.modifyProductCategory(p, "drink");
+        assertTrue(modified);
+    }
+
+    @Test
+    public void modifyProductCategory2(){
+        Product p = new Chocolate("happy", "HPH", 1.0, 5, 0);
+        boolean modified = user.modifyProductCategory(p, "chocolate");
+        assertTrue(modified);
+    }
+
+    @Test
+    public void modifyProductCategory3(){
+        Product p = new Chocolate("happy", "HPH", 1.0, 5, 0);
+        boolean modified = user.modifyProductCategory(p, "chip");
+        assertTrue(modified);
+    }
+
+    @Test
+    public void modifyProductCategory4(){
         Product p = new Chocolate("happy", "HPH", 1.0, 5, 0);
         boolean modified = user.modifyProductCategory(p, "candy");
         assertTrue(modified);
@@ -252,8 +273,10 @@ public class SellerTest {
     @Test
     public void addProductNameExists(){
         Product p = new Chocolate("happy", "HPH", 1.0, 5, 0);
+        Product r = new Chocolate("sad", "SAD", 1.0, 5, 0);
         HashMap<String, Product> products = new HashMap<>();
         products.put("happy", p);
+        products.put("sad", r);
         user.setProducts(products);
         boolean added = user.addProduct("happy", "HPP", "chocolate", 5, 1);
         assertFalse(added);
@@ -420,8 +443,7 @@ public class SellerTest {
 
     @Test
     public void testDisplayHelp(){
-        user.getUI().displaySellerHelp();
-        assertTrue(true);
+        user.displayHelp();
     }
 
     @Test

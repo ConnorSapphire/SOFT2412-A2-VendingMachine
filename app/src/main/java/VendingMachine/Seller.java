@@ -246,6 +246,7 @@ public class Seller extends User {
                 this.getUI().displayerrorMessage("Code exists!");
                 return false;
             }
+            continue;
         }
         if (pc != null) {
             Product newProduct = pc.create(name, code, price, quantity, 0);

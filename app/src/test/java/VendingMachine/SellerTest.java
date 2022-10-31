@@ -245,7 +245,7 @@ public class SellerTest {
     @Test
     public void modifyProductCategory(){
         Product p = new Chocolate("happy", "HPH", 1.0, 5, 0);
-        boolean modified = user.modifyProductCategory(p, "candies");
+        boolean modified = user.modifyProductCategory(p, "candy");
         assertTrue(modified);
     }
 
@@ -255,7 +255,7 @@ public class SellerTest {
         HashMap<String, Product> products = new HashMap<>();
         products.put("happy", p);
         user.setProducts(products);
-        boolean added = user.addProduct("happy", "HPP", "chocolates", 5, 1);
+        boolean added = user.addProduct("happy", "HPP", "chocolate", 5, 1);
         assertFalse(added);
     }
 
@@ -265,7 +265,7 @@ public class SellerTest {
         HashMap<String, Product> products = new HashMap<>();
         products.put("happy", p);
         user.setProducts(products);
-        boolean added = user.addProduct("hh", "HPH", "chocolates", 5, 1);
+        boolean added = user.addProduct("hh", "HPH", "chocolate", 5, 1);
         assertFalse(added);
     }
 
@@ -273,7 +273,7 @@ public class SellerTest {
     public void addProductCodeNon3Digits(){
         HashMap<String, Product> products = new HashMap<>();
         user.setProducts(products);
-        boolean added = user.addProduct("hh", "HPHH", "chocolates", 5, 1);
+        boolean added = user.addProduct("hh", "HPHH", "chocolate", 5, 1);
         assertFalse(added);
     }
 
@@ -289,7 +289,7 @@ public class SellerTest {
     public void addProductNegativeQuantity(){
         HashMap<String, Product> products = new HashMap<>();
         user.setProducts(products);
-        boolean added = user.addProduct("hh", "HPH", "chocolates", -5, 1);
+        boolean added = user.addProduct("hh", "HPH", "chocolate", -5, 1);
         assertFalse(added);
     }
     
@@ -297,7 +297,7 @@ public class SellerTest {
     public void addProductZeroQuantity(){
         HashMap<String, Product> products = new HashMap<>();
         user.setProducts(products);
-        boolean added = user.addProduct("hh", "HPH", "chocolates", 0, 1);
+        boolean added = user.addProduct("hh", "HPH", "chocolate", 0, 1);
         assertTrue(added);
     }
 
@@ -305,7 +305,7 @@ public class SellerTest {
     public void addProductNegativePrice(){
         HashMap<String, Product> products = new HashMap<>();
         user.setProducts(products);
-        boolean added = user.addProduct("hh", "HPH", "chocolates", 8, -1);
+        boolean added = user.addProduct("hh", "HPH", "chocolate", 8, -1);
         assertFalse(added);
     }
     
@@ -313,7 +313,7 @@ public class SellerTest {
     public void addProductZeroPrice(){
         HashMap<String, Product> products = new HashMap<>();
         user.setProducts(products);
-        boolean added = user.addProduct("hh", "HPH", "chocolates", 9, 0);
+        boolean added = user.addProduct("hh", "HPH", "chocolate", 9, 0);
         assertFalse(added);
     }
 
@@ -321,7 +321,7 @@ public class SellerTest {
     public void addProduct1(){
         HashMap<String, Product> products = new HashMap<>();
         user.setProducts(products);
-        boolean added = user.addProduct("hh", "HPH", "drinks", 9, 9);
+        boolean added = user.addProduct("hh", "HPH", "drink", 9, 9);
         assertTrue(added);
     }
 
@@ -329,7 +329,7 @@ public class SellerTest {
     public void addProduct2(){
         HashMap<String, Product> products = new HashMap<>();
         user.setProducts(products);
-        boolean added = user.addProduct("hh", "HPH", "chocolates", 9, 9);
+        boolean added = user.addProduct("hh", "HPH", "chocolate", 9, 9);
         assertTrue(added);
     }
 
@@ -337,7 +337,7 @@ public class SellerTest {
     public void addProduct3(){
         HashMap<String, Product> products = new HashMap<>();
         user.setProducts(products);
-        boolean added = user.addProduct("hh", "HPH", "chips", 9, 9);
+        boolean added = user.addProduct("hh", "HPH", "chip", 9, 9);
         assertTrue(added);
     }
 
@@ -345,7 +345,7 @@ public class SellerTest {
     public void addProduct4(){
         HashMap<String, Product> products = new HashMap<>();
         user.setProducts(products);
-        boolean added = user.addProduct("hh", "HPH", "candies", 9, 9);
+        boolean added = user.addProduct("hh", "HPH", "candy", 9, 9);
         assertTrue(added);
     }
 
@@ -422,5 +422,24 @@ public class SellerTest {
     public void testDisplayHelp(){
         user.getUI().displaySellerHelp();
         assertTrue(true);
+    }
+
+    @Test
+    public void testRemoveProductNotExists(){
+        Product p = new Chocolate("happy", "HPH", 1.0, 5, 5);
+        Product r = new Chocolate("sad", "SAD", 5.0, 3, 3);
+        HashMap<String, Product> products = new HashMap<>();
+        products.put("happy", p);
+        user.setProducts(products);
+        assertFalse(user.removeProduct(r));
+    }
+
+    @Test
+    public void testRemoveProduct(){
+        Product p = new Chocolate("happy", "HPH", 1.0, 5, 5);
+        HashMap<String, Product> products = new HashMap<>();
+        products.put("happy", p);
+        user.setProducts(products);
+        assertFalse(user.removeProduct(p));
     }
 }

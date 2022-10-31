@@ -170,18 +170,18 @@ public class Seller extends User {
      * @return
      */
     public boolean modifyProductCategory(Product product, String category) {
-        String[] all  = new String[]{"Drinks", "Chocolates", "Chips", "Candies"};
+        String[] all  = new String[]{"drink", "chocolate", "chip", "candy"};
         String oldCategory = product.getCategory();
         for(String cat : all){
-            if(category.toLowerCase().equals(cat.toLowerCase())){
+            if(category.toLowerCase().equals(cat)){
                 product.setCategory(cat);
-                if (product.getCategory().equalsIgnoreCase("drinks")) {
+                if (product.getCategory().equalsIgnoreCase("drink")) {
                     this.getUI().getFileManager().updateDrinks(product);
-                } else if (product.getCategory().equalsIgnoreCase("chocolates")) {
+                } else if (product.getCategory().equalsIgnoreCase("chocolate")) {
                     this.getUI().getFileManager().updateChocolates(product);
-                } else if (product.getCategory().equalsIgnoreCase("candies")) {
+                } else if (product.getCategory().equalsIgnoreCase("candy")) {
                     this.getUI().getFileManager().updateCandies(product);
-                } else if (product.getCategory().equalsIgnoreCase("chips")) {
+                } else if (product.getCategory().equalsIgnoreCase("chip")) {
                     this.getUI().getFileManager().updateChips(product);
                 }
                 this.getUI().displaySuccessString("Product category of " + product.getName() + " successfully changed from " + oldCategory + " to " + product.getCategory() + ".");
@@ -216,10 +216,10 @@ public class Seller extends User {
             return false;
         }
         ProductCreator pc = null;
-        String[] all  = new String[]{"Drinks", "Chocolates", "Chips", "Candies"};
+        String[] all  = new String[]{"drink", "chocolate", "chip", "candy"};
         boolean find = false;
         for(String cat : all){
-            if(category.toLowerCase().equals(cat.toLowerCase())){
+            if(category.toLowerCase().equals(cat)){
                 find = true;
                 if(cat.equals(all[0])){
                     pc = new DrinkCreator();
@@ -250,13 +250,13 @@ public class Seller extends User {
         if (pc != null) {
             Product newProduct = pc.create(name, code, price, quantity, 0);
             this.getProducts().put(name, newProduct);
-            if (newProduct.getCategory().equalsIgnoreCase("drinks")) {
+            if (newProduct.getCategory().equalsIgnoreCase("drink")) {
                 this.getUI().getFileManager().updateDrinks(newProduct);
-            } else if (newProduct.getCategory().equalsIgnoreCase("chocolates")) {
+            } else if (newProduct.getCategory().equalsIgnoreCase("chocolate")) {
                 this.getUI().getFileManager().updateChocolates(newProduct);
-            } else if (newProduct.getCategory().equalsIgnoreCase("candies")) {
+            } else if (newProduct.getCategory().equalsIgnoreCase("candy")) {
                 this.getUI().getFileManager().updateCandies(newProduct);
-            } else if (newProduct.getCategory().equalsIgnoreCase("chips")) {
+            } else if (newProduct.getCategory().equalsIgnoreCase("chip")) {
                 this.getUI().getFileManager().updateChips(newProduct);
             }
         }

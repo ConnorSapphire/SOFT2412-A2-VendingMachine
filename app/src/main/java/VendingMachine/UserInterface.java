@@ -123,7 +123,7 @@ public class UserInterface {
     }
 
     public void displayLogout() {
-        System.out.println(ANSI_RED + "You have logged out! You are now an anonymous customer..." + ANSI_RESET);
+        System.out.println(ANSI_RED + "You have been logged out! You are now an anonymous customer..." + ANSI_RESET);
     }
 
     /**

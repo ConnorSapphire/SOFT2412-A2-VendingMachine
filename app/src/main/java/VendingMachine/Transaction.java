@@ -8,6 +8,7 @@ public class Transaction {
     private Date endTime;
     private ArrayList<Product> products;
     private String paymentMethod;
+    private boolean isComplete;
 
     /**
      * @param startTime
@@ -18,6 +19,7 @@ public class Transaction {
         this.startTime = startTime;
         this.products = products;
         this.paymentMethod = paymentMethod;
+        this.isComplete = false;
     }
 
     public Date getStartTime() {
@@ -39,5 +41,13 @@ public class Transaction {
     public Date setEndTime() {
         this.endTime = new Date();
         return this.endTime;
+    }
+
+    public void complete() {
+        this.isComplete = true;
+    }
+
+    public boolean isComplete() {
+        return this.isComplete;
     }
 }

@@ -21,8 +21,9 @@ public class CardStrategy implements PaymentStrategy {
             cost += product.getPrice();
         }
         if (user.isCardStored()) {
+            transaction.complete();
             System.out.println("Processing transaction using previously saved card details...");
-            System.out.println("Purchase successful! Your card has been charged $" + cost + ".");
+            ui.displaySuccessString("Purchase successful! Your card has been charged $" + cost + ".");
         } else {
             ui.displayQuestionString("Enter cardholder name: ");
             String cardName = ui.getPlainInput();
@@ -50,7 +51,8 @@ public class CardStrategy implements PaymentStrategy {
                 user.cancelTransaction("Invalid card details.");
                 return;
             } else {
-                System.out.println("Purchase successful! Your card has been charged $" + cost + ".");
+                transaction.complete();
+                ui.displaySuccessString("Purchase successful! Your card has been charged $" + cost + ".");
                 if (!user.getAccessLevel().contains("anonymous")) {
                     ui.displayQuestionString("Would you like to save this card to your account? [Y/N]\n");
                     String response = ui.getInput();

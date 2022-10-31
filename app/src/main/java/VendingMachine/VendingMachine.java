@@ -215,6 +215,13 @@ public class VendingMachine {
         return customer;
     }
 
+    public User logout() {
+        ui.displayLogout();
+        UserCreator creator = new AnonymousCustomerCreator();
+        user = creator.create("", "", ui, cards);
+        return user;
+    }
+
     public String getInput() {
         return ui.getInput();
     }
@@ -231,9 +238,7 @@ public class VendingMachine {
         } else if (input.contains("login")) {
             user = this.login();
         } else if (input.contains("logout")) {
-            ui.displayLogout();
-            UserCreator creator = new AnonymousCustomerCreator();
-            user = creator.create("", "", ui, cards);
+            user = this.logout();
         } else if (input.contains("register")) {
             user = this.newRegisteredCustomer();
         } else if (input.contains("display products")) {

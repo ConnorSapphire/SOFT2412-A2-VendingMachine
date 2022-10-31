@@ -93,7 +93,7 @@ public class CashStrategy implements PaymentStrategy {
             
             if (totalPaid >= amount) {
                 completelyPaid = true;
-                System.out.println("Payment accepted"); 
+                ui.displaySuccessString("Payment accepted"); 
                 break;
             }            
         }
@@ -181,13 +181,14 @@ public class CashStrategy implements PaymentStrategy {
 
         if (cost != 0) {
             ui.displayErrorString("Not enough change in machine.");
-            System.out.println("Payment refunded.");
+            ui.displaySuccessString("Payment refunded.");
             user.cancelTransaction("Not enough change in machine.");
             customerChange = cashCount();
             changeGiven = false;
         }
         else { 
-            System.out.println("Here is your change: ");
+            transaction.complete();
+            ui.displaySuccessString("Here is your change: ");
             for (String item : customerChange.keySet()) {
                 Integer quantity = customerChange.get(item);
                 if (quantity != 0) {

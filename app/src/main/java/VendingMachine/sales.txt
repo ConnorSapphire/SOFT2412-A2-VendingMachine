@@ -11,6 +11,10 @@ Drinks:
 	Product Code: JUC
 	Total Sold: 6.0
 
+	Product Name: Juice
+	Product Code: JUC
+	Total Sold: 6.0
+
 	Product Name: Coca cola
 	Product Code: CCC
 	Total Sold: 1.0
@@ -28,9 +32,14 @@ Candies:
 	Product Code: SKI
 	Total Sold: 0.0
 
+Candies:
 	Product Name: Sour Patch
 	Product Code: SPH
 	Total Sold: 2.0
+
+	Product Name: Skittles
+	Product Code: SKI
+	Total Sold: 0.0
 
 Chocolates:
 	Product Name: M&M
@@ -60,6 +69,10 @@ Chocolates:
 Chips:
 	Product Name: Kettle
 	Product Code: KTL
+	Total Sold: 1.0
+
+	Product Name: Pringles
+	Product Code: PNG
 	Total Sold: 1.0
 
 	Product Name: Smiths

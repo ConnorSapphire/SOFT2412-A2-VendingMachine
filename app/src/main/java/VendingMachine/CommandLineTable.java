@@ -6,8 +6,8 @@ public class CommandLineTable {
     private static final String HORIZONTAL_SEP = "-";
     private String verticalSep = "|";
     private String joinSep = "+";
-    private String[] headers;
-    private List<String[]> rows = new ArrayList<>();
+    public String[] headers;
+    public List<String[]> rows = new ArrayList<>();
     private boolean rightAlign;
 
     public CommandLineTable() {
@@ -28,7 +28,7 @@ public class CommandLineTable {
     public void print() {
         int[] maxWidths = headers != null ?
                 Arrays.stream(headers).mapToInt(String::length).toArray() : null;
-
+        
         for (String[] cells : rows) {
             if (maxWidths == null) {
                 maxWidths = new int[cells.length];
@@ -48,6 +48,7 @@ public class CommandLineTable {
         for (String[] cells : rows) {
             printRow(cells, maxWidths);
         }
+
         if (headers != null) {
             printLine(maxWidths);
         }
@@ -72,6 +73,34 @@ public class CommandLineTable {
             }
         }
         System.out.println();
+    }
+
+    public boolean equals(CommandLineTable table){
+        if(table.headers.length != this.headers.length){
+            System.out.println("header Length not equals");
+            return false;
+        }
+        if(table.rows.size() != this.rows.size()){
+            System.out.println("row Length not equals");
+            return false;
+        }
+        for(int i = 0; i < table.headers.length; i++){
+            if(!table.headers[i].equals(this.headers[i])){
+                System.out.println("at header expected " + this.headers[i] + "but was" + table.headers[i]);
+                return false;
+            }
+        }
+        for(int i = 0; i < table.rows.size(); i++){
+            String[] row1 = table.rows.get(i);
+            String[] row2 = this.rows.get(i);
+            for(int j = 0; j < row1.length; j++){
+                if(!row1[j].equals(row2[j])){
+                    System.out.println("at row " + Integer.toString(i) + "expected " + row2[j] + " but was " + row1[j]);
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     public static void main(String[] args) {

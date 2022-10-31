@@ -1,5 +1,5 @@
 Drinks:
-	Product Name: Coca cola
+	Product Name: Pepsi
 	Product Cost: 3.0
 	Product Quantities: 6.0
 
@@ -11,11 +11,11 @@ Drinks:
 	Product Cost: 3.0
 	Product Quantities: 3.0
 
-	Product Name: Pepsi
+	Product Name: Coca cola
 	Product Cost: 3.0
 	Product Quantities: 1.0
 
-	Product Name: Juice
+	Product Name: Sprite
 	Product Cost: 3.0
 	Product Quantities: 9.0
 
@@ -45,9 +45,9 @@ Chocolates:
 	Product Cost: 3.0
 	Product Quantities: 4.0
 
-	Product Name: Bounty
-	Product Cost: 3.0
-	Product Quantities: 8.0
+	Product Name: happy
+	Product Cost: 1.0
+	Product Quantities: 10.0
 
 	Product Name: Snickers
 	Product Cost: 3.0
@@ -57,8 +57,16 @@ Chocolates:
 	Product Cost: 1.0
 	Product Quantities: 4.0
 
+	Product Name: Mars
+	Product Cost: 3.0
+	Product Quantities: 5.0
+
+	Product Name: Bounty
+	Product Cost: 3.0
+	Product Quantities: 8.0
+
 Chips:
-	Product Name: Kettle
+	Product Name: Smiths
 	Product Cost: 3.0
 	Product Quantities: 6.0
 
@@ -66,7 +74,7 @@ Chips:
 	Product Cost: 3.0
 	Product Quantities: 6.0
 
-	Product Name: Smiths
+	Product Name: Kettle
 	Product Cost: 3.0
 	Product Quantities: 10.0
 

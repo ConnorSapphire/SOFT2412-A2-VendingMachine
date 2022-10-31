@@ -275,6 +275,28 @@ public class Seller extends User {
         return false;
     }
 
+    public CommandLineTable reportCurrentAvailable(HashMap<String, Product> products){
+        CommandLineTable st = new CommandLineTable();
+        st.setHeaders("Code", "Name", "Category", "Price", "Quantity");
+        for(Product p : products.values()){
+            if(p.getQuantity() > 0){
+                st.addRow(p.getCode(), p.getName(), p.getCategory(), Double.toString(p.getPrice()), Integer.toString(p.getQuantity()));
+            }
+        }
+        st.print();
+        return st;
+    }
+
+    public CommandLineTable reportSellingSummary(HashMap<String, Product> products){
+        CommandLineTable st = new CommandLineTable();
+        st.setHeaders("Code", "Name", "Total Quantity Sold");
+        for(Product p : products.values()){
+            st.addRow(p.getCode(), p.getName(), Integer.toString(p.getTotalSold()));
+        }
+        st.print();
+        return st;
+    }
+    
     public void displayHelp() {
         this.getUI().displaySellerHelp();
     }

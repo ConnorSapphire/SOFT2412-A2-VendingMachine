@@ -273,4 +273,10 @@ public class SellerTest {
         CommandLineTable table = user.reportSellingSummary(products);
         assertTrue(st.equals(table));
     }
+
+    @Test
+    public void testDisplayHelp(){
+        user.getUI().displaySellerHelp();
+        assertTrue(true);
+    }
 }

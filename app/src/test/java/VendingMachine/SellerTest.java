@@ -440,6 +440,6 @@ public class SellerTest {
         HashMap<String, Product> products = new HashMap<>();
         products.put("happy", p);
         user.setProducts(products);
-        assertFalse(user.removeProduct(p));
+        assertTrue(user.removeProduct(p));
     }
 }

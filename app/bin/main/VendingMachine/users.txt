@@ -1,0 +1,30 @@
+Name: Charles
+Role: customer
+
+Name: Owner
+Role: owner
+
+Name: Alice
+Role: customer
+
+Name: Adrian
+Role: cashier
+
+Name: Connor
+Role: customer
+
+Name: Seller
+Role: seller
+
+Name: fred
+Role: cashier
+
+Name: Lachlan
+Role: registered
+
+Name: Frank
+Role: owner
+
+Name: Cashier
+Role: cashier
+

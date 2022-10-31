@@ -97,14 +97,14 @@ public class UserInterface {
      * Display text through terminal prompting user to select a product from the vending machine.
      */
     public void displaySelectProduct() {
-        System.out.println(ANSI_CYAN + "Please select a product (type " + ANSI_YELLOW + "'done'" + ANSI_CYAN + " to finish selection): " + ANSI_RESET);
+        System.out.print(ANSI_CYAN + "Enter product (type " + ANSI_YELLOW + "'done'" + ANSI_CYAN + " to finish): " + ANSI_RESET);
     }
 
     /**
      * Display text through terminal prompting user to select a method of payment. Either card or cash.
      */
     public void displaySelectPaymentMethod() {
-        System.out.println(ANSI_CYAN + "Please enter your payment method, either " + ANSI_YELLOW  + "'cash'" + ANSI_CYAN + " or " + ANSI_YELLOW  + "'card'" + ANSI_CYAN + "." + ANSI_RESET);
+        System.out.print(ANSI_CYAN + "Enter payment method (" + ANSI_YELLOW  + "'cash'" + ANSI_CYAN + " or " + ANSI_YELLOW  + "'card'" + ANSI_CYAN + "): " + ANSI_RESET);
     }
 
     /**
@@ -119,7 +119,7 @@ public class UserInterface {
      * @param user The User account that was logged into.
      */
     public void displayLoginSuccess(User user) {
-        System.out.println(ANSI_CYAN + "Login success! Welcome " + ANSI_BLUE + user.getUsername() + ANSI_CYAN + "!" + ANSI_RESET);
+        System.out.println(ANSI_GREEN + "Login success! Welcome " + ANSI_CYAN + user.getUsername() + ANSI_GREEN + "!" + ANSI_RESET);
     }
 
     public void displayLogout() {
@@ -143,10 +143,6 @@ public class UserInterface {
         HashMap<String[], Double[]> chocolates = fm.lsChocolates();
         HashMap<String[], Double[]> chips = fm.lsChips();
         fm.writeProductsFile("src/main/java/VendingMachine/products.txt", drinks, candies, chocolates, chips);
-        List<String> dataList = fm.readTextFile("src/main/java/VendingMachine/products.txt","utf-8");  //file can be utf8 or gbk
-        for(String data:dataList){
-            System.out.println(data);
-        }
         Desktop desktop = Desktop.getDesktop();
         try { 
             desktop.open(new File("src/main/java/VendingMachine/products.txt"));
@@ -179,10 +175,7 @@ public class UserInterface {
     public void displayTransactionHistory() {
         ArrayList<ArrayList<String>> transactions = fm.lsTransactionHistory();
         fm.writeTransactionFile("src/main/java/VendingMachine/transaction.txt", transactions);
-        List<String> dataList = fm.readTextFile("src/main/java/VendingMachine/transaction.txt","utf-8");  //file can be utf8 or gbk
-        for(String data:dataList){
-            System.out.println(data);
-        }
+        displayTransactionsTable();
         Desktop desktop = Desktop.getDesktop();
         try { 
             desktop.open(new File("src/main/java/VendingMachine/transaction.txt"));
@@ -195,7 +188,15 @@ public class UserInterface {
      * Display text through terminal with a list of all previous unsuccessful transactions.
      */
     public void displayCancelledTransactions() {
-
+        ArrayList<ArrayList<String>> cancelledTransactions = fm.lsCancelledTransactions();
+        fm.writeCancelledTransactionFile("src/main/java/VendingMachine/cancelledTransactions.txt", cancelledTransactions);
+        displayCancelledTransactionsTable();
+        Desktop desktop = Desktop.getDesktop();
+        try { 
+            desktop.open(new File("src/main/java/VendingMachine/cancelledTransactions.txt"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -205,10 +206,6 @@ public class UserInterface {
         LinkedHashMap<String, Double[]> coins = fm.lsCoins();
         LinkedHashMap<String, Double[]> notes = fm.lsNotes();
         fm.writeChangeFile("src/main/java/VendingMachine/change.txt", coins, notes);
-        List<String> dataList = fm.readTextFile("src/main/java/VendingMachine/change.txt","utf-8");  
-        for(String data:dataList){
-            System.out.println(data);
-        }
         Desktop desktop = Desktop.getDesktop();
         try { 
             desktop.open(new File("src/main/java/VendingMachine/change.txt"));
@@ -217,12 +214,37 @@ public class UserInterface {
         }
     }
 
+    public void displayChangeTable(LinkedHashMap<String, Change> change) {
+        CommandLineTable table = new CommandLineTable();
+        table.setHeaders("Name","Category", "Value", "Quantity");
+        for (Change unit : change.values()) {
+            table.addRow(unit.getName(), unit.getClass().getSimpleName(), String.valueOf(unit.getValue()), String.valueOf(unit.getQuantity()));
+        }
+        table.print();
+    }
+
     /**
      * Display text through terminal with a list of all registered users. Includes sellers, cashiers and owners,
      * and displays their access level.
      */
     public void displayUsers() {
+        HashMap<String, String[]> users = fm.lsUsers();
+        fm.writeUsersFile("src/main/java/VendingMachine/users.txt", users);
+        Desktop desktop = Desktop.getDesktop();
+        try { 
+            desktop.open(new File("src/main/java/VendingMachine/users.txt"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
+    public void displayUsersTable(HashMap<String, User> users) {
+        CommandLineTable table = new CommandLineTable();
+        table.setHeaders("Name", "Role");
+        for (User user : users.values()) {
+            table.addRow(user.getUsername(), user.getClass().getSimpleName());
+        }
+        table.print();
     }
 
     /**
@@ -240,7 +262,6 @@ public class UserInterface {
     }
 
     public void displayCashierHelp() {
-        // INCOMPLETE
         System.out.println(ANSI_CYAN + "Your current access level is " + ANSI_BLUE + "cashier" + ANSI_CYAN + ". You have access to the following commands:" + ANSI_RESET);
         System.out.println("> login" + ANSI_YELLOW + "\n\tLogin to a registered account." + ANSI_RESET);
         System.out.println("> register" + ANSI_YELLOW + "\n\tRegister a new account." + ANSI_RESET);
@@ -250,12 +271,13 @@ public class UserInterface {
         System.out.println("> display transactions" + ANSI_YELLOW + "\n\tDisplay all successful previous transactions." + ANSI_RESET);
         System.out.println("> display change" + ANSI_YELLOW + "\n\tDisplay all change in the vending machine." + ANSI_RESET);
         System.out.println("> fill change" + ANSI_YELLOW + "\n\tFill the vending machine with a selected change to a selected quantity." + ANSI_RESET);
+        System.out.println("> add change" + ANSI_YELLOW + "\n\tAdd a new type of change to the machine." + ANSI_RESET);
+        System.out.println("> remove change" + ANSI_YELLOW + "\n\tCompletely remove a type of change from the machine." + ANSI_RESET);
         System.out.println("> help" + ANSI_YELLOW + "\n\tDisplay all available commands." + ANSI_RESET);
         System.out.println("> quit" + ANSI_YELLOW + "\n\tExit the application." + ANSI_RESET);
     }
 
     public void displaySellerHelp() {
-        // INCOMPLETE
         System.out.println(ANSI_CYAN + "Your current access level is " + ANSI_BLUE + "seller" + ANSI_CYAN + ". You have access to the following commands:" + ANSI_RESET);
         System.out.println("> login" + ANSI_YELLOW + "\n\tLogin to a registered account." + ANSI_RESET);
         System.out.println("> register" + ANSI_YELLOW + "\n\tRegister a new account." + ANSI_RESET);
@@ -265,6 +287,12 @@ public class UserInterface {
         System.out.println("> display stock" + ANSI_YELLOW + "\n\tDisplay a detailed summary of stock." + ANSI_RESET);
         System.out.println("> display sales" + ANSI_YELLOW + "\n\tDisplay a detailed summary of stock and stock flow." + ANSI_RESET);
         System.out.println("> fill product" + ANSI_YELLOW + "\n\tFill the vending machine with a selected product to a selected quantity." + ANSI_RESET);
+        System.out.println("> add product" + ANSI_YELLOW + "\n\tAdd a completely new product to the vending machine." + ANSI_RESET);
+        System.out.println("> remove product" + ANSI_YELLOW + "\n\tCompletely remove a product from the vending machine." + ANSI_RESET);
+        System.out.println("> modify product name" + ANSI_YELLOW + "\n\tChange the name of the selected product." + ANSI_RESET);
+        System.out.println("> modify product code" + ANSI_YELLOW + "\n\tChange the code of the selected product." + ANSI_RESET);
+        System.out.println("> modify product price" + ANSI_YELLOW + "\n\tChange the price of the selected product." + ANSI_RESET);
+        System.out.println("> modify product category" + ANSI_YELLOW + "\n\tChange the category of the selected product." + ANSI_RESET);
         System.out.println("> help" + ANSI_YELLOW + "\n\tDisplay all available commands." + ANSI_RESET);
         System.out.println("> quit" + ANSI_YELLOW + "\n\tExit the application." + ANSI_RESET);
     }
@@ -280,8 +308,23 @@ public class UserInterface {
         System.out.println("> display transactions" + ANSI_YELLOW + "\n\tDisplay all successful previous transactions." + ANSI_RESET);
         System.out.println("> display change" + ANSI_YELLOW + "\n\tDisplay all change in the vending machine." + ANSI_RESET);
         System.out.println("> fill change" + ANSI_YELLOW + "\n\tFill the vending machine with a selected change to a selected quantity." + ANSI_RESET);
+        System.out.println("> add change" + ANSI_YELLOW + "\n\tAdd a new type of change to the machine." + ANSI_RESET);
+        System.out.println("> remove change" + ANSI_YELLOW + "\n\tCompletely remove a type of change from the machine." + ANSI_RESET);
         System.out.println("> display stock" + ANSI_YELLOW + "\n\tDisplay a detailed summary of stock and stock flow." + ANSI_RESET);
         System.out.println("> fill product" + ANSI_YELLOW + "\n\tFill the vending machine with a selected product to a selected quantity." + ANSI_RESET);
+        System.out.println("> add product" + ANSI_YELLOW + "\n\tAdd a completely new product to the vending machine." + ANSI_RESET);
+        System.out.println("> remove product" + ANSI_YELLOW + "\n\tCompletely remove a product from the vending machine." + ANSI_RESET);
+        System.out.println("> modify product name" + ANSI_YELLOW + "\n\tChange the name of the selected product." + ANSI_RESET);
+        System.out.println("> modify product code" + ANSI_YELLOW + "\n\tChange the code of the selected product." + ANSI_RESET);
+        System.out.println("> modify product price" + ANSI_YELLOW + "\n\tChange the price of the selected product." + ANSI_RESET);
+        System.out.println("> modify product category" + ANSI_YELLOW + "\n\tChange the category of the selected product." + ANSI_RESET);
+        System.out.println("> add user" + ANSI_YELLOW + "\n\tAdd a user of any access level to the vending machine." + ANSI_RESET);
+        System.out.println("> remove user" + ANSI_YELLOW + "\n\tRemove a user from the vending machine." + ANSI_RESET);
+        System.out.println("> modify user name" + ANSI_YELLOW + "\n\tChange a user's name." + ANSI_RESET);
+        System.out.println("> modify user password" + ANSI_YELLOW + "\n\tChange a user's password." + ANSI_RESET);
+        System.out.println("> modify user role" + ANSI_YELLOW + "\n\tChange a user's role." + ANSI_RESET);
+        System.out.println("> display users" + ANSI_YELLOW + "\n\tDisplay all users and their role." + ANSI_RESET);
+        System.out.println("> display cancelled transactions" + ANSI_YELLOW + "\n\tDisplay all cancelled previous transactions." + ANSI_RESET);
         System.out.println("> help" + ANSI_YELLOW + "\n\tDisplay all available commands." + ANSI_RESET);
         System.out.println("> quit" + ANSI_YELLOW + "\n\tExit the application." + ANSI_RESET);
     }
@@ -307,8 +350,45 @@ public class UserInterface {
         System.out.println(ANSI_RED + error + ANSI_RESET);
     }
 
+    public void displaySuccessString(String success) {
+        System.out.println(ANSI_GREEN + success + ANSI_RESET);
+    }
+
+    public void displayQuestionString(String question) {
+        System.out.print(ANSI_CYAN + question + ANSI_RESET);
+    }
+
     public void displayUnauthorisedAccess(String commandName) {
-        System.out.println(ANSI_RED + "You do not have a high enough access level to access this feature." + ANSI_RESET);
+        System.out.println(ANSI_RED + "You do not have a high enough access level to access the command " + ANSI_YELLOW + commandName + ANSI_RED + "." + ANSI_RESET);
+    }
+
+    public void displayCancelledTransactionsTable() {
+        ArrayList<ArrayList<String>> transactions = fm.lsCancelledTransactions();
+        CommandLineTable table = new CommandLineTable();
+        table.setHeaders("Date", "Time", "User", "Reason");
+        for (ArrayList<String> transaction : transactions) {
+            table.addRow(transaction.get(0), transaction.get(1), transaction.get(2), transaction.get(3));
+        }
+        table.print();
+    }
+
+    public void displayTransactionsTable() {
+        ArrayList<ArrayList<String>> transactions = fm.lsTransactionHistory();
+        CommandLineTable table = new CommandLineTable();
+        table.setHeaders("Date", "Time", "Products", "Cost", "Paid", "Change", "Payment Method");
+        for (ArrayList<String> transaction : transactions) {
+            table.addRow(transaction.get(0), transaction.get(1), transaction.get(2), transaction.get(3), transaction.get(4), transaction.get(5), transaction.get(6));
+        }
+        table.print();
+    }
+
+    public void displaySalesTable(HashMap<String, Product> products) {
+        CommandLineTable st = new CommandLineTable();
+        st.setHeaders("Code", "Name", "Total Quantity Sold");
+        for(Product p : products.values()){
+            st.addRow(p.getCode(), p.getName(), Integer.toString(p.getTotalSold()));
+        }
+        st.print();
     }
 
     public void displayProductTable(){
@@ -344,6 +424,6 @@ public class UserInterface {
     }
 
     public void displayerrorMessage(String str){
-        System.out.println(ANSI_RED + str);
+        System.out.println(ANSI_RED + str + ANSI_RESET);
     }
 }

@@ -45,7 +45,8 @@ public class SellerTest {
         HashMap<String, Product> products = new HashMap<>();
         products.put("happy", p);
         products.put("sad", r);
-        boolean modified = user.modifyProductName(p, "sad", products);
+        user.setProducts(products);
+        boolean modified = user.modifyProductName(p, "sad");
         assertFalse(modified);
     }
 
@@ -54,7 +55,8 @@ public class SellerTest {
         Product p = new Chocolate("happy", "HPH", 1.0, 5, 0);
         HashMap<String, Product> products = new HashMap<>();
         products.put("happy", p);
-        boolean modified = user.modifyProductName(p, "sad", products);
+        user.setProducts(products);
+        boolean modified = user.modifyProductName(p, "sad");
         assertTrue(modified);
     }
 
@@ -65,7 +67,8 @@ public class SellerTest {
         HashMap<String, Product> products = new HashMap<>();
         products.put("happy", p);
         products.put("sad", r);
-        boolean modified = user.modifyProductCode(p, "SAD", products);
+        user.setProducts(products);
+        boolean modified = user.modifyProductCode(p, "SAD");
         assertFalse(modified);
     }
 
@@ -74,7 +77,8 @@ public class SellerTest {
         Product p = new Chocolate("happy", "HPH", 1.0, 5, 0);
         HashMap<String, Product> products = new HashMap<>();
         products.put("happy", p);
-        boolean modified = user.modifyProductCode(p, "HPH", products);
+        user.setProducts(products);
+        boolean modified = user.modifyProductCode(p, "HPH");
         assertFalse(modified);
     }
 
@@ -83,7 +87,8 @@ public class SellerTest {
         Product p = new Chocolate("happy", "HPH", 1.0, 5, 0);
         HashMap<String, Product> products = new HashMap<>();
         products.put("happy", p);
-        boolean modified = user.modifyProductCode(p, "HHPP", products);
+        user.setProducts(products);
+        boolean modified = user.modifyProductCode(p, "HHPP");
         assertFalse(modified);
     }
 
@@ -92,7 +97,8 @@ public class SellerTest {
         Product p = new Chocolate("happy", "HPH", 1.0, 5, 0);
         HashMap<String, Product> products = new HashMap<>();
         products.put("happy", p);
-        boolean modified = user.modifyProductCode(p, "SAD", products);
+        user.setProducts(products);
+        boolean modified = user.modifyProductCode(p, "SAD");
         assertTrue(modified);
     }
 
@@ -136,7 +142,8 @@ public class SellerTest {
         Product p = new Chocolate("happy", "HPH", 1.0, 5, 0);
         HashMap<String, Product> products = new HashMap<>();
         products.put("happy", p);
-        boolean added = user.addProduct("happy", "HPP", "chocolates", 5, 1, products);
+        user.setProducts(products);
+        boolean added = user.addProduct("happy", "HPP", "chocolates", 5, 1);
         assertFalse(added);
     }
 
@@ -145,49 +152,56 @@ public class SellerTest {
         Product p = new Chocolate("happy", "HPH", 1.0, 5, 0);
         HashMap<String, Product> products = new HashMap<>();
         products.put("happy", p);
-        boolean added = user.addProduct("hh", "HPH", "chocolates", 5, 1, products);
+        user.setProducts(products);
+        boolean added = user.addProduct("hh", "HPH", "chocolates", 5, 1);
         assertFalse(added);
     }
 
     @Test
     public void addProductCategoryInvalid(){
         HashMap<String, Product> products = new HashMap<>();
-        boolean added = user.addProduct("hh", "HPH", "hh", 5, 1, products);
+        user.setProducts(products);
+        boolean added = user.addProduct("hh", "HPH", "hh", 5, 1);
         assertFalse(added);
     }
 
     @Test
     public void addProductNegativeQuantity(){
         HashMap<String, Product> products = new HashMap<>();
-        boolean added = user.addProduct("hh", "HPH", "chocolates", -5, 1, products);
+        user.setProducts(products);
+        boolean added = user.addProduct("hh", "HPH", "chocolates", -5, 1);
         assertFalse(added);
     }
     
     @Test
     public void addProductZeroQuantity(){
         HashMap<String, Product> products = new HashMap<>();
-        boolean added = user.addProduct("hh", "HPH", "chocolates", 0, 1, products);
+        user.setProducts(products);
+        boolean added = user.addProduct("hh", "HPH", "chocolates", 0, 1);
         assertTrue(added);
     }
 
     @Test
     public void addProductNegativePrice(){
         HashMap<String, Product> products = new HashMap<>();
-        boolean added = user.addProduct("hh", "HPH", "chocolates", 8, -1, products);
+        user.setProducts(products);
+        boolean added = user.addProduct("hh", "HPH", "chocolates", 8, -1);
         assertFalse(added);
     }
     
     @Test
     public void addProductZeroPrice(){
         HashMap<String, Product> products = new HashMap<>();
-        boolean added = user.addProduct("hh", "HPH", "chocolates", 9, 0, products);
+        user.setProducts(products);
+        boolean added = user.addProduct("hh", "HPH", "chocolates", 9, 0);
         assertFalse(added);
     }
 
     @Test
     public void addProduct(){
         HashMap<String, Product> products = new HashMap<>();
-        boolean added = user.addProduct("hh", "HPH", "chocolates", 9, 9, products);
+        user.setProducts(products);
+        boolean added = user.addProduct("hh", "HPH", "chocolates", 9, 9);
         assertTrue(added);
     }
 

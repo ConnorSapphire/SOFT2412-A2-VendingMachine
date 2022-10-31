@@ -13,8 +13,18 @@ public class MakeTransaction implements Runnable {
         this.user = user;
         this.cancelTransaction = false;
     }
+
+    public void cancel(String reason) {
+        this.cancelTransaction = true;
+        Date endTime = new Date();
+        this.user.getUI().getFileManager().updateCancelTransaction(user, endTime, reason);
+    }
  
     public void cancel() {
+        cancel("Cancelled by user.");
+    }
+
+    public void finish() {
         this.cancelTransaction = true;
     }
 
@@ -28,7 +38,18 @@ public class MakeTransaction implements Runnable {
         user.displayStock();
         Product product = user.selectProduct();
         while(product != null && !cancelTransaction) {
-            prods.add(product);
+            int quantity = user.selectProductQuantity(product);
+            if (quantity == 0) {
+                cancel("Invalid input.");
+                break;
+            } else if (quantity > product.getQuantity()) {
+                user.getUI().displayErrorString("Vending machine does not have enough " + product.getName() + ".");
+                cancel("Not enough stock.");
+                break;
+            }
+            for (int i = 0; i < quantity; i++) {
+                prods.add(product);
+            }
             product = user.selectProduct();
         }
         double cost = 0;
@@ -39,7 +60,7 @@ public class MakeTransaction implements Runnable {
         if (!cancelTransaction) {
             if (prods.isEmpty()) {
                 user.getUI().displayErrorString("No products selected. Please view available stock and try again.");
-                cancel();
+                cancel("No products selected.");
                 return;
             } else {
                 System.out.println("Selection complete, total price is $" + cost + ".");
@@ -51,7 +72,7 @@ public class MakeTransaction implements Runnable {
             user.setTransaction(currentTransaction);
             user.completeTransaction();
         }
-        cancel();
+        finish();
         return;
     }
 }

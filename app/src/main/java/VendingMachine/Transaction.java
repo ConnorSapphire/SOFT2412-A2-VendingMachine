@@ -36,7 +36,8 @@ public class Transaction {
         return this.paymentMethod;
     }
 
-    public void setEndTime() {
+    public Date setEndTime() {
         this.endTime = new Date();
+        return this.endTime;
     }
 }

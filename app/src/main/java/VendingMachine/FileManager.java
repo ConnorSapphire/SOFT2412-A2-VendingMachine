@@ -13,33 +13,37 @@ import java.time.ZoneId;
 public class FileManager {
 
     private JSONObject stock, users, change;
-    private JSONArray creditCards, transactions;
-    private String stockFileName, usersFileName, creditCardsFileName, changeFileName, transactionsFileName;
+    private JSONArray creditCards, transactions, cancelledTransactions;
+    private String stockFileName, usersFileName, creditCardsFileName, changeFileName, transactionsFileName, cancelledTransactionsFileName;
 
-    public FileManager(String usersFileName, String stockFileName, String creditCardsFileName, String changeFileName, String transactionsFileName) {
-        this.users = (JSONObject) JfileReader(usersFileName);
-        this.stock = (JSONObject) JfileReader(stockFileName);
-        this.creditCards = (JSONArray) JfileReader(creditCardsFileName);
-        this.change = (JSONObject) JfileReader(changeFileName);
-        this.transactions = (JSONArray) JfileReader(transactionsFileName);
+    public FileManager(String usersFileName, String stockFileName, String creditCardsFileName, String changeFileName, String transactionsFileName, String cancelledTransactionsFileName) {
         this.stockFileName = stockFileName;
         this.usersFileName = usersFileName;
         this.creditCardsFileName = creditCardsFileName;
         this.changeFileName = changeFileName;
         this.transactionsFileName = transactionsFileName;
+        this.cancelledTransactionsFileName = cancelledTransactionsFileName;
+        this.users = (JSONObject) JfileReader(usersFileName);
+        this.stock = (JSONObject) JfileReader(stockFileName);
+        this.creditCards = (JSONArray) JfileReader(creditCardsFileName);
+        this.change = (JSONObject) JfileReader(changeFileName);
+        this.transactions = (JSONArray) JfileReader(transactionsFileName);
+        this.cancelledTransactions = (JSONArray) JfileReader(cancelledTransactionsFileName);
     }
 
     public FileManager() {
-        this.users = (JSONObject) JfileReader("users");
-        this.stock = (JSONObject) JfileReader("stock");
-        this.creditCards = (JSONArray) JfileReader("credit_cards");
-        this.change = (JSONObject) JfileReader("change");
-        this.transactions = (JSONArray) JfileReader("transactions");
         this.usersFileName = "users";
         this.stockFileName = "stock";
         this.creditCardsFileName = "credit_cards";
         this.changeFileName = "change";
         this.transactionsFileName = "transactions";
+        this.cancelledTransactionsFileName = "cancelledTransactions";
+        this.users = (JSONObject) JfileReader(usersFileName);
+        this.stock = (JSONObject) JfileReader(stockFileName);
+        this.creditCards = (JSONArray) JfileReader(creditCardsFileName);
+        this.change = (JSONObject) JfileReader(changeFileName);
+        this.transactions = (JSONArray) JfileReader(transactionsFileName);
+        this.cancelledTransactions = (JSONArray) JfileReader(cancelledTransactionsFileName);
     }
 
     public Object JfileReader(String filename) {
@@ -304,6 +308,75 @@ public class FileManager {
         }
     }
 
+    public void removeProduct(Product product) {
+        JSONObject obj = new JSONObject();
+        JSONArray candies = (JSONArray) this.stock.get("Candies");
+        JSONArray remove = new JSONArray();
+        boolean found = false;
+        for (Object candyObj : candies) {
+            JSONObject candyObject = (JSONObject) candyObj;
+            for (Object objKey : candyObject.keySet()) {
+                String key = (String) objKey;
+                if (key.equals(product.getName())) {
+                    remove.add(candyObject);
+                    found = true;
+                }
+            }
+        }
+        candies.removeAll(remove);
+        remove = new JSONArray();
+        JSONArray chips = (JSONArray) this.stock.get("Chips");
+        for (Object chipObj : chips) {
+            JSONObject chipObject = (JSONObject) chipObj;
+            for (Object objKey : chipObject.keySet()) {
+                String key = (String) objKey;
+                if (key.equals(product.getName())) {
+                    remove.add(chipObject);
+                    found = true;
+                }
+            }
+        }
+        chips.removeAll(remove);
+        remove = new JSONArray();
+        JSONArray chocolates = (JSONArray) this.stock.get("Chocolates");
+        for (Object chocObj : chocolates) {
+            JSONObject chocolateObject = (JSONObject) chocObj;
+            for (Object objKey : chocolateObject.keySet()) {
+                String key = (String) objKey;
+                if (key.equals(product.getName())) { 
+                    remove.add(chocolateObject);
+                    found = true;
+                }
+            }
+        }
+        chocolates.removeAll(remove);
+        remove = new JSONArray();
+        JSONArray drinks = (JSONArray) this.stock.get("Drinks");
+        for (Object drinkObj : drinks) {
+            JSONObject drinkObject = (JSONObject) drinkObj;
+            for (Object objKey : drinkObject.keySet()) {
+                String key = (String) objKey;
+                if (key.equals(product.getName())) {
+                    remove.add(drinkObject);
+                    found = true;
+                }
+            }
+        }
+        drinks.removeAll(remove);
+        remove = new JSONArray();
+        obj.put("Drinks", drinks);
+        obj.put("Chocolates", chocolates);
+        obj.put("Chips", chips);
+        obj.put("Candies", candies);
+        try {
+            FileWriter fw = new FileWriter("src/main/java/VendingMachine/" + stockFileName + ".json");
+            obj.writeJSONString(fw);
+            fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public LinkedHashMap<String, Double[]> lsNotes() {
         LinkedHashMap<String, Double[]> output = new LinkedHashMap<String, Double[]>();
         JSONArray notes = (JSONArray) this.change.get("Notes");
@@ -406,6 +479,47 @@ public class FileManager {
         }
     }
 
+    public void removeChange(Change change) {
+        JSONObject obj = new JSONObject();
+        JSONArray coins = (JSONArray) this.change.get("Coins");
+        JSONArray remove = new JSONArray();
+        boolean found = false;
+        for (Object coinObj : coins) {
+            JSONObject coinObject = (JSONObject) coinObj;
+            for (Object objKey : coinObject.keySet()) {
+                String key = (String) objKey;
+                if (key.equals(change.getName())) {
+                    remove.add(coinObject);
+                    found = true;
+                }
+            }
+        }
+        coins.removeAll(remove);
+        remove = new JSONArray();
+        JSONArray notes = (JSONArray) this.change.get("Notes");
+        for (Object noteObj : notes) {
+            JSONObject noteObject = (JSONObject) noteObj;
+            for (Object objKey : noteObject.keySet()) {
+                String key = (String) objKey;
+                if (key.equals(change.getName())) {
+                    remove.add(noteObject);
+                    found = true;
+                }
+            }
+        }
+        notes.removeAll(remove);
+        remove = new JSONArray();
+        obj.put("Notes", notes);
+        obj.put("Coins", coins);
+        try {
+            FileWriter fw = new FileWriter("src/main/java/VendingMachine/" + changeFileName + ".json");
+            obj.writeJSONString(fw);
+            fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public HashMap<String, String[]> lsUsers() {
         HashMap<String, String[]> output = new HashMap<String, String[]>();
         for (Object obj : this.users.keySet()) {
@@ -450,6 +564,19 @@ public class FileManager {
         }
     }
 
+    public void removeUser(User user) {
+        if (this.users.containsKey(user.getUsername())) {
+            this.users.remove(user.getUsername());
+        }
+        try {
+            FileWriter fw = new FileWriter("src/main/java/VendingMachine/" + usersFileName + ".json");
+            this.users.writeJSONString(fw);
+            fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public HashMap<String, String> getCreditCards() {
         HashMap<String, String> cards = new HashMap<String, String>();
         Iterator iteratorr = creditCards.iterator();
@@ -471,7 +598,7 @@ public class FileManager {
         return trans;
     }
 
-    public void updateTransactionHistory(Date date, ArrayList<Product> products, Double cost, Double change, String paymentMethod) {
+    public void updateTransactionHistory(Date date, ArrayList<Product> products, Double cost, Double paid, Double change, String paymentMethod) {
         JSONObject transaction = new JSONObject();
         transaction.put("date", date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().toString());
         transaction.put("time", date.toInstant().atZone(ZoneId.systemDefault()).toLocalTime().toString());
@@ -481,6 +608,7 @@ public class FileManager {
         }
         transaction.put("products", productArray);
         transaction.put("amount", cost);
+        transaction.put("paid", paid);
         transaction.put("change", change);
         transaction.put("paymentMethod", paymentMethod);
         transactions.add(transaction);
@@ -505,19 +633,84 @@ public class FileManager {
             for (Object productObj : products) {
                 String product = (String) productObj;
                 if (!productsString.equals("")) {
-                    productsString += " " + product;
+                    productsString += ", " + product;
                 } else {
                     productsString += product;
                 }
             }
             currentTransaction.add(productsString);
             currentTransaction.add(transaction.get("amount").toString());
+            currentTransaction.add(transaction.get("paid").toString());
             currentTransaction.add(transaction.get("change").toString());
             currentTransaction.add(transaction.get("paymentMethod").toString());
             transactionHistory.add(currentTransaction);
         }
         return transactionHistory;
     }
+
+    public void updateCancelTransaction(User user, Date endTime, String reason) {
+        JSONObject cancelledTransaction = new JSONObject();
+        cancelledTransaction.put("date", endTime.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().toString());
+        cancelledTransaction.put("time", endTime.toInstant().atZone(ZoneId.systemDefault()).toLocalTime().toString());
+        if (user.getUsername().equals("")) {
+            cancelledTransaction.put("user", "Anonymous");
+        } else {
+            cancelledTransaction.put("user", user.getUsername());
+        }
+        cancelledTransaction.put("reason", reason);
+        cancelledTransactions.add(cancelledTransaction);
+        try {
+            FileWriter fw = new FileWriter("src/main/java/VendingMachine/" + cancelledTransactionsFileName + ".json");
+            cancelledTransactions.writeJSONString(fw);
+            fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public ArrayList<ArrayList<String>> lsCancelledTransactions() {
+        ArrayList<ArrayList<String>> cancelledTransactionList = new ArrayList<ArrayList<String>>();
+        for (Object obj : cancelledTransactions) {
+            JSONObject cancelledTransacation = (JSONObject) obj;
+            ArrayList<String> currentCancelled = new ArrayList<String>();
+            currentCancelled.add((String) cancelledTransacation.get("date"));
+            currentCancelled.add((String) cancelledTransacation.get("time"));
+            currentCancelled.add((String) cancelledTransacation.get("user"));
+            currentCancelled.add((String) cancelledTransacation.get("reason"));
+            cancelledTransactionList.add(currentCancelled);
+        }
+        return cancelledTransactionList;
+    }
+
+    public void writeUsersFile(String fileName, HashMap<String, String[]> usersMap) {
+        try {
+            FileWriter fw = new FileWriter(fileName);
+            for (String user : usersMap.keySet()) {
+                fw.write("Name: " + user + "\n");
+                fw.write("Role: " + usersMap.get(user)[3] + "\n");
+                fw.write("\n");
+            }
+            fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void writeCancelledTransactionFile(String fileName, ArrayList<ArrayList<String>> cancelledTransactionList) {
+        try {
+            FileWriter fw = new FileWriter(fileName);
+            for (ArrayList<String> transaction : cancelledTransactionList) {
+                fw.write("Date: " + transaction.get(0) + "\n");
+                fw.write("Time: " + transaction.get(1) + "\n");
+                fw.write("User: " + transaction.get(2) + "\n");
+                fw.write("Reason: " + transaction.get(3) + "\n");
+                fw.write("\n");
+            }
+            fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    } 
 
     public void writeTransactionFile(String fileName, ArrayList<ArrayList<String>> transactions) {
         try {
@@ -527,8 +720,9 @@ public class FileManager {
                 fw.write("Time: " + transaction.get(1) + "\n");
                 fw.write("Products: " + transaction.get(2) + "\n");
                 fw.write("Cost: " + transaction.get(3) + "\n");
-                fw.write("Change: " + transaction.get(4) + "\n");
-                fw.write("Payment Method: " + transaction.get(5) + "\n");
+                fw.write("Paid: " + transaction.get(4) + "\n");
+                fw.write("Change: " + transaction.get(5) + "\n");
+                fw.write("Payment Method: " + transaction.get(6) + "\n");
                 fw.write("\n");
             }
             fw.close();
@@ -544,14 +738,14 @@ public class FileManager {
             for (String coin : coins.keySet()) {
                 fw.write("\tCoin Name: " + coin + "\n");
                 fw.write("\tCoin Value: " + coins.get(coin)[0] + "\n");
-                fw.write("\tCoin Quantities: " + coins.get(coin)[1] + "\n");
+                fw.write("\tCoin Quantity: " + coins.get(coin)[1] + "\n");
                 fw.write("\n");
             }
             fw.write("Notes:\n");
             for (String note : notes.keySet()) {
                 fw.write("\tNote Name: " + note + "\n");
                 fw.write("\tNote Value: " + notes.get(note)[0] + "\n");
-                fw.write("\tNote Quantities: " + notes.get(note)[1] + "\n");
+                fw.write("\tNote Quantity: " + notes.get(note)[1] + "\n");
                 fw.write("\n");
             }
             fw.close();

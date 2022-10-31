@@ -18,6 +18,7 @@ public class Seller extends User {
      * 
      */
     public void displayDetailedStock() {
+        displayStock();
         this.getUI().displayDetailedStock();
     }
 
@@ -25,7 +26,7 @@ public class Seller extends User {
      * 
      */
     public void displayStockSales() {
-        reportSellingSummary(getProducts());
+        displaySalesTable();
         this.getUI().displayStockSales();
     }
 
@@ -51,6 +52,7 @@ public class Seller extends User {
             } else if (product.getCategory().equals("candy")) {
                 this.getUI().getFileManager().updateCandies(product);
             }
+            this.getUI().displaySuccessString("Vending machine now contains " + product.getQuantity() + " of " + product.getName() + ".");
             return true;
         } else {
             this.getUI().displayErrorString("The vending machine does not have enough space for this quantity.");
@@ -64,7 +66,8 @@ public class Seller extends User {
      * @param newName
      * @return
      */
-    public boolean modifyProductName(Product product, String name, HashMap<String, Product> products) {
+    public boolean modifyProductName(Product product, String name) {
+        HashMap<String, Product> products = this.getProducts();
         for(String key : products.keySet()){
             if(key.equals(name)){
                 if(products.get(key).equals(product)){
@@ -75,7 +78,23 @@ public class Seller extends User {
                 return false;
             }
         }
+        if (this.getProducts().containsKey(product.getName())) {
+            this.getProducts().remove(product.getName());
+            this.getUI().getFileManager().removeProduct(product);
+        }
+        String oldName = product.getName();
         product.setName(name);
+        this.getProducts().put(name, product);
+        if (product.getCategory().equalsIgnoreCase("drink")) {
+            this.getUI().getFileManager().updateDrinks(product);
+        } else if (product.getCategory().equalsIgnoreCase("chocolate")) {
+            this.getUI().getFileManager().updateChocolates(product);
+        } else if (product.getCategory().equalsIgnoreCase("candy")) {
+            this.getUI().getFileManager().updateCandies(product);
+        } else if (product.getCategory().equalsIgnoreCase("chip")) {
+            this.getUI().getFileManager().updateChips(product);
+        }
+        this.getUI().displaySuccessString("Product name succesfully changed from " + oldName + " to " + product.getName() + ".");
         return true;
     }
 
@@ -85,7 +104,8 @@ public class Seller extends User {
      * @param code
      * @return
      */
-    public boolean modifyProductCode(Product product, String code, HashMap<String, Product> products) {
+    public boolean modifyProductCode(Product product, String code) {
+        HashMap<String, Product> products = this.getProducts();
         char[] check = code.toCharArray();
         if(check.length != 3){
             this.getUI().displayerrorMessage("Only 3 digit code accepted.");
@@ -102,7 +122,18 @@ public class Seller extends User {
                 return false;
             }
         }
+        String oldCode = product.getCode();
         product.setCode(code.toUpperCase());
+        if (product.getCategory().equalsIgnoreCase("drink")) {
+            this.getUI().getFileManager().updateDrinks(product);
+        } else if (product.getCategory().equalsIgnoreCase("chocolate")) {
+            this.getUI().getFileManager().updateChocolates(product);
+        } else if (product.getCategory().equalsIgnoreCase("candy")) {
+            this.getUI().getFileManager().updateCandies(product);
+        } else if (product.getCategory().equalsIgnoreCase("chip")) {
+            this.getUI().getFileManager().updateChips(product);
+        }
+        this.getUI().displaySuccessString("Product code of " + product.getName() + " successfully changed from " + oldCode + " to " + product.getCode() + ".");
         return true;
     }
 
@@ -117,7 +148,18 @@ public class Seller extends User {
             this.getUI().displayerrorMessage("Please give a positive price.");
             return false;
         }
+        double oldPrice = product.getPrice();
         product.setPrice(price);
+        if (product.getCategory().equalsIgnoreCase("drink")) {
+            this.getUI().getFileManager().updateDrinks(product);
+        } else if (product.getCategory().equalsIgnoreCase("chocolate")) {
+            this.getUI().getFileManager().updateChocolates(product);
+        } else if (product.getCategory().equalsIgnoreCase("candy")) {
+            this.getUI().getFileManager().updateCandies(product);
+        } else if (product.getCategory().equalsIgnoreCase("chip")) {
+            this.getUI().getFileManager().updateChips(product);
+        }
+        this.getUI().displaySuccessString("Product price of " + product.getName() + " successfully changed from $" + oldPrice + " to $" + product.getPrice() + ".");
         return true;
     }
 
@@ -129,9 +171,20 @@ public class Seller extends User {
      */
     public boolean modifyProductCategory(Product product, String category) {
         String[] all  = new String[]{"Drinks", "Chocolates", "Chips", "Candies"};
+        String oldCategory = product.getCategory();
         for(String cat : all){
             if(category.toLowerCase().equals(cat.toLowerCase())){
                 product.setCategory(cat);
+                if (product.getCategory().equalsIgnoreCase("drink")) {
+                    this.getUI().getFileManager().updateDrinks(product);
+                } else if (product.getCategory().equalsIgnoreCase("chocolate")) {
+                    this.getUI().getFileManager().updateChocolates(product);
+                } else if (product.getCategory().equalsIgnoreCase("candy")) {
+                    this.getUI().getFileManager().updateCandies(product);
+                } else if (product.getCategory().equalsIgnoreCase("chip")) {
+                    this.getUI().getFileManager().updateChips(product);
+                }
+                this.getUI().displaySuccessString("Product category of " + product.getName() + " successfully changed from " + oldCategory + " to " + product.getCategory() + ".");
                 return true;
             }
         }
@@ -148,13 +201,18 @@ public class Seller extends User {
      * @param price
      * @return
      */
-    public boolean addProduct(String name, String code, String category, int quantity, double price, HashMap<String, Product> products) {
+    public boolean addProduct(String name, String code, String category, int quantity, double price) {
+        HashMap<String, Product> products = this.getProducts();
         if(price <= 0){
             this.getUI().displayerrorMessage("Price must be positive!");
             return false;
         }
         if(quantity < 0){
             this.getUI().displayerrorMessage("Quantity must be non-negative!");
+            return false;
+        }
+        if(code.length() != 3){
+            this.getUI().displayerrorMessage("Only 3 digit code accepted.");
             return false;
         }
         ProductCreator pc = null;
@@ -190,13 +248,31 @@ public class Seller extends User {
             }
         }
         if (pc != null) {
-            pc.create(name, code, price, quantity, 0);
+            Product newProduct = pc.create(name, code, price, quantity, 0);
+            this.getProducts().put(name, newProduct);
+            if (newProduct.getCategory().equalsIgnoreCase("drink")) {
+                this.getUI().getFileManager().updateDrinks(newProduct);
+            } else if (newProduct.getCategory().equalsIgnoreCase("chocolate")) {
+                this.getUI().getFileManager().updateChocolates(newProduct);
+            } else if (newProduct.getCategory().equalsIgnoreCase("candy")) {
+                this.getUI().getFileManager().updateCandies(newProduct);
+            } else if (newProduct.getCategory().equalsIgnoreCase("chip")) {
+                this.getUI().getFileManager().updateChips(newProduct);
+            }
         }
+        this.getUI().displaySuccessString("New product successfully created.");
         return true;
     }
 
-    public void displayHelp() {
-        this.getUI().displaySellerHelp();
+    public boolean removeProduct(Product product) {
+        if (this.getProducts().containsKey(product.getName())) {
+            this.getProducts().remove(product.getName());
+            this.getUI().getFileManager().removeProduct(product);
+            this.getUI().displaySuccessString("Successfully removed product " + product.getName() + ".");
+            return true;
+        }
+        this.getUI().displayErrorString("Product " + product.getName() + " not found in vending machine. Could not be removed.");
+        return false;
     }
 
     public CommandLineTable reportCurrentAvailable(HashMap<String, Product> products){
@@ -219,5 +295,13 @@ public class Seller extends User {
         }
         st.print();
         return st;
+    }
+    
+    public void displayHelp() {
+        this.getUI().displaySellerHelp();
+    }
+
+    public void displaySalesTable(){
+        this.getUI().displaySalesTable(this.getProducts());
     }
 }

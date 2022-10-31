@@ -1,18 +1,1 @@
-{
-    "Charles" : {
-        "password" : "abcd",
-        "card" : {
-            "name" : "Charles",
-            "number" : "40691"
-        },
-        "transaction" : ["Sprite", "M&M"]
-    },
-    "Alice" : {
-        "password" : "hi",
-        "card" : {
-            "name" : "",
-            "number" : ""
-        },
-        "transaction" : ["Sprite"]
-    }
-}
+{"Charles":{"password":"abcd","access":"customer","card":{"number":"40691","name":"Charles"},"transaction":["Sprite","M&M"]},"Owner":{"password":"password","access":"owner","card":{"number":"60146","name":"Kasey"},"transaction":[]},"Alice":{"password":"hi","access":"customer","card":{"number":"","name":""},"transaction":["Sprite"]},"Adrian":{"password":"cutie","access":"cashier","card":{"number":"","name":""},"transaction":[]},"Fred":{"password":"password","access":"owner","card":{"number":"","name":""},"transaction":[]},"Connor":{"password":"connor","access":"customer","card":{"number":"","name":""},"transaction":[]},"Seller":{"password":"password","access":"seller","card":{"number":"","name":""},"transaction":[]},"Lachlan":{"password":"Robert","access":"registered","card":{"number":"","name":""},"transaction":[]},"Frank":{"password":"franky","access":"owner","card":{"number":"","name":""},"transaction":[]},"Cashier":{"password":"password","access":"cashier","card":{"number":"","name":""},"transaction":[]}}

@@ -199,7 +199,7 @@ public class Seller extends User {
         this.getUI().displaySellerHelp();
     }
 
-    public void reportCurrentAvailable(HashMap<String, Product> products){
+    public CommandLineTable reportCurrentAvailable(HashMap<String, Product> products){
         CommandLineTable st = new CommandLineTable();
         st.setHeaders("Code", "Name", "Category", "Price", "Quantity");
         for(Product p : products.values()){
@@ -208,14 +208,16 @@ public class Seller extends User {
             }
         }
         st.print();
+        return st;
     }
 
-    public void reportSellingSummary(HashMap<String, Product> products){
+    public CommandLineTable reportSellingSummary(HashMap<String, Product> products){
         CommandLineTable st = new CommandLineTable();
         st.setHeaders("Code", "Name", "Total Quantity Sold");
         for(Product p : products.values()){
             st.addRow(p.getCode(), p.getName(), Integer.toString(p.getTotalSold()));
         }
         st.print();
+        return st;
     }
 }

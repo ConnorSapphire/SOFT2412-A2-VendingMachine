@@ -12,7 +12,7 @@ public class SellerTest {
     HashMap<String, String> cards = new HashMap<>();
 
     @BeforeEach
-    public void setupCashier() {
+    public void setupSeller() {
         SellerCreator userCreator = new SellerCreator();
         user = (Seller) userCreator.create("", "", ui, cards);
     }
@@ -189,5 +189,74 @@ public class SellerTest {
         HashMap<String, Product> products = new HashMap<>();
         boolean added = user.addProduct("hh", "HPH", "chocolates", 9, 9, products);
         assertTrue(added);
+    }
+
+    @Test
+    public void testDisplayDetailedStock(){
+        user.displayDetailedStock();
+    }
+
+    @Test
+    public void testDisplayStockSales(){
+        Product p = new Chocolate("happy", "HPH", 1.0, 5, 0);
+        Product r = new Chocolate("sad", "SAD", 1.0, 5, 0);
+        HashMap<String, Product> products = new HashMap<>();
+        products.put("happy", p);
+        products.put("sad", r);
+        user.setProducts(products);
+        user.displayStockSales();
+    }
+
+    @Test
+    public void testReportCurrentAvailableContainZero(){
+        CommandLineTable st = new CommandLineTable();
+        st.setHeaders("Code", "Name", "Category", "Price", "Quantity");
+        st.addRow("HPH", "happy", "chocolate", "1.0", "5");
+        Product p = new Chocolate("happy", "HPH", 1.0, 5, 0);
+        Product r = new Chocolate("sad", "SAD", 1.0, 0, 0);
+        HashMap<String, Product> products = new HashMap<>();
+        products.put("happy", p);
+        products.put("sad", r);
+        CommandLineTable table = user.reportCurrentAvailable(products);
+        assertTrue(st.equals(table));
+    }
+
+    @Test
+    public void testReportCurrentAvailableNull(){
+        CommandLineTable st = new CommandLineTable();
+        st.setHeaders("Code", "Name", "Category", "Price", "Quantity");
+        HashMap<String, Product> products = new HashMap<>();
+        CommandLineTable table = user.reportCurrentAvailable(products);
+        assertTrue(st.equals(table));
+    }
+
+    @Test
+    public void testReportCurrentAvailable(){
+        CommandLineTable st = new CommandLineTable();
+        st.setHeaders("Code", "Name", "Category", "Price", "Quantity");
+        st.addRow("HPH", "happy", "chocolate", "1.0", "5");
+        st.addRow("SAD", "sad", "chocolate", "5.0", "3");
+        Product p = new Chocolate("happy", "HPH", 1.0, 5, 0);
+        Product r = new Chocolate("sad", "SAD", 5.0, 3, 0);
+        HashMap<String, Product> products = new HashMap<>();
+        products.put("happy", p);
+        products.put("sad", r);
+        CommandLineTable table = user.reportCurrentAvailable(products);
+        assertTrue(st.equals(table));
+    }
+
+    @Test 
+    public void testReportSellingSummary(){
+        CommandLineTable st = new CommandLineTable();
+        st.setHeaders("Code", "Name", "Total Quantity Sold");
+        st.addRow("HPH", "happy", "5");
+        st.addRow("SAD", "sad", "3");
+        Product p = new Chocolate("happy", "HPH", 1.0, 5, 5);
+        Product r = new Chocolate("sad", "SAD", 5.0, 3, 3);
+        HashMap<String, Product> products = new HashMap<>();
+        products.put("happy", p);
+        products.put("sad", r);
+        CommandLineTable table = user.reportSellingSummary(products);
+        assertTrue(st.equals(table));
     }
 }

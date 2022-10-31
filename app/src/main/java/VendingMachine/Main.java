@@ -8,7 +8,7 @@ public class Main {
             vm.getUser().createShortProducts(vm.getProducts());
             vm.getUser().setChange(vm.getChange());
             vm.getUser().setUsers(vm.getUsers());
-            if (vm.getUser().getAccessLevel().contains("anonymous")) {
+            if (!vm.getUser().getAccessLevel().contains("anonymous")) {
                 if (vm.getUser().getTransaction() != null) {
                     if (vm.getUser().getTransaction().isComplete()) {
                         vm.logout();

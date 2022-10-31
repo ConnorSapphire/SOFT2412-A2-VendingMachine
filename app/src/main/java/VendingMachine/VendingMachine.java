@@ -216,9 +216,13 @@ public class VendingMachine {
     }
 
     public User logout() {
-        ui.displayLogout();
-        UserCreator creator = new AnonymousCustomerCreator();
-        user = creator.create("", "", ui, cards);
+        if (!user.getAccessLevel().contains("anonymous")) {
+            ui.displayLogout();
+            UserCreator creator = new AnonymousCustomerCreator();
+            user = creator.create("", "", ui, cards);
+        } else {
+            ui.displayErrorString("You are not currently logged into an account.");
+        }
         return user;
     }
 

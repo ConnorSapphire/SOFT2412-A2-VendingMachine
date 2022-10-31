@@ -89,7 +89,7 @@ public class CashStrategy implements PaymentStrategy {
 
             userCash.merge(item, quantity, Integer::sum);
             // System.out.println("Item: " + item + " Quantity: " + userCash.get(item));
-            totalPaid = (double) (value * quantity); 
+            totalPaid += (double) (value * quantity); 
             
             if (totalPaid >= amount) {
                 completelyPaid = true;

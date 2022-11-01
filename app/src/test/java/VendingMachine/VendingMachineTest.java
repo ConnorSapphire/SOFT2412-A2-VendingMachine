@@ -75,11 +75,24 @@ public class VendingMachineTest {
         assertTrue(out.toString().contains("Enter username"));
     }
 
+    // @Test
+    // public void logoutTest() {
+    //     try {
+    //         System.setIn(new FileInputStream("src/test/java/VendingMachine/logoutTest.in"));
+    //     } catch (FileNotFoundException e) {
+    //         e.printStackTrace();
+    //     }
+    //     VendingMachine vm = new VendingMachine(fm);
+    //     vm.login();
+    //     vm.handleInput("logout");
+    //     assertTrue(out.toString().contains("You have been logged out"));
+    // }
+
     @Test
-    public void logoutTest() {
+    public void logoutAnonymousTest() {
         VendingMachine vm = new VendingMachine(fm);
         vm.handleInput("logout");
-        assertTrue(out.toString().contains("You have logged out!"));
+        assertTrue(out.toString().contains("You are not currently logged into an account."));
     }
 
     @Test

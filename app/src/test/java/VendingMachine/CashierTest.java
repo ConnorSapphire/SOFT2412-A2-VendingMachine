@@ -140,17 +140,17 @@ public class CashierTest {
         assertTrue(added);
     }
 
-    @Test
-    public void displayChangeTest(){
-        ChangeCreator creator = new NoteCreator();
-        Change change1 = creator.create("$10", 10.0, 1);
-        Change change2 = creator.create("$5", 5.0, 2);
-        LinkedHashMap<String, Change> all = new LinkedHashMap<>();
-        all.put("$10", change1);
-        all.put("$5", change2);
-        user.setChange(all);
-        assertTrue(user.displayChange());
-    }
+    // @Test
+    // public void displayChangeTest(){
+    //     ChangeCreator creator = new NoteCreator();
+    //     Change change1 = creator.create("$10", 10.0, 1);
+    //     Change change2 = creator.create("$5", 5.0, 2);
+    //     LinkedHashMap<String, Change> all = new LinkedHashMap<>();
+    //     all.put("$10", change1);
+    //     all.put("$5", change2);
+    //     user.setChange(all);
+    //     assertTrue(user.displayChange());
+    // }
 
     @Test
     public void displayChangeTableTest(){
@@ -164,17 +164,17 @@ public class CashierTest {
         assertTrue(user.displayChangeTable());
     }
 
-    @Test
-    public void displayTransactionHistoryTest(){
-        ChangeCreator creator = new NoteCreator();
-        Change change1 = creator.create("$10", 10.0, 1);
-        Change change2 = creator.create("$5", 5.0, 2);
-        LinkedHashMap<String, Change> all = new LinkedHashMap<>();
-        all.put("$10", change1);
-        all.put("$5", change2);
-        user.setChange(all);
-        assertTrue(user.displayTransactionHistory());
-    }
+    // @Test
+    // public void displayTransactionHistoryTest(){
+    //     ChangeCreator creator = new NoteCreator();
+    //     Change change1 = creator.create("$10", 10.0, 1);
+    //     Change change2 = creator.create("$5", 5.0, 2);
+    //     LinkedHashMap<String, Change> all = new LinkedHashMap<>();
+    //     all.put("$10", change1);
+    //     all.put("$5", change2);
+    //     user.setChange(all);
+    //     assertTrue(user.displayTransactionHistory());
+    // }
 
     @Test
     public void displayHelpTest(){

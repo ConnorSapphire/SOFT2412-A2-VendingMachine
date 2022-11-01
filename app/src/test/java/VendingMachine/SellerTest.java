@@ -376,21 +376,21 @@ public class SellerTest {
         assertTrue(added);
     }
 
-    @Test
-    public void testDisplayDetailedStock(){
-        assertTrue(user.displayDetailedStock());
-    }
+    // @Test
+    // public void testDisplayDetailedStock(){
+    //     assertTrue(user.displayDetailedStock());
+    // }
 
-    @Test
-    public void testDisplayStockSales(){
-        Product p = new Chocolate("happy", "HPH", 1.0, 5, 0);
-        Product r = new Chocolate("sad", "SAD", 1.0, 5, 0);
-        HashMap<String, Product> products = new HashMap<>();
-        products.put("happy", p);
-        products.put("sad", r);
-        user.setProducts(products);
-        assertTrue(user.displayStockSales());
-    }
+    // @Test
+    // public void testDisplayStockSales(){
+    //     Product p = new Chocolate("happy", "HPH", 1.0, 5, 0);
+    //     Product r = new Chocolate("sad", "SAD", 1.0, 5, 0);
+    //     HashMap<String, Product> products = new HashMap<>();
+    //     products.put("happy", p);
+    //     products.put("sad", r);
+    //     user.setProducts(products);
+    //     assertTrue(user.displayStockSales());
+    // }
 
     @Test
     public void testReportCurrentAvailableContainZero(){

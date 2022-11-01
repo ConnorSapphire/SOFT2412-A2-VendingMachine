@@ -206,3 +206,11 @@ Paid: 1.0
 Change: 0.0
 Payment Method: card
 
+Date: 2022-11-02
+Time: 09:16:39.120
+Products: Mineral Water
+Cost: 3.0
+Paid: 3.0
+Change: 0.0
+Payment Method: card
+

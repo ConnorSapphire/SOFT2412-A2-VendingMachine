@@ -83,9 +83,9 @@ public class UserInterface {
         String password = "";
 
         try {
-           password = in.readLine();
+            password = in.readLine();
         } catch (IOException ioe) {
-          ioe.printStackTrace();
+            ioe.printStackTrace();
         }
         // stop masking
         et.stopMasking();

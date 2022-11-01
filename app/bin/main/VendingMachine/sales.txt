@@ -3,7 +3,7 @@ Drinks:
 	Product Code: PPS
 	Total Sold: 5.0
 
-	Product Name: sad
+	Product Name: happy
 	Product Code: HPH
 	Total Sold: 0.0
 
@@ -11,19 +11,7 @@ Drinks:
 	Product Code: SPT
 	Total Sold: 9.0
 
-	Product Name: Mineral Water
-	Product Code: MNW
-	Total Sold: 8.0
-
-	Product Name: Coca cola
-	Product Code: CCC
-	Total Sold: 1.0
-
-	Product Name: hh
-	Product Code: HPH
-	Total Sold: 0.0
-
-	Product Name: happy
+	Product Name: sad
 	Product Code: HPH
 	Total Sold: 0.0
 
@@ -31,12 +19,24 @@ Drinks:
 	Product Code: JUC
 	Total Sold: 6.0
 
-Candies:
-	Product Name: happy
+	Product Name: hh
 	Product Code: HPH
 	Total Sold: 0.0
 
+	Product Name: Coca cola
+	Product Code: CCC
+	Total Sold: 1.0
+
+	Product Name: Mineral Water
+	Product Code: MNW
+	Total Sold: 9.0
+
+Candies:
 	Product Name: sad
+	Product Code: HPH
+	Total Sold: 0.0
+
+	Product Name: happy
 	Product Code: HPH
 	Total Sold: 0.0
 
@@ -44,39 +44,19 @@ Candies:
 	Product Code: SPH
 	Total Sold: 2.0
 
-	Product Name: Skittles
-	Product Code: SKI
+	Product Name: hh
+	Product Code: HPH
 	Total Sold: 0.0
 
 	Product Name: Mentos
 	Product Code: MTO
 	Total Sold: 7.0
 
-	Product Name: hh
-	Product Code: HPH
+	Product Name: Skittles
+	Product Code: SKI
 	Total Sold: 0.0
 
 Chocolates:
-	Product Name: Mars
-	Product Code: MAS
-	Total Sold: 2.0
-
-	Product Name: happy
-	Product Code: HPH
-	Total Sold: 0.0
-
-	Product Name: Crunch
-	Product Code: CUN
-	Total Sold: 0.0
-
-	Product Name: Snickers
-	Product Code: SNK
-	Total Sold: 0.0
-
-	Product Name: sad
-	Product Code: HPH
-	Total Sold: 0.0
-
 	Product Name: hh
 	Product Code: HPH
 	Total Sold: 0.0
@@ -85,9 +65,29 @@ Chocolates:
 	Product Code: BTY
 	Total Sold: 1.0
 
+	Product Name: happy
+	Product Code: HPH
+	Total Sold: 0.0
+
+	Product Name: sad
+	Product Code: HPH
+	Total Sold: 0.0
+
+	Product Name: Snickers
+	Product Code: SNK
+	Total Sold: 0.0
+
+	Product Name: Mars
+	Product Code: MAS
+	Total Sold: 2.0
+
 	Product Name: M&M
 	Product Code: MAM
 	Total Sold: 3.0
+
+	Product Name: Crunch
+	Product Code: CUN
+	Total Sold: 0.0
 
 Chips:
 	Product Name: Pringles
@@ -97,6 +97,10 @@ Chips:
 	Product Name: Kettle
 	Product Code: KTL
 	Total Sold: 1.0
+
+	Product Name: Smiths
+	Product Code: SMH
+	Total Sold: 4.0
 
 	Product Name: Thins
 	Product Code: TNS
@@ -113,8 +117,4 @@ Chips:
 	Product Name: hh
 	Product Code: HPH
 	Total Sold: 0.0
-
-	Product Name: Smiths
-	Product Code: SMH
-	Total Sold: 4.0
 

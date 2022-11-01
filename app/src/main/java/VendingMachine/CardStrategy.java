@@ -35,7 +35,7 @@ public class CardStrategy implements PaymentStrategy {
                 return;
             }
             ui.displayQuestionString("Enter card number: ");
-            String cardNumber = ui.getPlainInput();
+            String cardNumber = ui.getInputPassword();
             if (cardNumber.toLowerCase().equals("cancel")) {
                 user.cancelTransaction();
                 return;

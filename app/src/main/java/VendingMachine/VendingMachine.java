@@ -193,7 +193,7 @@ public class VendingMachine {
 
     public User newRegisteredCustomer() {
         UserCreator customerCreator = new RegisteredCustomerCreator();
-        ui.displayErrorString("Enter your username: ");
+        ui.displayQuestionString("Enter your username: ");
         String newUsername = ui.getPlainInput();
         if (newUsername.equalsIgnoreCase("cancel")) {
             return user;

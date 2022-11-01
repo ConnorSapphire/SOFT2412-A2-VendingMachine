@@ -190,3 +190,19 @@ Paid: 3.0
 Change: 0.0
 Payment Method: cash
 
+Date: 2022-11-02
+Time: 08:11:03.769
+Products: Skittles
+Cost: 3.0
+Paid: 3.0
+Change: 0.0
+Payment Method: card
+
+Date: 2022-11-02
+Time: 08:11:43.740
+Products: sad
+Cost: 1.0
+Paid: 1.0
+Change: 0.0
+Payment Method: card
+

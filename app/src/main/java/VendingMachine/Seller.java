@@ -51,7 +51,7 @@ public class Seller extends User {
                 this.getUI().getFileManager().updateChocolates(product);
             } else if (product.getCategory().equals("chip")) {
                 this.getUI().getFileManager().updateChips(product);
-            } else if (product.getCategory().equals("candy")) {
+            } else{
                 this.getUI().getFileManager().updateCandies(product);
             }
             this.getUI().displaySuccessString("Vending machine now contains " + product.getQuantity() + " of " + product.getName() + ".");
@@ -93,7 +93,7 @@ public class Seller extends User {
             this.getUI().getFileManager().updateChocolates(product);
         } else if (product.getCategory().equalsIgnoreCase("candy")) {
             this.getUI().getFileManager().updateCandies(product);
-        } else if (product.getCategory().equalsIgnoreCase("chip")) {
+        } else{
             this.getUI().getFileManager().updateChips(product);
         }
         this.getUI().displaySuccessString("Product name succesfully changed from " + oldName + " to " + product.getName() + ".");
@@ -132,7 +132,7 @@ public class Seller extends User {
             this.getUI().getFileManager().updateChocolates(product);
         } else if (product.getCategory().equalsIgnoreCase("candy")) {
             this.getUI().getFileManager().updateCandies(product);
-        } else if (product.getCategory().equalsIgnoreCase("chip")) {
+        } else{
             this.getUI().getFileManager().updateChips(product);
         }
         this.getUI().displaySuccessString("Product code of " + product.getName() + " successfully changed from " + oldCode + " to " + product.getCode() + ".");
@@ -158,7 +158,7 @@ public class Seller extends User {
             this.getUI().getFileManager().updateChocolates(product);
         } else if (product.getCategory().equalsIgnoreCase("candy")) {
             this.getUI().getFileManager().updateCandies(product);
-        } else if (product.getCategory().equalsIgnoreCase("chip")) {
+        } else{
             this.getUI().getFileManager().updateChips(product);
         }
         this.getUI().displaySuccessString("Product price of " + product.getName() + " successfully changed from $" + oldPrice + " to $" + product.getPrice() + ".");
@@ -183,7 +183,7 @@ public class Seller extends User {
                     this.getUI().getFileManager().updateChocolates(product);
                 } else if (product.getCategory().equalsIgnoreCase("candy")) {
                     this.getUI().getFileManager().updateCandies(product);
-                } else if (product.getCategory().equalsIgnoreCase("chip")) {
+                } else{
                     this.getUI().getFileManager().updateChips(product);
                 }
                 this.getUI().displaySuccessString("Product category of " + product.getName() + " successfully changed from " + oldCategory + " to " + product.getCategory() + ".");
@@ -259,7 +259,7 @@ public class Seller extends User {
                 this.getUI().getFileManager().updateChocolates(newProduct);
             } else if (newProduct.getCategory().equalsIgnoreCase("candy")) {
                 this.getUI().getFileManager().updateCandies(newProduct);
-            } else if (newProduct.getCategory().equalsIgnoreCase("chip")) {
+            } else{
                 this.getUI().getFileManager().updateChips(newProduct);
             }
         }

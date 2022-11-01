@@ -25,7 +25,7 @@ public class Cashier extends User {
             this.getUI().displaySuccessString("The vending machine now contains " + change.getQuantity() + " of " + change.getName() + ".");
             if (change.getClass().getSimpleName().equalsIgnoreCase("Note")) {
                 this.getUI().getFileManager().updateNotes(change);
-            } else if (change.getClass().getSimpleName().equalsIgnoreCase("Coin")) {
+            } else{
                 this.getUI().getFileManager().updateCoins(change);
             }
             return true;

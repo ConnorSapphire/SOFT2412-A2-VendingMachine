@@ -17,17 +17,19 @@ public class Seller extends User {
     /**
      * 
      */
-    public void displayDetailedStock() {
+    public boolean displayDetailedStock() {
         displayStock();
         this.getUI().displayDetailedStock();
+        return true;
     }
 
     /**
      * 
      */
-    public void displayStockSales() {
+    public boolean displayStockSales() {
         displaySalesTable();
         this.getUI().displayStockSales();
+        return true;
     }
 
     /**
@@ -298,11 +300,13 @@ public class Seller extends User {
         return st;
     }
 
-    public void displayHelp() {
+    public boolean displayHelp() {
         this.getUI().displaySellerHelp();
+        return true;
     }
 
-    public void displaySalesTable(){
+    public boolean displaySalesTable(){
         this.getUI().displaySalesTable(this.getProducts());
+        return true;
     }
 }

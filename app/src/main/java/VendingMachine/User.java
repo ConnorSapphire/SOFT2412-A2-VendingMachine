@@ -281,31 +281,35 @@ public abstract class User {
     /**
      * Display all the current stock in the vending machine.
      */
-    public void displayStock() {
+    public boolean displayStock() {
         ui.displayStock();
+        return true;
     }
 
     /**
      * Display all the current stock in the vending machine. Including detailed product information
      * such as product code, category, price, and quantity.
      */
-    public void displayDetailedStock() {
+    public boolean displayDetailedStock() {
         ui.displayUnauthorisedAccess("display stock");
+        return true;
     }
 
     /**
      * Display all stock, with details about how much was sold of each. "product code; product name; quantity sold".
      */
-    public void displayStockSales() {
+    public boolean displayStockSales() {
         ui.displayUnauthorisedAccess("display sales");
+        return true;
     }
 
     /**
      * Display all previous transactions. Including transaction time, product name, amount paid, change given, and
      * payment method.
      */
-    public void displayTransactionHistory() {
+    public boolean displayTransactionHistory() {
         ui.displayUnauthorisedAccess("display transaction history");
+        return true;
     }
 
     /**
@@ -419,12 +423,14 @@ public abstract class User {
     /**
      * 
      */
-    public void displayChange() {
+    public boolean displayChange() {
         ui.displayUnauthorisedAccess("display change");
+        return true;
     }
 
-    public void displayChangeTable() {
+    public boolean displayChangeTable() {
         ui.displayUnauthorisedAccess("");
+        return true;
     }
 
     /**
@@ -481,23 +487,27 @@ public abstract class User {
     /**
      * 
      */
-    public void displayUsers() {
+    public boolean displayUsers() {
         ui.displayUnauthorisedAccess("display users");
+        return true;
     }
 
-    public void displayUsersTable() {
+    public boolean displayUsersTable() {
         ui.displayUnauthorisedAccess("");
+        return true;
     }
 
     /**
      * 
      */
-    public void displayCancelledTransactions() {
+    public boolean displayCancelledTransactions() {
         ui.displayUnauthorisedAccess("display cancelled transactions");
+        return true;
     }
 
-    public void displayHelp() {
+    public boolean displayHelp() {
         ui.displayCustomerHelp();
+        return true;
     }
 
     public void sortChangeHashMap() {

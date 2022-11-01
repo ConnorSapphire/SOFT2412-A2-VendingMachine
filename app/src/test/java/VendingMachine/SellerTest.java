@@ -389,8 +389,7 @@ public class SellerTest {
         products.put("happy", p);
         products.put("sad", r);
         user.setProducts(products);
-        user.displayStockSales();
-        assertTrue(true);
+        assertTrue(user.displayStockSales());
     }
 
     @Test

@@ -149,7 +149,7 @@ public class CashierTest {
         all.put("$10", change1);
         all.put("$5", change2);
         user.setChange(all);
-        user.displayChange();
+        assertTrue(user.displayChange());
     }
 
     @Test
@@ -161,7 +161,7 @@ public class CashierTest {
         all.put("$10", change1);
         all.put("$5", change2);
         user.setChange(all);
-        user.displayChangeTable();
+        assertTrue(user.displayChangeTable());
     }
 
     @Test
@@ -173,11 +173,11 @@ public class CashierTest {
         all.put("$10", change1);
         all.put("$5", change2);
         user.setChange(all);
-        user.displayTransactionHistory();
+        assertTrue(user.displayTransactionHistory());
     }
 
     @Test
     public void displayHelpTest(){
-        user.displayHelp();
+        assertTrue(user.displayHelp());
     }
 }

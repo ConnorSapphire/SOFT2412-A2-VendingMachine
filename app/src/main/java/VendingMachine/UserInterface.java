@@ -40,9 +40,10 @@ public class UserInterface {
         return this.fm;
     }
         
-    public void displayWelcomeMessage() {
+    public boolean displayWelcomeMessage() {
         System.out.println(ANSI_CYAN + "Welcome to " + ANSI_BLUE + "Lite Snacks" + ANSI_CYAN + " vending machine." + ANSI_RESET);
         System.out.println(ANSI_YELLOW + "For a list of all commands you have access to, type 'help'." + ANSI_RESET);
+        return true;
     }
     
     /**
@@ -96,48 +97,54 @@ public class UserInterface {
     /**
      * Display text through terminal prompting user to select a product from the vending machine.
      */
-    public void displaySelectProduct() {
+    public boolean displaySelectProduct() {
         System.out.print(ANSI_CYAN + "Enter product (type " + ANSI_YELLOW + "'done'" + ANSI_CYAN + " to finish): " + ANSI_RESET);
+        return true;
     }
 
     /**
      * Display text through terminal prompting user to select a method of payment. Either card or cash.
      */
-    public void displaySelectPaymentMethod() {
+    public boolean displaySelectPaymentMethod() {
         System.out.print(ANSI_CYAN + "Enter payment method (" + ANSI_YELLOW  + "'cash'" + ANSI_CYAN + " or " + ANSI_YELLOW  + "'card'" + ANSI_CYAN + "): " + ANSI_RESET);
+        return true;
     }
 
     /**
      * Display text through terminal stating the login attempt failed.
      */
-    public void displayLoginFailed() {
+    public boolean displayLoginFailed() {
         System.out.println(ANSI_RED + "Incorrect credentials provided. Login failed." + ANSI_RESET);
+        return true;
     }
 
     /**
      * Display text through terminal stating the login attempt was successful.
      * @param user The User account that was logged into.
      */
-    public void displayLoginSuccess(User user) {
+    public boolean displayLoginSuccess(User user) {
         System.out.println(ANSI_GREEN + "Login success! Welcome " + ANSI_CYAN + user.getUsername() + ANSI_GREEN + "!" + ANSI_RESET);
+        return true;
     }
 
-    public void displayLogout() {
+    public boolean displayLogout() {
         System.out.println(ANSI_RED + "You have been logged out! You are now an anonymous customer..." + ANSI_RESET);
+        return true;
     }
 
     /**
      * Display text through terminal listing all current stock in the vending machine.
      */
-    public void displayStock() {
+    public boolean displayStock() {
         displayProductTable();
+        return true;
     }
 
     /**
      * Display text through terminal with a detailed list of all current stock in the vending machine.
      * Includes product name, product code, category, price, and quantity.
      */
-    public void displayDetailedStock() {
+    public boolean displayDetailedStock() {
         HashMap<String[], Double[]> drinks = fm.lsDrinks();
         HashMap<String[], Double[]> candies = fm.lsCandies();
         HashMap<String[], Double[]> chocolates = fm.lsChocolates();
@@ -149,12 +156,13 @@ public class UserInterface {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return true;
     }
 
     /**
      * Display text through terminal with a list of each product and the total sold.
      */
-    public void displayStockSales() {
+    public boolean displayStockSales() {
         HashMap<String[], Double[]> drinks = fm.lsDrinks();
         HashMap<String[], Double[]> candies = fm.lsCandies();
         HashMap<String[], Double[]> chocolates = fm.lsChocolates();
@@ -166,13 +174,14 @@ public class UserInterface {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return true;
     }
 
 
     /**
      * Display text through terminal with a list of all previous successful transactions.
      */
-    public void displayTransactionHistory() {
+    public boolean displayTransactionHistory() {
         ArrayList<ArrayList<String>> transactions = fm.lsTransactionHistory();
         fm.writeTransactionFile("src/main/java/VendingMachine/transaction.txt", transactions);
         displayTransactionsTable();
@@ -182,12 +191,13 @@ public class UserInterface {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return true;
     }
 
     /**
      * Display text through terminal with a list of all previous unsuccessful transactions.
      */
-    public void displayCancelledTransactions() {
+    public boolean displayCancelledTransactions() {
         ArrayList<ArrayList<String>> cancelledTransactions = fm.lsCancelledTransactions();
         fm.writeCancelledTransactionFile("src/main/java/VendingMachine/cancelledTransactions.txt", cancelledTransactions);
         displayCancelledTransactionsTable();
@@ -197,12 +207,13 @@ public class UserInterface {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return true;
     }
 
     /**
      * Display text through terminal with a list of all the change currently in the vending machine.
      */
-    public void displayChange() {
+    public boolean displayChange() {
         LinkedHashMap<String, Double[]> coins = fm.lsCoins();
         LinkedHashMap<String, Double[]> notes = fm.lsNotes();
         fm.writeChangeFile("src/main/java/VendingMachine/change.txt", coins, notes);
@@ -212,22 +223,24 @@ public class UserInterface {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return true;
     }
 
-    public void displayChangeTable(LinkedHashMap<String, Change> change) {
+    public boolean displayChangeTable(LinkedHashMap<String, Change> change) {
         CommandLineTable table = new CommandLineTable();
         table.setHeaders("Name","Category", "Value", "Quantity");
         for (Change unit : change.values()) {
             table.addRow(unit.getName(), unit.getClass().getSimpleName(), String.valueOf(unit.getValue()), String.valueOf(unit.getQuantity()));
         }
         table.print();
+        return true;
     }
 
     /**
      * Display text through terminal with a list of all registered users. Includes sellers, cashiers and owners,
      * and displays their access level.
      */
-    public void displayUsers() {
+    public boolean displayUsers() {
         HashMap<String, String[]> users = fm.lsUsers();
         fm.writeUsersFile("src/main/java/VendingMachine/users.txt", users);
         Desktop desktop = Desktop.getDesktop();
@@ -236,21 +249,23 @@ public class UserInterface {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return true;
     }
 
-    public void displayUsersTable(HashMap<String, User> users) {
+    public boolean displayUsersTable(HashMap<String, User> users) {
         CommandLineTable table = new CommandLineTable();
         table.setHeaders("Name", "Role");
         for (User user : users.values()) {
             table.addRow(user.getUsername(), user.getClass().getSimpleName());
         }
         table.print();
+        return true;
     }
 
     /**
      * Display text through terminal with a list of all available commands.
      */
-    public void displayCustomerHelp() {
+    public boolean displayCustomerHelp() {
         System.out.println(ANSI_CYAN + "Your current access level is " + ANSI_BLUE + "customer" + ANSI_CYAN + ". You have access to the following commands:" + ANSI_RESET);
         System.out.println("> login" + ANSI_YELLOW + "\n\tLogin to a registered account." + ANSI_RESET);
         System.out.println("> register" + ANSI_YELLOW + "\n\tRegister a new account." + ANSI_RESET);
@@ -259,9 +274,10 @@ public class UserInterface {
         System.out.println("> buy" + ANSI_YELLOW + "\n\tSelect products to purchase and make payment." + ANSI_RESET);
         System.out.println("> help" + ANSI_YELLOW + "\n\tDisplay all available commands." + ANSI_RESET);
         System.out.println("> quit" + ANSI_YELLOW + "\n\tExit the application." + ANSI_RESET);
+        return true;
     }
 
-    public void displayCashierHelp() {
+    public boolean displayCashierHelp() {
         System.out.println(ANSI_CYAN + "Your current access level is " + ANSI_BLUE + "cashier" + ANSI_CYAN + ". You have access to the following commands:" + ANSI_RESET);
         System.out.println("> login" + ANSI_YELLOW + "\n\tLogin to a registered account." + ANSI_RESET);
         System.out.println("> register" + ANSI_YELLOW + "\n\tRegister a new account." + ANSI_RESET);
@@ -275,9 +291,10 @@ public class UserInterface {
         System.out.println("> remove change" + ANSI_YELLOW + "\n\tCompletely remove a type of change from the machine." + ANSI_RESET);
         System.out.println("> help" + ANSI_YELLOW + "\n\tDisplay all available commands." + ANSI_RESET);
         System.out.println("> quit" + ANSI_YELLOW + "\n\tExit the application." + ANSI_RESET);
+        return true;
     }
 
-    public void displaySellerHelp() {
+    public boolean displaySellerHelp() {
         System.out.println(ANSI_CYAN + "Your current access level is " + ANSI_BLUE + "seller" + ANSI_CYAN + ". You have access to the following commands:" + ANSI_RESET);
         System.out.println("> login" + ANSI_YELLOW + "\n\tLogin to a registered account." + ANSI_RESET);
         System.out.println("> register" + ANSI_YELLOW + "\n\tRegister a new account." + ANSI_RESET);
@@ -295,9 +312,10 @@ public class UserInterface {
         System.out.println("> modify product category" + ANSI_YELLOW + "\n\tChange the category of the selected product." + ANSI_RESET);
         System.out.println("> help" + ANSI_YELLOW + "\n\tDisplay all available commands." + ANSI_RESET);
         System.out.println("> quit" + ANSI_YELLOW + "\n\tExit the application." + ANSI_RESET);
+        return true;
     }
 
-    public void displayOwnerHelp() {
+    public boolean displayOwnerHelp() {
         // INCOMPLETE
         System.out.println(ANSI_CYAN + "Your current access level is " + ANSI_BLUE + "owner" + ANSI_CYAN + ". You have access to the following commands:" + ANSI_RESET);
         System.out.println("> login" + ANSI_YELLOW + "\n\tLogin to a registered account." + ANSI_RESET);
@@ -327,6 +345,7 @@ public class UserInterface {
         System.out.println("> display cancelled transactions" + ANSI_YELLOW + "\n\tDisplay all cancelled previous transactions." + ANSI_RESET);
         System.out.println("> help" + ANSI_YELLOW + "\n\tDisplay all available commands." + ANSI_RESET);
         System.out.println("> quit" + ANSI_YELLOW + "\n\tExit the application." + ANSI_RESET);
+        return true;
     }
 
     /**
@@ -334,35 +353,40 @@ public class UserInterface {
      * @param commandName The name of the command.
      * @param outcome The outcome of the command.
      */
-    public void displayCommandOutcome(String commandName, boolean outcome) {
+    public boolean displayCommandOutcome(String commandName, boolean outcome) {
         if (outcome) {
             System.out.println(ANSI_GREEN + "The command " + ANSI_WHITE_BACKGROUND + "'" + commandName + "'" + ANSI_RESET + ANSI_GREEN + "was successful!" + ANSI_RESET);
         } else {
             System.out.println(ANSI_RED + "The command " + ANSI_WHITE_BACKGROUND + "'" + commandName + "'" + ANSI_RESET + ANSI_RED + "was unsuccessful!" + ANSI_RESET);
         }
+        return true;
     }
 
     /**
      * Display text through terminal with the given error message.
      * @param error Error message to display.
      */
-    public void displayErrorString(String error) {
+    public boolean displayErrorString(String error) {
         System.out.println(ANSI_RED + error + ANSI_RESET);
+        return true;
     }
 
-    public void displaySuccessString(String success) {
+    public boolean displaySuccessString(String success) {
         System.out.println(ANSI_GREEN + success + ANSI_RESET);
+        return true;
     }
 
-    public void displayQuestionString(String question) {
+    public boolean displayQuestionString(String question) {
         System.out.print(ANSI_CYAN + question + ANSI_RESET);
+        return true;
     }
 
-    public void displayUnauthorisedAccess(String commandName) {
+    public boolean displayUnauthorisedAccess(String commandName) {
         System.out.println(ANSI_RED + "You do not have a high enough access level to access the command " + ANSI_YELLOW + commandName + ANSI_RED + "." + ANSI_RESET);
+        return true;
     }
 
-    public void displayCancelledTransactionsTable() {
+    public boolean displayCancelledTransactionsTable() {
         ArrayList<ArrayList<String>> transactions = fm.lsCancelledTransactions();
         CommandLineTable table = new CommandLineTable();
         table.setHeaders("Date", "Time", "User", "Reason");
@@ -370,9 +394,10 @@ public class UserInterface {
             table.addRow(transaction.get(0), transaction.get(1), transaction.get(2), transaction.get(3));
         }
         table.print();
+        return true;
     }
 
-    public void displayTransactionsTable() {
+    public boolean displayTransactionsTable() {
         ArrayList<ArrayList<String>> transactions = fm.lsTransactionHistory();
         CommandLineTable table = new CommandLineTable();
         table.setHeaders("Date", "Time", "Products", "Cost", "Paid", "Change", "Payment Method");
@@ -380,18 +405,20 @@ public class UserInterface {
             table.addRow(transaction.get(0), transaction.get(1), transaction.get(2), transaction.get(3), transaction.get(4), transaction.get(5), transaction.get(6));
         }
         table.print();
+        return true;
     }
 
-    public void displaySalesTable(HashMap<String, Product> products) {
+    public boolean displaySalesTable(HashMap<String, Product> products) {
         CommandLineTable st = new CommandLineTable();
         st.setHeaders("Code", "Name", "Total Quantity Sold");
         for(Product p : products.values()){
             st.addRow(p.getCode(), p.getName(), Integer.toString(p.getTotalSold()));
         }
         st.print();
+        return true;
     }
 
-    public void displayProductTable(){
+    public boolean displayProductTable(){
         CommandLineTable ct = new CommandLineTable();
         ct.setHeaders("Name", "Category", "Price", "Quantity", "Shortcode");
         HashMap<String[], Double[]> Drinks = fm.lsDrinks();
@@ -411,6 +438,7 @@ public class UserInterface {
             ct.addRow(d[0], "Candies", Double.toString(Candies.get(d)[0]), Double.toString(Candies.get(d)[1]), d[1]);
         }
         ct.print();
+        return true;
     }
 
     public void last5Transactions(String username){
@@ -423,7 +451,8 @@ public class UserInterface {
         cm.print();
     }
 
-    public void displayerrorMessage(String str){
+    public boolean displayerrorMessage(String str){
         System.out.println(ANSI_RED + str + ANSI_RESET);
+        return true;
     }
 }

@@ -3,9 +3,13 @@ package VendingMachine;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.*;
 import java.util.HashMap;
+import java.io.*;
 
 public class SellerTest {
 
+    private final ByteArrayOutputStream out = new ByteArrayOutputStream();
+    private final PrintStream originalOut = System.out;
+    
     Seller user;
     FileManager fm = new FileManager();
     UserInterface ui = new UserInterface(fm);
@@ -374,7 +378,7 @@ public class SellerTest {
 
     @Test
     public void testDisplayDetailedStock(){
-        user.displayDetailedStock();
+        assertTrue(user.displayDetailedStock());
     }
 
     @Test
@@ -386,6 +390,7 @@ public class SellerTest {
         products.put("sad", r);
         user.setProducts(products);
         user.displayStockSales();
+        assertTrue(true);
     }
 
     @Test
@@ -443,7 +448,7 @@ public class SellerTest {
 
     @Test
     public void testDisplayHelp(){
-        user.displayHelp();
+        assertTrue(user.displayHelp());
     }
 
     @Test

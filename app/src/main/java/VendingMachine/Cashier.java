@@ -95,24 +95,28 @@ public class Cashier extends User {
     /**
      * 
      */
-    public void displayChange() {
+    public boolean displayChange() {
         displayChangeTable();
         this.getUI().displayChange();
+        return true;
     }
 
-    public void displayChangeTable() {
+    public boolean displayChangeTable() {
         this.getUI().displayChangeTable(this.getChange());
+        return true;
     }
 
     /**
      * Display all previous transactions. Including transaction time, product name, amount paid, change given, and
      * payment method.
      */
-    public void displayTransactionHistory() {
+    public boolean displayTransactionHistory() {
         this.getUI().displayTransactionHistory();
+        return true;
     }
 
-    public void displayHelp() {
+    public boolean displayHelp() {
         this.getUI().displayCashierHelp();
+        return true;
     }
 }

@@ -1,16 +1,4 @@
 Drinks:
-	Product Name: Pepsi
-	Product Code: PPS
-	Total Sold: 5.0
-
-	Product Name: sad
-	Product Code: HPH
-	Total Sold: 0.0
-
-	Product Name: Sprite
-	Product Code: SPT
-	Total Sold: 9.0
-
 	Product Name: Mineral Water
 	Product Code: MNW
 	Total Sold: 8.0
@@ -23,26 +11,30 @@ Drinks:
 	Product Code: HPH
 	Total Sold: 0.0
 
-	Product Name: happy
-	Product Code: HPH
-	Total Sold: 0.0
+	Product Name: Pepsi
+	Product Code: PPS
+	Total Sold: 5.0
 
 	Product Name: Juice
 	Product Code: JUC
 	Total Sold: 6.0
 
-Candies:
 	Product Name: happy
 	Product Code: HPH
 	Total Sold: 0.0
+
+	Product Name: Sprite
+	Product Code: SPT
+	Total Sold: 9.0
 
 	Product Name: sad
 	Product Code: HPH
 	Total Sold: 0.0
 
-	Product Name: Sour Patch
-	Product Code: SPH
-	Total Sold: 2.0
+Candies:
+	Product Name: sad
+	Product Code: HPH
+	Total Sold: 0.0
 
 	Product Name: Skittles
 	Product Code: SKI
@@ -52,21 +44,41 @@ Candies:
 	Product Code: MTO
 	Total Sold: 7.0
 
-	Product Name: hh
-	Product Code: HPH
-	Total Sold: 0.0
-
-Chocolates:
-	Product Name: Mars
-	Product Code: MAS
-	Total Sold: 2.0
-
 	Product Name: happy
 	Product Code: HPH
 	Total Sold: 0.0
 
+	Product Name: hh
+	Product Code: HPH
+	Total Sold: 0.0
+
+	Product Name: Sour Patch
+	Product Code: SPH
+	Total Sold: 2.0
+
+Chocolates:
 	Product Name: Crunch
 	Product Code: CUN
+	Total Sold: 0.0
+
+	Product Name: M&M
+	Product Code: MAM
+	Total Sold: 3.0
+
+	Product Name: hh
+	Product Code: HPH
+	Total Sold: 0.0
+
+	Product Name: Mars
+	Product Code: MAS
+	Total Sold: 2.0
+
+	Product Name: Bounty
+	Product Code: BTY
+	Total Sold: 1.0
+
+	Product Name: happy
+	Product Code: HPH
 	Total Sold: 0.0
 
 	Product Name: Snickers
@@ -77,32 +89,8 @@ Chocolates:
 	Product Code: HPH
 	Total Sold: 0.0
 
-	Product Name: hh
-	Product Code: HPH
-	Total Sold: 0.0
-
-	Product Name: Bounty
-	Product Code: BTY
-	Total Sold: 1.0
-
-	Product Name: M&M
-	Product Code: MAM
-	Total Sold: 3.0
-
 Chips:
-	Product Name: Pringles
-	Product Code: PNG
-	Total Sold: 1.0
-
-	Product Name: Kettle
-	Product Code: KTL
-	Total Sold: 1.0
-
-	Product Name: Thins
-	Product Code: TNS
-	Total Sold: 1.0
-
-	Product Name: sad
+	Product Name: hh
 	Product Code: HPH
 	Total Sold: 0.0
 
@@ -110,11 +98,23 @@ Chips:
 	Product Code: HPH
 	Total Sold: 0.0
 
-	Product Name: hh
-	Product Code: HPH
-	Total Sold: 0.0
-
 	Product Name: Smiths
 	Product Code: SMH
 	Total Sold: 4.0
+
+	Product Name: Pringles
+	Product Code: PNG
+	Total Sold: 1.0
+
+	Product Name: Thins
+	Product Code: TNS
+	Total Sold: 1.0
+
+	Product Name: Kettle
+	Product Code: KTL
+	Total Sold: 1.0
+
+	Product Name: sad
+	Product Code: HPH
+	Total Sold: 0.0
 

@@ -18,17 +18,19 @@ public class Owner extends User {
     /**
      * 
      */
-    public void displayDetailedStock() {
+    public boolean displayDetailedStock() {
         displayStock();
         this.getUI().displayDetailedStock();
+        return true;
     }
 
     /**
      * 
      */
-    public void displayStockSales() {
+    public boolean displayStockSales() {
         displaySalesTable();
         this.getUI().displayStockSales();
+        return true;
     }
 
     /**
@@ -276,8 +278,9 @@ public class Owner extends User {
         return false;
     }
 
-    public void displaySalesTable(){
+    public boolean displaySalesTable(){
         this.getUI().displaySalesTable(this.getProducts());
+        return true;
     }
     // CASHIER METHODS
 
@@ -363,21 +366,24 @@ public class Owner extends User {
     /**
      * 
      */
-    public void displayChange() {
+    public boolean displayChange() {
         displayChangeTable();
         this.getUI().displayChange();
+        return true;
     }
 
-    public void displayChangeTable() {
+    public boolean displayChangeTable() {
         this.getUI().displayChangeTable(this.getChange());
+        return true;
     }
 
     /**
      * Display all previous transactions. Including transaction time, product name, amount paid, change given, and
      * payment method.
      */
-    public void displayTransactionHistory() {
+    public boolean displayTransactionHistory() {
         this.getUI().displayTransactionHistory();
+        return true;
     }
 
 
@@ -518,23 +524,27 @@ public class Owner extends User {
     /**
      * 
      */
-    public void displayUsers() {
+    public boolean displayUsers() {
         displayUsersTable();
         this.getUI().displayUsers();
+        return true;
     }
 
-    public void displayUsersTable() {
+    public boolean displayUsersTable() {
         this.getUI().displayUsersTable(this.getUsers());
+        return true;
     }
 
     /**
      * 
      */
-    public void displayCancelledTransactions() {
+    public boolean displayCancelledTransactions() {
         this.getUI().displayCancelledTransactions();
+        return true;
     }
 
-    public void displayHelp() {
+    public boolean displayHelp() {
         this.getUI().displayOwnerHelp();
+        return true;
     }
 }

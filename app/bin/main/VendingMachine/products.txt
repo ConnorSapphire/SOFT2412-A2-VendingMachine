@@ -1,37 +1,41 @@
 Drinks:
+	Product Name: Pepsi
+	Product Cost: 3.0
+	Product Quantities: 4.0
+
 	Product Name: Coca cola
 	Product Cost: 3.0
 	Product Quantities: 6.0
 
-	Product Name: Sprite
-	Product Cost: 3.0
-	Product Quantities: 3.0
-
-	Product Name: hh
-	Product Cost: 9.0
-	Product Quantities: 9.0
-
-	Product Name: Sprite
-	Product Cost: 3.0
-	Product Quantities: 3.0
-
 	Product Name: Mineral Water
 	Product Cost: 3.0
-	Product Quantities: 4.0
+	Product Quantities: 8.0
+
+	Product Name: sad
+	Product Cost: 1.0
+	Product Quantities: 5.0
 
 	Product Name: Juice
 	Product Cost: 3.0
 	Product Quantities: 2.0
 
-	Product Name: sad
-	Product Cost: 1.0
-	Product Quantities: 5.0
-
-	Product Name: Pepsi
+	Product Name: Sprite
 	Product Cost: 3.0
-	Product Quantities: 4.0
+	Product Quantities: 3.0
+
+	Product Name: hh
+	Product Cost: 9.0
+	Product Quantities: 9.0
 
 Candies:
+	Product Name: Mentos
+	Product Cost: 3.0
+	Product Quantities: 5.0
+
+	Product Name: Skittles
+	Product Cost: 3.0
+	Product Quantities: 7.0
+
 	Product Name: sad
 	Product Cost: 1.0
 	Product Quantities: 5.0
@@ -40,21 +44,17 @@ Candies:
 	Product Cost: 9.0
 	Product Quantities: 9.0
 
-	Product Name: Skittles
-	Product Cost: 3.0
-	Product Quantities: 7.0
-
 	Product Name: Sour Patch
-	Product Cost: 3.0
-	Product Quantities: 5.0
-
-	Product Name: Mentos
 	Product Cost: 3.0
 	Product Quantities: 5.0
 
 Chocolates:
 	Product Name: Crunch
 	Product Cost: 2.5
+	Product Quantities: 5.0
+
+	Product Name: sad
+	Product Cost: 1.0
 	Product Quantities: 5.0
 
 	Product Name: hh
@@ -65,6 +65,10 @@ Chocolates:
 	Product Cost: 3.0
 	Product Quantities: 5.0
 
+	Product Name: Snickers
+	Product Cost: 3.0
+	Product Quantities: 7.0
+
 	Product Name: M&M
 	Product Cost: 3.0
 	Product Quantities: 4.0
@@ -73,22 +77,10 @@ Chocolates:
 	Product Cost: 3.0
 	Product Quantities: 8.0
 
-	Product Name: sad
-	Product Cost: 1.0
-	Product Quantities: 5.0
-
-	Product Name: Snickers
-	Product Cost: 3.0
-	Product Quantities: 7.0
-
 Chips:
 	Product Name: Pringles
 	Product Cost: 3.0
 	Product Quantities: 6.0
-
-	Product Name: Smiths
-	Product Cost: 3.0
-	Product Quantities: 8.0
 
 	Product Name: Kettle
 	Product Cost: 3.0
@@ -102,11 +94,11 @@ Chips:
 	Product Cost: 3.0
 	Product Quantities: 6.0
 
-	Product Name: Smiths
-	Product Cost: 3.0
-	Product Quantities: 8.0
-
 	Product Name: hh
 	Product Cost: 9.0
 	Product Quantities: 9.0
+
+	Product Name: Smiths
+	Product Cost: 3.0
+	Product Quantities: 8.0
 

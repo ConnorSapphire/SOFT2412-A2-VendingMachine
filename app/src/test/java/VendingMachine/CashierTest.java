@@ -35,8 +35,16 @@ public class CashierTest {
     }
 
     @Test
-    public void fillChangeTest() {
+    public void fillChangeNote() {
         ChangeCreator creator = new NoteCreator();
+        Change change = creator.create("$10", 10.0, 1);
+        boolean filled = user.fillChange(change, 10);
+        assertTrue(filled);
+    }
+
+    @Test
+    public void fillChangeCoin() {
+        ChangeCreator creator = new CoinCreator();
         Change change = creator.create("$10", 10.0, 1);
         boolean filled = user.fillChange(change, 10);
         assertTrue(filled);
@@ -130,5 +138,46 @@ public class CashierTest {
         user.setChange(all);
         boolean added = user.addChange("$10", 1, 10.0, "note");
         assertTrue(added);
+    }
+
+    @Test
+    public void displayChangeTest(){
+        ChangeCreator creator = new NoteCreator();
+        Change change1 = creator.create("$10", 10.0, 1);
+        Change change2 = creator.create("$5", 5.0, 2);
+        LinkedHashMap<String, Change> all = new LinkedHashMap<>();
+        all.put("$10", change1);
+        all.put("$5", change2);
+        user.setChange(all);
+        user.displayChange();
+    }
+
+    @Test
+    public void displayChangeTableTest(){
+        ChangeCreator creator = new NoteCreator();
+        Change change1 = creator.create("$10", 10.0, 1);
+        Change change2 = creator.create("$5", 5.0, 2);
+        LinkedHashMap<String, Change> all = new LinkedHashMap<>();
+        all.put("$10", change1);
+        all.put("$5", change2);
+        user.setChange(all);
+        user.displayChangeTable();
+    }
+
+    @Test
+    public void displayTransactionHistoryTest(){
+        ChangeCreator creator = new NoteCreator();
+        Change change1 = creator.create("$10", 10.0, 1);
+        Change change2 = creator.create("$5", 5.0, 2);
+        LinkedHashMap<String, Change> all = new LinkedHashMap<>();
+        all.put("$10", change1);
+        all.put("$5", change2);
+        user.setChange(all);
+        user.displayTransactionHistory();
+    }
+
+    @Test
+    public void displayHelpTest(){
+        user.displayHelp();
     }
 }

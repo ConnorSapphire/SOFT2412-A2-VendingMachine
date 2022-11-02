@@ -21,7 +21,7 @@ Within the *VendingMachineA2* directory, enter the command: ```gradle clean --co
 <u>**Seller User:**</u>
 - The seller can use commands that the anonymous user has access too as well as the additional commands distinct to their role in managing the vending machine stock.
 - Enter ```help``` to display all the commands 
-- - Note: the username for the owner is **Seller** and the password is **password**.
+- Note: the username for the owner is **Seller** and the password is **password**.
 
 <u>**Cashier User:**</u>
 - The cashier can use commands that the anonymous user has access too as well as the additional commands distinct to their role in managing the vending machine till.

@@ -2,19 +2,18 @@ package VendingMachine;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.*;
-import java.util.HashMap;
+import java.util.*;
 
-public class SellerTest {
-    
-    Seller user;
+public class OwnerTest {
+    Owner user;
     FileManager fm = new FileManager();
     UserInterface ui = new UserInterface(fm);
     HashMap<String, String> cards = new HashMap<>();
 
     @BeforeEach
-    public void setupSeller() {
-        SellerCreator userCreator = new SellerCreator();
-        user = (Seller) userCreator.create("", "", ui, cards);
+    public void setupOwner() {
+        OwnerCreator userCreator = new OwnerCreator();
+        user = (Owner) userCreator.create("", "", ui, cards);
     }
 
     @Test
@@ -372,80 +371,6 @@ public class SellerTest {
         assertTrue(added);
     }
 
-    // @Test
-    // public void testDisplayDetailedStock(){
-    //     assertTrue(user.displayDetailedStock());
-    // }
-
-    // @Test
-    // public void testDisplayStockSales(){
-    //     Product p = new Chocolate("happy", "HPH", 1.0, 5, 0);
-    //     Product r = new Chocolate("sad", "SAD", 1.0, 5, 0);
-    //     HashMap<String, Product> products = new HashMap<>();
-    //     products.put("happy", p);
-    //     products.put("sad", r);
-    //     user.setProducts(products);
-    //     assertTrue(user.displayStockSales());
-    // }
-
-    @Test
-    public void testReportCurrentAvailableContainZero(){
-        CommandLineTable st = new CommandLineTable();
-        st.setHeaders("Code", "Name", "Category", "Price", "Quantity");
-        st.addRow("HPH", "happy", "chocolate", "1.0", "5");
-        Product p = new Chocolate("happy", "HPH", 1.0, 5, 0);
-        Product r = new Chocolate("sad", "SAD", 1.0, 0, 0);
-        HashMap<String, Product> products = new HashMap<>();
-        products.put("happy", p);
-        products.put("sad", r);
-        CommandLineTable table = user.reportCurrentAvailable(products);
-        assertTrue(st.equals(table));
-    }
-
-    @Test
-    public void testReportCurrentAvailableNull(){
-        CommandLineTable st = new CommandLineTable();
-        st.setHeaders("Code", "Name", "Category", "Price", "Quantity");
-        HashMap<String, Product> products = new HashMap<>();
-        CommandLineTable table = user.reportCurrentAvailable(products);
-        assertTrue(st.equals(table));
-    }
-
-    @Test
-    public void testReportCurrentAvailable(){
-        CommandLineTable st = new CommandLineTable();
-        st.setHeaders("Code", "Name", "Category", "Price", "Quantity");
-        st.addRow("HPH", "happy", "chocolate", "1.0", "5");
-        st.addRow("SAD", "sad", "chocolate", "5.0", "3");
-        Product p = new Chocolate("happy", "HPH", 1.0, 5, 0);
-        Product r = new Chocolate("sad", "SAD", 5.0, 3, 0);
-        HashMap<String, Product> products = new HashMap<>();
-        products.put("happy", p);
-        products.put("sad", r);
-        CommandLineTable table = user.reportCurrentAvailable(products);
-        assertTrue(st.equals(table));
-    }
-
-    @Test 
-    public void testReportSellingSummary(){
-        CommandLineTable st = new CommandLineTable();
-        st.setHeaders("Code", "Name", "Total Quantity Sold");
-        st.addRow("HPH", "happy", "5");
-        st.addRow("SAD", "sad", "3");
-        Product p = new Chocolate("happy", "HPH", 1.0, 5, 5);
-        Product r = new Chocolate("sad", "SAD", 5.0, 3, 3);
-        HashMap<String, Product> products = new HashMap<>();
-        products.put("happy", p);
-        products.put("sad", r);
-        CommandLineTable table = user.reportSellingSummary(products);
-        assertTrue(st.equals(table));
-    }
-
-    @Test
-    public void testDisplayHelp(){
-        assertTrue(user.displayHelp());
-    }
-
     @Test
     public void testRemoveProductNotExists(){
         Product p = new Chocolate("happy", "HPH", 1.0, 5, 5);
@@ -463,5 +388,144 @@ public class SellerTest {
         products.put("happy", p);
         user.setProducts(products);
         assertTrue(user.removeProduct(p));
+    }
+
+    @Test
+    public void fillChangeNegativeTest() {
+        ChangeCreator creator = new NoteCreator();
+        Change change = creator.create("$10", 10.0, 1);
+        boolean filled = user.fillChange(change, -10);
+        assertFalse(filled);
+    }
+
+    @Test
+    public void fillChangeZeroTest() {
+        ChangeCreator creator = new NoteCreator();
+        Change change = creator.create("$10", 10.0, 1);
+        boolean filled = user.fillChange(change, 0);
+        assertFalse(filled);
+    }
+
+    @Test
+    public void fillChangeNote() {
+        ChangeCreator creator = new NoteCreator();
+        Change change = creator.create("$10", 10.0, 1);
+        boolean filled = user.fillChange(change, 10);
+        assertTrue(filled);
+    }
+
+    @Test
+    public void fillChangeCoin() {
+        ChangeCreator creator = new CoinCreator();
+        Change change = creator.create("$10", 10.0, 1);
+        boolean filled = user.fillChange(change, 10);
+        assertTrue(filled);
+    }
+
+    @Test
+    public void removeChangeNotExist(){
+        ChangeCreator creator = new NoteCreator();
+        Change change1 = creator.create("$10", 10.0, 1);
+        Change change2 = creator.create("$5", 5.0, 2);
+        LinkedHashMap<String, Change> all = new LinkedHashMap<>();
+        all.put("$5", change2);
+        user.setChange(all);
+        boolean removed = user.removeChange(change1);
+        assertFalse(removed);
+    }
+
+    @Test
+    public void removeChangeTest(){
+        ChangeCreator creator = new NoteCreator();
+        Change change = creator.create("$10", 10.0, 1);
+        LinkedHashMap<String, Change> all = new LinkedHashMap<>();
+        all.put("$10", change);
+        user.setChange(all);
+        boolean removed = user.removeChange(change);
+        assertTrue(removed);
+    }
+
+    @Test
+    public void addChangeNameExists(){
+        ChangeCreator creator = new NoteCreator();
+        Change change = creator.create("$10", 10.0, 1);
+        LinkedHashMap<String, Change> all = new LinkedHashMap<>();
+        all.put("$10", change);
+        user.setChange(all);
+        boolean added = user.addChange("$10", 1, 10.0, "note");
+        assertFalse(added);
+    }
+
+    @Test
+    public void addChangeQuantityNegative(){
+        LinkedHashMap<String, Change> all = new LinkedHashMap<>();
+        user.setChange(all);
+        boolean added = user.addChange("$10", -1, 10.0, "note");
+        assertFalse(added);
+    }
+
+    @Test
+    public void addChangeQuantityZero(){
+        LinkedHashMap<String, Change> all = new LinkedHashMap<>();
+        user.setChange(all);
+        boolean added = user.addChange("$10", 0, 10.0, "note");
+        assertFalse(added);
+    }
+
+    @Test
+    public void addChangeValueNegative(){
+        LinkedHashMap<String, Change> all = new LinkedHashMap<>();
+        user.setChange(all);
+        boolean added = user.addChange("$10", 1, -1.0, "note");
+        assertFalse(added);
+    }
+
+    @Test
+    public void addChangeValueZero(){
+        LinkedHashMap<String, Change> all = new LinkedHashMap<>();
+        user.setChange(all);
+        boolean added = user.addChange("$10", 1, 0.0, "note");
+        assertFalse(added);
+    }
+
+    @Test
+    public void addChangeTypeInvalid(){
+        LinkedHashMap<String, Change> all = new LinkedHashMap<>();
+        user.setChange(all);
+        boolean added = user.addChange("$10", 1, 10.0, "hh");
+        assertFalse(added);
+    }
+
+    @Test
+    public void addChangeTypeCoin(){
+        LinkedHashMap<String, Change> all = new LinkedHashMap<>();
+        user.setChange(all);
+        boolean added = user.addChange("$10", 1, 10.0, "coin");
+        assertTrue(added);
+    }
+
+    @Test
+    public void addChangeTypeNote(){
+        LinkedHashMap<String, Change> all = new LinkedHashMap<>();
+        user.setChange(all);
+        boolean added = user.addChange("$10", 1, 10.0, "note");
+        assertTrue(added);
+    }
+
+    @Test
+    public void displayChangeTableTest(){
+        ChangeCreator creator = new NoteCreator();
+        Change change1 = creator.create("$10", 10.0, 1);
+        Change change2 = creator.create("$5", 5.0, 2);
+        LinkedHashMap<String, Change> all = new LinkedHashMap<>();
+        all.put("$10", change1);
+        all.put("$5", change2);
+        user.setChange(all);
+        assertTrue(user.displayChangeTable());
+    }
+
+    @Test
+    public void displayHelpTest(){
+        assertTrue(user.displayHelp());
     }
 }

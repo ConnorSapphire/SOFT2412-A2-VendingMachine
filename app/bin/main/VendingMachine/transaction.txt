@@ -1,0 +1,216 @@
+Date: 2022-10-27
+Time: 19:28:01.312
+Products: Mineral Water, Mineral Water, Mineral Water
+Cost: 9.0
+Paid: 100.0
+Change: 91.0
+Payment Method: cash
+
+Date: 2022-10-27
+Time: 19:51:38.094
+Products: Sprite
+Cost: 3.0
+Paid: 4.0
+Change: 1.0
+Payment Method: cash
+
+Date: 2022-10-27
+Time: 19:55:24.581
+Products: Pepsi
+Cost: 3.0
+Paid: 4.0
+Change: 1.0
+Payment Method: cash
+
+Date: 2022-10-27
+Time: 19:57:44.903
+Products: Coca cola
+Cost: 3.0
+Paid: 4.0
+Change: 1.0
+Payment Method: cash
+
+Date: 2022-10-27
+Time: 20:04:25.521
+Products: Mentos
+Cost: 3.0
+Paid: 4.0
+Change: 1.0
+Payment Method: cash
+
+Date: 2022-10-27
+Time: 20:05:01.824
+Products: Mentos
+Cost: 3.0
+Paid: 4.0
+Change: 1.0
+Payment Method: cash
+
+Date: 2022-10-27
+Time: 20:05:35.114
+Products: Kettle
+Cost: 3.0
+Paid: 4.0
+Change: 1.0
+Payment Method: cash
+
+Date: 2022-10-27
+Time: 20:06:29.562
+Products: happy, happy, happy
+Cost: 3.0
+Paid: 4.0
+Change: 1.0
+Payment Method: cash
+
+Date: 2022-10-27
+Time: 20:20:21.464
+Products: happy, happy, happy
+Cost: 3.0
+Paid: 4.0
+Change: 1.0
+Payment Method: cash
+
+Date: 2022-10-27
+Time: 20:44:16.736
+Products: Mentos
+Cost: 3.0
+Paid: 4.0
+Change: 1.0
+Payment Method: cash
+
+Date: 2022-10-27
+Time: 21:22:50.849
+Products: Mentos
+Cost: 3.0
+Paid: 50.0
+Change: 47.0
+Payment Method: cash
+
+Date: 2022-10-27
+Time: 21:23:11.976
+Products: Smiths
+Cost: 3.0
+Paid: 200.0
+Change: 197.0
+Payment Method: cash
+
+Date: 2022-10-28
+Time: 11:36:58.965
+Products: Pepsi, Pepsi, Pepsi, Pepsi, Pepsi
+Cost: 15.0
+Paid: 50.0
+Change: 35.0
+Payment Method: cash
+
+Date: 2022-10-28
+Time: 11:45:53.449
+Products: Skittles, Skittles, Mineral Water, Mineral Water, Mineral Water, Mineral Water, M&M, M&M, M&M
+Cost: 27.0
+Paid: 27.0
+Change: 0.0
+Payment Method: card
+
+Date: 2022-10-28
+Time: 15:00:13.539
+Products: Coca cola, Coca cola, Coca cola, Coca cola
+Cost: 12.0
+Paid: 200.0
+Change: 188.0
+Payment Method: cash
+
+Date: 2022-10-28
+Time: 15:02:06.601
+Products: Coca cola
+Cost: 3.0
+Paid: 10000.0
+Change: 9997.0
+Payment Method: cash
+
+Date: 2022-10-28
+Time: 15:04:35.073
+Products: Sprite
+Cost: 3.0
+Paid: 1.0E9
+Change: 9.99999997E8
+Payment Method: cash
+
+Date: 2022-11-01
+Time: 09:16:46.556
+Products: Pepsi, Pepsi
+Cost: 6.0
+Paid: 10.0
+Change: 4.0
+Payment Method: cash
+
+Date: 2022-11-01
+Time: 09:23:30.549
+Products: Pepsi, Pepsi
+Cost: 6.0
+Paid: 6.0
+Change: 0.0
+Payment Method: card
+
+Date: 2022-11-01
+Time: 09:39:45.751
+Products: Smiths, Smiths
+Cost: 6.0
+Paid: 6.0
+Change: 0.0
+Payment Method: card
+
+Date: 2022-11-01
+Time: 09:44:35.857
+Products: sad
+Cost: 1.0
+Paid: 1.0
+Change: 0.0
+Payment Method: cash
+
+Date: 2022-11-01
+Time: 09:45:51.641
+Products: sad
+Cost: 1.0
+Paid: 1.0
+Change: 0.0
+Payment Method: card
+
+Date: 2022-11-01
+Time: 09:53:09.494
+Products: Mentos
+Cost: 3.0
+Paid: 10.0
+Change: 7.0
+Payment Method: cash
+
+Date: 2022-11-01
+Time: 09:57:13.755
+Products: Mentos
+Cost: 3.0
+Paid: 3.0
+Change: 0.0
+Payment Method: cash
+
+Date: 2022-11-02
+Time: 08:11:03.769
+Products: Skittles
+Cost: 3.0
+Paid: 3.0
+Change: 0.0
+Payment Method: card
+
+Date: 2022-11-02
+Time: 08:11:43.740
+Products: sad
+Cost: 1.0
+Paid: 1.0
+Change: 0.0
+Payment Method: card
+
+Date: 2022-11-02
+Time: 09:16:39.120
+Products: Mineral Water
+Cost: 3.0
+Paid: 3.0
+Change: 0.0
+Payment Method: card
+

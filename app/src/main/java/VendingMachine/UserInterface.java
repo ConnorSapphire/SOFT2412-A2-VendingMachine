@@ -18,16 +18,6 @@ public class UserInterface {
     public static final String ANSI_YELLOW = "\u001B[33m";
     public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
 
-    private static final int DEFAULT = 39;//default
-    private static final int BLACK = 30;//black
-    private static final int RED = 31;//red
-    private static final int GREEN = 32;//green
-    private static final int YELLOW = 33;//yellow
-    private static final int BLUE = 34;//blue
-    private static final int MAGENTA = 35;//purple
-    private static final int CYAN = 36;//cyan
-    private static final int WHITE = 37;//white
-
     private FileManager fm;
     private Scanner scanner;
 
